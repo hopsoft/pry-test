@@ -1,54 +1,57 @@
-class MicroTest
-  class << self
-    def inherited(subclass)
-      @subclasses ||= []
-      @subclasses << subclass
+module MicroTest
+  module Runner
+    def self.test_classes
+      @test_classes ||= []
     end
 
-    attr_accessor :passed, :failed
-
-    def reset
-      @passed = 0
-      @failed = 0
+    def self.register_assert(value)
+      if value
+        puts "   \e[32mPASS\e[0m: #{caller[1]}"
+        @passed += 1
+      else
+        puts "   \e[31mFAIL\e[0m: #{caller[1]}"
+        @failed += 1
+      end
     end
 
-    def tests
-      @tests ||= {}
-    end
-
-    def run_tests
-      reset
-      @subclasses.each do |subclass|
-        puts subclass.name
-        subclass.tests.each do |desc, block|
-          puts "  Test #{desc}: "
+    def self.run
+      @passed = @failed = 0
+      test_classes.each do |test_class|
+        puts test_class.name
+        test_class.tests.each do |desc, block|
+          puts "- test #{desc}: "
           block.call
         end
       end
-      puts "Passed Asserts: \e[32m#{MicroTest.passed}\e[0m, Failed Asserts: \e[31m#{MicroTest.failed}\e[0m"
+      puts "Passed Asserts: \e[32m#{@passed}\e[0m, Failed Asserts: \e[31m#{@failed}\e[0m"
+    end
+  end
+
+  class Test
+    def self.inherited(subclass)
+      MicroTest::Runner.test_classes << subclass
     end
 
-    def test(description, &block)
+    def self.tests
+      @tests ||= {}
+    end
+
+    def self.test(description, &block)
       tests[description] = block
     end
 
-    def assert(value)
-      if value
-        MicroTest.passed += 1
-        puts "    \e[32mPASS\e[0m: #{caller[0]}"
-      else
-        MicroTest.failed += 1
-        puts "    \e[31mFAIL\e[0m: #{caller[0]}"
-      end
+    def self.assert(value)
+      MicroTest::Runner.register_assert(value)
     end
   end
 end
 
-# class ExampleTest < MicroTest
+# class ExampleTest < MicroTest::Test
 #   test "booleans" do
+#     assert true
 #     assert true
 #     assert false
 #   end
 # end
 
-# MicroTest.run_tests
+# MicroTest::Runner.run
