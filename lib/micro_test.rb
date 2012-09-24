@@ -86,12 +86,12 @@ end
 # class ExampleTest < MicroTest::Test
 #   test "booleans" do
 #     assert 1 == 1
-#     assert true
+#     assert true # should be true
 #     assert false
 #   end
 
 #   test "foobar" do
-#     assert 5 - 2 == 10
+#     assert 5 - 2 == 10 # math works
 #   end
 # end
 
