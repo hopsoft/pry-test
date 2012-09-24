@@ -4,10 +4,10 @@ Gem::Specification.new do |spec|
   spec.name = 'micro_test'
   spec.version = '0.0.1'
   spec.license = 'MIT'
-  spec.homepage = 'http://hopsoft.github.com/micro_test/'
+  spec.homepage = 'https://github.com/hopsoft/micro_test'
   spec.summary = 'A tiny testing script.'
   spec.description = <<-DESC
-    MicroTest might just be the lightest testing "framework" available.
+    A testing "framework" in 45 lines.
   DESC
 
   spec.authors = ['Nathan Hopkins']
