@@ -4,7 +4,7 @@ module MicroTest
       @test_classes ||= []
     end
 
-    def self.register_assert(value)
+    def self.log(value)
       if value
         puts "   \e[32mPASS\e[0m: #{caller[1]}"
         @passed += 1
@@ -41,7 +41,7 @@ module MicroTest
     end
 
     def self.assert(value)
-      MicroTest::Runner.register_assert(value)
+      MicroTest::Runner.log(value)
     end
   end
 end
