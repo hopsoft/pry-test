@@ -1,15 +1,24 @@
 module MicroTest
   module Runner
+
+    def self.red(text)
+      "\e[31m#{text}\e[0m"
+    end
+
+    def self.green(text)
+      "\e[32m#{text}\e[0m"
+    end
+
     def self.test_classes
       @test_classes ||= []
     end
 
     def self.log(value)
       if value
-        puts "   \e[32mPASS\e[0m: #{caller[1]}"
+        puts "   #{green :PASS} #{caller[1]}"
         @passed += 1
       else
-        puts "   \e[31mFAIL\e[0m: #{caller[1]}"
+        puts "   #{red :FAIL} #{caller[1]}"
         @failed += 1
       end
     end
@@ -23,7 +32,7 @@ module MicroTest
           block.call
         end
       end
-      puts "Passed Asserts: \e[32m#{@passed}\e[0m, Failed Asserts: \e[31m#{@failed}\e[0m"
+      puts "Passed Asserts: #{green @passed}, Failed Asserts: #{red @failed}"
     end
   end
 
@@ -36,8 +45,8 @@ module MicroTest
       @tests ||= {}
     end
 
-    def self.test(description, &block)
-      tests[description] = block
+    def self.test(desc, &block)
+      tests[desc] = block
     end
 
     def self.assert(value)
