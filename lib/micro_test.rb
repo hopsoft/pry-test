@@ -14,11 +14,18 @@ module MicroTest
     end
 
     def self.log(value)
+      file_path = caller[1][0, caller[1].index(/:[0-9]+:/)]
+      line_num = caller[1].scan(/:[0-9]+:/).first.gsub(/:/, "").to_i
+      @files ||= {}
+      @files[file_path] ||= File.open(file_path, "r").readlines.map { |l| l.gsub(/\n/, "") }
+      line = @files[file_path][line_num - 1].strip
+
       if value
-        puts "   #{green :PASS} #{caller[1]}"
+        puts "   #{green :PASS}: #{line}"
         @passed += 1
       else
-        puts "   #{red :FAIL} #{caller[1]}"
+        puts "   #{red :FAIL}: #{red line}"
+        puts "         #{file_path}:#{line_num}"
         @failed += 1
       end
     end
@@ -33,13 +40,15 @@ module MicroTest
         before[:all].call if before[:all]
         test_class.tests.each do |desc, block|
           before[:each].call if before[:each]
-          puts "- test #{desc}: "
+          puts "- test #{desc}"
           block.call
           after[:each].call if after[:each]
         end
         after[:all].call if after[:all]
       end
-      puts "Passed Asserts: #{green @passed}, Failed Asserts: #{red @failed}"
+      puts "---"
+      puts "Passed: #{green @passed}, Failed: #{red @failed}"
+      puts "---"
     end
   end
 
@@ -79,6 +88,10 @@ end
 #     assert 1 == 1
 #     assert true
 #     assert false
+#   end
+
+#   test "foobar" do
+#     assert 5 - 2 == 10
 #   end
 # end
 
