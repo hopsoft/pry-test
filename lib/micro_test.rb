@@ -26,11 +26,18 @@ module MicroTest
     def self.run
       @passed = @failed = 0
       test_classes.each do |test_class|
+        before = test_class.callbacks[:before]
+        after = test_class.callbacks[:after]
+
         puts test_class.name
+        before[:all].call if before[:all]
         test_class.tests.each do |desc, block|
+          before[:each].call if before[:each]
           puts "- test #{desc}: "
           block.call
+          after[:each].call if after[:each]
         end
+        after[:all].call if after[:all]
       end
       puts "Passed Asserts: #{green @passed}, Failed Asserts: #{red @failed}"
     end
@@ -39,6 +46,18 @@ module MicroTest
   class Test
     def self.inherited(subclass)
       MicroTest::Runner.test_classes << subclass
+    end
+
+    def self.callbacks
+      @callbacks ||= { :before => {}, :after => {} }
+    end
+
+    def self.before(what, &block)
+      callbacks[:before][what] = block
+    end
+
+    def self.after(what, &block)
+      callbacks[:after][what] = block
     end
 
     def self.tests
@@ -57,7 +76,7 @@ end
 
 # class ExampleTest < MicroTest::Test
 #   test "booleans" do
-#     assert true
+#     assert 1 == 1
 #     assert true
 #     assert false
 #   end
