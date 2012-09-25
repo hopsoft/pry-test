@@ -62,7 +62,7 @@ class MathTest < MicroTest::Test
 end
 ```
 
-Run the test.
+Run the tests.
 
 ```bash
 $ mt /example/test
