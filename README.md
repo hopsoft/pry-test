@@ -33,6 +33,7 @@ That's all there is to learn.
 ## Examples
 
 ```ruby
+# /example/test/math_test.rb
 class MathTest < MicroTest::Test
 
   test "addition" do
@@ -57,4 +58,8 @@ class MathTest < MicroTest::Test
   end
 
 end
+```
+
+```bash
+$mt /example/test
 ```
