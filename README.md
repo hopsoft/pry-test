@@ -32,6 +32,8 @@ That's all there is to learn.
 
 ## Examples
 
+Define a test.
+
 ```ruby
 # /example/test/math_test.rb
 class MathTest < MicroTest::Test
@@ -60,6 +62,8 @@ class MathTest < MicroTest::Test
 end
 ```
 
+Run the test.
+
 ```bash
-$mt /example/test
+$ mt /example/test
 ```
