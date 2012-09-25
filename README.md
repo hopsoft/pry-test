@@ -67,3 +67,5 @@ Run the tests.
 ```bash
 $ mt /example/test
 ```
+
+![MicroTest output](http://hopsoft.github.com/micro_test/images/micro_test.png)
