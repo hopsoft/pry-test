@@ -68,4 +68,6 @@ Run the tests.
 $ mt /example/test
 ```
 
+Test output.
+
 ![MicroTest output](http://hopsoft.github.com/micro_test/images/micro_test.png)
