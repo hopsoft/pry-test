@@ -10,8 +10,8 @@ MiniTest is a step in the right direction, but still feels bigger than it should
 
 ## Features
 
-* __Opinionated & small...__ just 1 file & 70 lines of code - _can you believe it?_
-* __Only one assertion is available:__ `assert` - _since this is the heart of testing_
+* __Opinionated & small__ - _only 70 lines of code_
+* __Only one assertion: `assert`__ - _since this is the heart of testing_
 * __Tests run in random order__ - _to prevent the bad practice of run order depenencies_
 * __Plays nice with others__ - _easy to introduce to an existing code base_
 
