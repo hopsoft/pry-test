@@ -24,7 +24,7 @@ gem install micro_test
 ## API
 
 * Tests subclass `MicroTest::Test`
-* Define tests with `test("description") do...`
+* Define tests with `test "description" do ...`
 * Assert statements with `assert [statement]`
 * Run tests with `$mt /path/to/test_file_or_dir` or `MicroTest::Runner.run` from code
 
