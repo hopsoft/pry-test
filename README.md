@@ -10,7 +10,7 @@ MiniTest is a step in the right direction, but still feels bigger than it should
 ## Features
 
 * __Opinionated & small__ - _only 100 lines of code_
-* __Only one assertion: `assert`__ - _since this is the heart of testing_
+* __Only one assert method: `assert`__ - _since this is the heart of testing_
 * __Tests run in random order__ - _to prevent the bad practice of run order depenencies_
 * __Plays nice with others__ - _easy to introduce to an existing codebase_
 
@@ -27,7 +27,7 @@ gem install micro_test
 * Setup with `before [:all|:each] do ...`
 * Teardown with `after [:all|:each] do ...`
 * Assert statements with `assert [statement]`
-* Run tests from the terminal with `$mt /path/to/test_file_or_dir` or simply `$mt`
+* Run tests from the terminal with `$ mt`
 * Run tests from Ruby with `MicroTest::Runner.run`
 
 That's all there is to learn.
@@ -80,10 +80,22 @@ class MathTest < MicroTest::Test
 end
 ```
 
-Run the tests.
+Run all tests in the current dir.
+
+```bash
+$ mt
+```
+
+Run all tests in a directory.
 
 ```bash
 $ mt /example/test
+```
+
+Run all tests in a file.
+
+```bash
+$ mt /example/test/math_test.rb
 ```
 
 Test output.
