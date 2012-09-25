@@ -1,0 +1,28 @@
+#!/usr/bin/env ruby --
+
+require File.expand_path(File.join(File.dirname(__FILE__), "..", "lib", "micro_test"))
+
+path = ARGV[0].to_s.strip
+path = File.expand_path(File.dirname(__FILE__)) if path.empty?
+
+if path == "-h" || path == "--help"
+  puts "Runs MicroTest on the provided path."
+  puts "Usage:"
+  puts "  $mt /path/to/test_file_or_dir"
+  exit
+end
+
+path = File.expand_path(File.join(__FILE__), path) unless File.exist?(path)
+unless File.exist?(path)
+  puts "#{path} not found."
+  puts "Please check the path and try again."
+  exit
+end
+
+if File.directory?(path)
+  Dir[File.join(path, "**", "*.rb")].each { |p| require p }
+else
+  require path
+end
+
+MicroTest::Runner.run
