@@ -26,7 +26,8 @@ gem install micro_test
 * Tests subclass `MicroTest::Test`
 * Define tests with `test "description" do ...`
 * Assert statements with `assert [statement]`
-* Run tests with `$mt /path/to/test_file_or_dir` or `MicroTest::Runner.run` from code
+* Run tests from the terminal with `$mt /path/to/test_file_or_dir` or simply `$mt`
+* Run tests from Ruby with `MicroTest::Runner.run`
 
 That's all there is to learn.
 
