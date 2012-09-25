@@ -32,16 +32,16 @@ module MicroTest
 
     def self.run
       @passed = @failed = 0
-      test_classes.each do |test_class|
+      test_classes.shuffle.each do |test_class|
         before = test_class.callbacks[:before]
         after = test_class.callbacks[:after]
 
         puts test_class.name
         before[:all].call if before[:all]
-        test_class.tests.each do |desc, block|
+        test_class.tests.keys.shuffle.each do |desc|
           before[:each].call if before[:each]
           puts "- test #{desc}"
-          block.call
+          test_class.tests[desc].call
           after[:each].call if after[:each]
         end
         after[:all].call if after[:all]
