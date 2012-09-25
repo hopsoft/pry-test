@@ -2,12 +2,12 @@ require 'rake'
 
 Gem::Specification.new do |spec|
   spec.name = 'micro_test'
-  spec.version = '0.0.6'
+  spec.version = '0.0.7'
   spec.license = 'MIT'
-  spec.homepage = 'https://github.com/hopsoft/micro_test'
-  spec.summary = 'A tiny testing script.'
+  spec.homepage = 'http://hopsoft.github.com/micro_test/'
+  spec.summary = 'A tiny testing framework.'
   spec.description = <<-DESC
-    A micro testing "framework".
+    A tiny testing framework.
   DESC
 
   spec.authors = ['Nathan Hopkins']
