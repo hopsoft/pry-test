@@ -80,7 +80,7 @@ class MathTest < MicroTest::Test
 end
 ```
 
-Run all tests in the "test" dir, _relative to the current dir_.
+Run all tests in the "test" directory _(relative to the current directory)_.
 
 ```bash
 $ mt
