@@ -31,7 +31,7 @@ module MicroTest
         path = callstack_entry[0, callstack_entry.index(/:[0-9]+:/)]
         file = file(path)
         line_num = callstack_entry.scan(/:[0-9]+:/).first.gsub(/:/, "").to_i
-        line = file[line_num - 1]
+        line = file[line_num - 1].strip
         {
           :path => path,
           :file => file,

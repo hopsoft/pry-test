@@ -3,7 +3,7 @@
 require File.expand_path(File.join(File.dirname(__FILE__), "..", "lib", "micro_test"))
 
 path = ARGV[0].to_s.strip
-path = Dir.pwd if path.empty?
+path = File.join(Dir.pwd, "test") if path.empty?
 
 if path == "-h" || path == "--help"
   puts "Runs MicroTest on the provided path."
