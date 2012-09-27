@@ -18,6 +18,10 @@ module MicroTest
         @callbacks ||= { :before => {}, :after => {} }
       end
 
+      def invoke(which, what)
+        callbacks[which][what].call if callbacks[which][what]
+      end
+
       def before(what, &block)
         callbacks[:before][what] = block
       end

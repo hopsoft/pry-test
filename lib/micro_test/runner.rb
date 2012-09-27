@@ -1,17 +1,15 @@
+require File.expand_path(File.join(File.dirname(__FILE__), "formatter"))
+
 module MicroTest
   module Runner
     class << self
 
-      def red(text)
-        "\e[31m#{text}\e[0m"
-      end
-
-      def green(text)
-        "\e[32m#{text}\e[0m"
-      end
-
       def update(event, arg)
         send event, arg
+      end
+
+      def formatter
+        @formatter ||= MicroTest::Formatter.new
       end
 
       def add_test_class(klass)
@@ -41,36 +39,31 @@ module MicroTest
       end
 
       def assert(value)
-        info = file_info(caller[6])
-        if value
-          puts "   #{green :PASS}: #{info[:line]}"
-          @passed += 1
-        else
-          puts "   #{red :FAIL}: #{red info[:line]}"
-          puts "         #{info[:path]}:#{info[:line_num]}"
-          @failed += 1
-        end
+        @failed ||= !value
+        @asserts << file_info(caller[6]).merge(:pass => value)
       end
 
-      def run
-        @passed = @failed = 0
-        @test_classes.shuffle.each do |test_class|
-          before = test_class.callbacks[:before]
-          after = test_class.callbacks[:after]
+      def run(f=nil)
+        @formatter = f
+        formatter.header
 
-          puts test_class.name
-          before[:all].call if before[:all]
+        test_classes.shuffle.each do |test_class|
+          formatter.group test_class
+          test_class.invoke :before, :all
+
           test_class.tests.keys.shuffle.each do |desc|
-            before[:each].call if before[:each]
-            puts "- test #{desc}"
+            @failed = false
+            @asserts = []
+            test_class.invoke :before, :each
             test_class.tests[desc].call
-            after[:each].call if after[:each]
+            formatter.test(:name => desc, :passed => !@failed, :asserts => @asserts)
+            test_class.invoke :after, :each
           end
-          after[:all].call if after[:all]
+
+          test_class.invoke :after, :all
         end
-        puts "---"
-        puts "Passed: #{green @passed}, Failed: #{red @failed}"
-        puts "---"
+
+        formatter.footer
       end
 
     end
