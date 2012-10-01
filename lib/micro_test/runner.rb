@@ -22,7 +22,7 @@ module MicroTest
 
       def file(path)
         @files ||= {}
-        @files[path] ||= File.open(path, "r").readlines.map { |l| l.gsub(/\n/, "") }
+        @files[path] ||= File.read(path).split("\n")
       end
 
       def file_info(callstack_entry)
