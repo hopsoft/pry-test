@@ -10,12 +10,18 @@ MicroTest avoids this pitfall with a relentless focus on simplicity.
 
 Here's what MicroTest brings to the table.
 
-* __Simplicity__ A tiny API with only 4 methods. You'll be up and running faster than ever before.
-* __Only 1 Assert Method__ Forget the copious expections and assert methods from other frameworks and start focusing on what really matters.
-* __Small Footprint__ Weighs in around 140 lines of code. Less code means less to learn and less that can go wrong.
-* __Plays Nice__ Runs side by side with other test frameworks which makes it easy to integrate into existing projects.
-* __Random Run Order__ Prevents the bad practice of run order dependencies by running tests in random order.
-* __Customizable Output__ Customize test output with pluggable formatters, or give back by writing your own.
+* __Simplicity__
+  A tiny API with only 4 methods. You'll be up and running faster than ever before.
+* __Only 1 Assert Method__
+  Forget the copious expections and assert methods from other frameworks and start focusing on what really matters.
+* __Small Footprint__
+  Weighs in around 140 lines of code. Less code means less to learn and less that can go wrong.
+* __Plays Nice__
+  Runs side by side with other test frameworks which makes it easy to integrate into existing projects.
+* __Random Run Order__
+  Prevents the bad practice of run order dependencies by running tests in random order.
+* __Customizable
+  Output__ Customize test output with pluggable formatters, or give back by writing your own.
 
 ## Quick Start
 
@@ -118,24 +124,9 @@ class MathTest < MicroTest::Test
 end
 ```
 
-Run all tests in the "test" directory _(relative to the current directory)_.
+Run tests.
 
 ```bash
 $ mt
-```
-
-Run all tests in a directory.
-
-```bash
 $ mt /example/test
-```
-
-Run all tests in a file.
-
-```bash
 $ mt /example/test/math_test.rb
-```
-
-Test output.
-
-![MicroTest output](http://hopsoft.github.com/micro_test/images/micro_test.png)
