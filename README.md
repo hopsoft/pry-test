@@ -3,7 +3,6 @@
 ## Ruby's no-nonsense testing framework
 
 Testing frameworks often lose their focus and become an end unto themselves.
-
 MicroTest avoids this pitfall with a relentless focus on simplicity.
 
 ### Testing should be simple
@@ -52,30 +51,22 @@ $ mt
 
 * `MicroTest::Test` Superclass for all tests.
 * `test(desc, &block)` Defines a test method.
-
   * `desc` - a description of what is being tested
   * `&block` - a block of code which defines the test
 
 * `assert(value)` Verifies the truthiness of a value.
-
   * `value` - the value to assert
 
 * `before(what, &block)` A callback that runs before the specified 'what'.
-
   * `what` - indicates the callback type
-
     * `:all` - runs before all tests in the class
     * `:each` - runse before each test in the class
-
   * `&block` - the block of code to execute
 
 * `after(what, &block)` A callback that runs after the specified 'what'.
-
   * `what` - indicates the callback type
-
     * `:all` - runs after all tests in the class
     * `:each` - runse after each test in the class
-
   * `&block` - the block of code to execute
 
 ## Example
