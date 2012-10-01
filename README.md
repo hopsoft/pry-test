@@ -2,6 +2,8 @@
 
 ## Ruby's no-nonsense testing framework
 
+[View the product page for prettier docs.](http://hopsoft.github.com/micro_test/)
+
 Testing frameworks often lose their focus and become an end unto themselves.
 MicroTest avoids this pitfall with a relentless focus on simplicity.
 
