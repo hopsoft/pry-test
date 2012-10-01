@@ -1,40 +1,78 @@
 # MicroTest
 
-### Testing should be simple.
+## Ruby's no-nonsense testing framework
 
-Testing frameworks never seem to resist the slippery slope of feature creep and eventually become an end unto themselves.
-MiniTest is a step in the right direction, but still feels bigger than it should.
+Testing frameworks often lose their focus and become an end unto themselves.
 
-#### MicroTest is an experiment to see just how simple a testing "framework" can be.
+MicroTest avoids this pitfall with a relentless focus on simplicity.
 
-## Features
+### Testing should be simple
 
-* __Opinionated & small__ - _only 100 lines of code_
-* __Only one assert method: `assert`__ - _since this is the heart of testing_
-* __Tests run in random order__ - _to prevent the bad practice of run order depenencies_
-* __Plays nice with others__ - _easy to introduce to an existing codebase_
+Here's what MicroTest brings to the table.
 
-## Install
+* __Simplicity__ A tiny API with only 4 methods. You'll be up and running faster than ever before.
+* __Only 1 Assert Method__ Forget the copious expections and assert methods from other frameworks and start focusing on what really matters.
+* __Small Footprint__ Weighs in around 140 lines of code. Less code means less to learn and less that can go wrong.
+* __Plays Nice__ Runs side by side with other test frameworks which makes it easy to integrate into existing projects.
+* __Random Run Order__ Prevents the bad practice of run order dependencies by running tests in random order.
+* __Customizable Output__ Customize test output with pluggable formatters, or give back by writing your own.
+
+## Quick Start
+
+1. Install
 
 ```bash
-gem install micro_test
+$ gem install micro_test
 ```
 
-## API
+2. Write a test
 
-* Tests should subclass `MicroTest::Test`
-* Define tests with `test "description" do ...`
-* Setup with `before [:all|:each] do ...`
-* Teardown with `after [:all|:each] do ...`
-* Assert statements with `assert [statement]`
-* Run tests from the terminal with `$ mt`
-* Run tests from Ruby with `MicroTest::Runner.run`
+```ruby
+require 'micro_test'
+class MyTest < MicroTest::Test
+  test "some assumption" do
+    assert true
+  end
+end
+```
 
-That's all there is to learn.
+3. Run tests
 
-## Examples
+```bash
+$ mt
+```
 
-Define a test.
+## The interface
+
+* `MicroTest::Test` Superclass for all tests.
+* `test(desc, &block)` Defines a test method.
+
+  * `desc` - a description of what is being tested
+  * `&block` - a block of code which defines the test
+
+* `assert(value)` Verifies the truthiness of a value.
+
+  * `value` - the value to assert
+
+* `before(what, &block)` A callback that runs before the specified 'what'.
+
+  * `what` - indicates the callback type
+
+    * `:all` - runs before all tests in the class
+    * `:each` - runse before each test in the class
+
+  * `&block` - the block of code to execute
+
+* `after(what, &block)` A callback that runs after the specified 'what'.
+
+  * `what` - indicates the callback type
+
+    * `:all` - runs after all tests in the class
+    * `:each` - runse after each test in the class
+
+  * `&block` - the block of code to execute
+
+## Example
 
 ```ruby
 # /example/test/math_test.rb
