@@ -30,6 +30,10 @@ class MathTest < MicroTest::Test
     assert 2 + 2 == 5
   end
 
+  test "error" do
+    assert 1 / 0 == 0
+  end
+
   after :each do
     # puts "runs after each test"
   end

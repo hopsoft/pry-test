@@ -19,13 +19,19 @@ module MicroTest
       @total += 1
       info[:passed] ? @passed += 1 : @failed += 1
       print "- #{info[:name]} "
-      info[:asserts].each do |assert|
-        if assert[:pass]
-          puts green(:PASS)
+      if info[:passed]
+        puts green(:PASS)
+      else
+        if info[:error]
+          puts "#{red :ERROR} #{red info[:error].message}"
+          puts "  #{red info[:error].backtrace[0]}"
         else
           puts red(:FAIL)
-          puts "  #{red assert[:line]}"
-          puts "  #{red assert[:path]}:#{yellow assert[:line_num]}"
+          info[:asserts].each do |assert|
+            next if assert[:passed]
+            puts "  #{red assert[:line]}"
+            puts "  #{red assert[:path]}:#{yellow assert[:line_num]}"
+          end
         end
       end
     end

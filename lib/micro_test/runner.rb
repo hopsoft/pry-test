@@ -34,10 +34,10 @@ module MicroTest
 
       def assert(value)
         @failed ||= !value
-        @asserts << file_info(caller[6]).merge(:pass => value)
+        @asserts << file_info(caller[6]).merge(:passed => value)
       end
 
-      def run(formatter)
+      def run(formatter, opts={})
         formatter.header
 
         test_classes.shuffle.each do |test_class|
@@ -48,8 +48,14 @@ module MicroTest
             @failed = false
             @asserts = []
             test_class.invoke :before, :each
-            test_class.tests[desc].call
-            formatter.test(:name => desc, :passed => !@failed, :asserts => @asserts)
+            begin
+              test_class.tests[desc].call
+            rescue Exception => e
+              @failed = true
+              error = e
+            end
+            test_class.tests[desc].pry if @failed && opts[:pry]
+            formatter.test :name => desc, :passed => !@failed, :asserts => @asserts, :error => error
             test_class.invoke :after, :each
           end
 

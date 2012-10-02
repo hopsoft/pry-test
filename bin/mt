@@ -1,12 +1,16 @@
 #!/usr/bin/env ruby
 require "slop"
+require "pry"
 require File.expand_path(File.join(File.dirname(__FILE__), "..", "lib", "micro_test"))
 
 opts = Slop.parse(:strict => true, :help => true) do
   banner "mt [options]"
-  on :p, :path, "The path to the directory or file where your tests live.", :argument => true
+  on :p, :path, "The path to the test directory or file.", :argument => true
   on :f, :formatter, "The name of the formatter to use.", :argument => true
+  on :pry, "Starts a pry session when tests fail or have errors."
 end
+
+exit if opts[:help]
 
 path = opts[:path] || "test"
 path = File.join(Dir.pwd, path) unless path =~ /^\//
@@ -34,6 +38,7 @@ begin
 rescue Exception => ex
   puts "Failed to load the formatter."
   puts ex.message
+  exit
 end
 
-MicroTest::Runner.run formatter
+MicroTest::Runner.run formatter, :pry => !!opts[:pry]
