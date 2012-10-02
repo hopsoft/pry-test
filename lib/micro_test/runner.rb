@@ -1,15 +1,9 @@
-require File.expand_path(File.join(File.dirname(__FILE__), "formatter"))
-
 module MicroTest
   module Runner
     class << self
 
       def update(event, arg)
         send event, arg
-      end
-
-      def formatter
-        @formatter ||= MicroTest::Formatter.new
       end
 
       def add_test_class(klass)
@@ -43,8 +37,7 @@ module MicroTest
         @asserts << file_info(caller[6]).merge(:pass => value)
       end
 
-      def run(f=nil)
-        @formatter = f
+      def run(formatter)
         formatter.header
 
         test_classes.shuffle.each do |test_class|

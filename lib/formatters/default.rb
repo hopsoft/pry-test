@@ -1,5 +1,6 @@
 module MicroTest
   class Formatter
+
     def initialize
       @total = 0
       @passed = 0

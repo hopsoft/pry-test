@@ -1,28 +1,39 @@
 #!/usr/bin/env ruby
-
+require "slop"
 require File.expand_path(File.join(File.dirname(__FILE__), "..", "lib", "micro_test"))
 
-path = ARGV[0].to_s.strip
-path = File.join(Dir.pwd, "test") if path.empty?
-
-if path == "-h" || path == "--help"
-  puts "Runs MicroTest on the provided path."
-  puts "Usage:"
-  puts "  $mt /path/to/test_file_or_dir"
-  exit
+opts = Slop.parse(:strict => true, :help => true) do
+  banner "mt [options]"
+  on :p, :path, "The path to the directory or file where your tests live.", :argument => true
+  on :f, :formatter, "The name of the formatter to use.", :argument => true
 end
 
+path = opts[:path] || "test"
 path = File.join(Dir.pwd, path) unless path =~ /^\//
 unless File.exist?(path)
   puts "#{path} not found."
   puts "Please check the path and try again."
   exit
 end
-
-if File.directory?(path)
-  Dir[File.join(path, "**", "*.rb")].each { |p| require p }
-else
+if path =~ /\.rb$/
   require path
+else
+  Dir[File.join(path, "**", "*.rb")].each { |p| require p }
 end
 
-MicroTest::Runner.run
+formatter_name = opts[:formatter] || "default"
+formatter_path = File.expand_path(File.join(File.dirname(__FILE__), "..", "lib", "formatters", formatter_name + ".rb"))
+unless File.exist?(formatter_path)
+  puts "#{formatter_path} not found."
+  puts "Please check the formatter name and try again."
+  exit
+end
+begin
+  require File.expand_path(File.join(File.dirname(__FILE__), "..", "lib", "formatters", formatter_name))
+  formatter = MicroTest.const_get("Formatter").new
+rescue Exception => ex
+  puts "Failed to load the formatter."
+  puts ex.message
+end
+
+MicroTest::Runner.run formatter
