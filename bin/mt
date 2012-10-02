@@ -26,14 +26,14 @@ else
 end
 
 formatter_name = opts[:formatter] || "default"
-formatter_path = File.expand_path(File.join(File.dirname(__FILE__), "..", "lib", "formatters", formatter_name + ".rb"))
+formatter_path = File.expand_path(File.join(File.dirname(__FILE__), "..", "lib", "micro_test", "formatters", formatter_name + ".rb"))
 unless File.exist?(formatter_path)
   puts "#{formatter_path} not found."
   puts "Please check the formatter name and try again."
   exit
 end
 begin
-  require File.expand_path(File.join(File.dirname(__FILE__), "..", "lib", "formatters", formatter_name))
+  require formatter_path
   formatter = MicroTest.const_get("Formatter").new
 rescue Exception => ex
   puts "Failed to load the formatter."
