@@ -121,5 +121,5 @@ Run tests.
 
 ```bash
 $ mt
-$ mt /example/test
-$ mt /example/test/math_test.rb
+$ mt -p /example/test
+$ mt -p /example/test/math_test.rb
