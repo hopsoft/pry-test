@@ -1,5 +1,8 @@
+require File.join(File.dirname(__FILE__), "..", "color")
+
 module MicroTest
   class Formatter
+    include MicroTest::Color
 
     def initialize
       @total = 0
@@ -40,20 +43,6 @@ module MicroTest
       puts "\n---"
       puts "Total: #{@total}, Passed: #{green @passed}, Failed: #{red @failed}"
       puts "---"
-    end
-
-    private
-
-    def red(text)
-      "\e[31m#{text}\e[0m"
-    end
-
-    def yellow(text)
-      "\e[33m#{text}\e[0m"
-    end
-
-    def green(text)
-      "\e[32m#{text}\e[0m"
     end
 
   end

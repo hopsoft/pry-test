@@ -48,14 +48,8 @@ module MicroTest
             @failed = false
             @asserts = []
             test_class.invoke :before, :each
-            begin
-              test_class.tests[desc].call
-            rescue Exception => e
-              @failed = true
-              error = e
-            end
-            test_class.tests[desc].pry if @failed && opts[:pry]
-            formatter.test :name => desc, :passed => !@failed, :asserts => @asserts, :error => error
+            test_class.tests[desc].call
+            formatter.test :name => desc, :passed => !@failed, :asserts => @asserts
             test_class.invoke :after, :each
           end
 

@@ -1,6 +1,5 @@
 #!/usr/bin/env ruby
 require "slop"
-require "pry"
 require File.expand_path(File.join(File.dirname(__FILE__), "..", "lib", "micro_test"))
 
 opts = Slop.parse(:strict => true, :help => true) do
@@ -41,4 +40,18 @@ rescue Exception => ex
   exit
 end
 
-MicroTest::Runner.run formatter, :pry => !!opts[:pry]
+MicroTest::PRY = !!opts[:pry]
+if MicroTest::PRY
+  require "pry"
+  require "pry-stack_explorer"
+  # require "pry-exception_explorer"
+  Pry.config.hooks.add_hook :before_session, :print_instructions do
+    puts "#{MicroTest::Color.red "Assert Failed!"} #{MicroTest::Color.yellow "Type 'up' to see the line that failed."}"
+  end
+  # EE.enabled = true
+  # EE.intercept do |frame , ex|
+  #   !ex.is_a?(LoadError)
+  # end
+end
+
+MicroTest::Runner.run formatter
