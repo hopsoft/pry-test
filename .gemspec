@@ -2,7 +2,7 @@ require 'rake'
 
 Gem::Specification.new do |spec|
   spec.name = 'micro_test'
-  spec.version = '0.1.3'
+  spec.version = '0.1.4'
   spec.license = 'MIT'
   spec.homepage = 'http://hopsoft.github.com/micro_test/'
   spec.summary = "Ruby's no-nonsense testing framework."
