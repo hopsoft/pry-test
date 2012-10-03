@@ -47,7 +47,7 @@ module MicroTest
           test_class.invoke :before, :all
 
           test_class.tests.keys.shuffle.each do |desc|
-            @current_test = desc
+            @current_test = "#{test_class.name} -> test #{desc}"
             @failed = false
             @asserts = []
             test_class.invoke :before, :each

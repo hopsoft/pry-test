@@ -51,12 +51,12 @@ if MicroTest::PRY
   require "pry-stack_explorer"
   # require "pry-exception_explorer"
   Pry.config.hooks.add_hook :before_session, :print_instructions do
-    puts "".rjust(40, "-")
-    puts "test '#{MicroTest::Runner.current_test}' #{red "FAIL"}"
-    puts "".rjust(40, "-")
+    puts "".rjust(80, "-")
+    puts "#{MicroTest::Runner.current_test} #{red "FAIL"}"
+    puts
     puts "Type #{yellow "up"} to see the line that failed... then"
-    puts "     #{magenta "whereami 10"} for more context."
-    puts "     #{magenta "edit-method"} to make the fix."
+    puts "     #{magenta "whereami 10"} for more context"
+    puts "     #{magenta "edit-method"} to make the fix"
   end
   # EE.enabled = true
   # EE.intercept do |frame , ex|
