@@ -7,11 +7,13 @@ opts = Slop.parse(:strict => true, :help => true) do
   on :p, :path, "The path to the test directory or file.", :argument => true
   on :f, :formatter, "The name of the formatter to use.", :argument => true
   on :pry, "Starts a pry session whenever tests fail."
+  on :demo, "Runs the MicroTest test suite."
 end
 
 exit if opts[:help]
 
 path = opts[:path] || "test"
+path = File.expand_path(File.join(File.dirname(__FILE__), "..", "test")) if opts[:demo]
 path = File.join(Dir.pwd, path) unless path =~ /^\//
 unless File.exist?(path)
   puts "#{path} not found."
