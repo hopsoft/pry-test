@@ -5,7 +5,6 @@ module MicroTest
     include MicroTest::Color
 
     def initialize
-      @total = 0
       @passed = 0
       @failed = 0
     end
@@ -17,12 +16,11 @@ module MicroTest
     end
 
     def test(info)
-      @total += 1
       info[:passed] ? @passed += 1 : @failed += 1
     end
 
     def footer
-      puts "Tests: #{@total}, Passed: #{green @passed}, Failed: #{red @failed}"
+      puts "Passed: #{green @passed}, Failed: #{red @failed}"
     end
 
   end
