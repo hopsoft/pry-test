@@ -1,6 +1,7 @@
 module MicroTest
   module Runner
     class << self
+      attr_reader :current_test
 
       def update(event, arg)
         send event, arg
@@ -38,6 +39,7 @@ module MicroTest
       end
 
       def run(formatter, opts={})
+        @current_test = nil
         formatter.header
 
         test_classes.shuffle.each do |test_class|
@@ -45,6 +47,7 @@ module MicroTest
           test_class.invoke :before, :all
 
           test_class.tests.keys.shuffle.each do |desc|
+            @current_test = desc
             @failed = false
             @asserts = []
             test_class.invoke :before, :each

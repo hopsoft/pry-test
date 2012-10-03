@@ -1,6 +1,9 @@
 #!/usr/bin/env ruby
 require "slop"
 require File.expand_path(File.join(File.dirname(__FILE__), "..", "lib", "micro_test"))
+require File.expand_path(File.join(File.dirname(__FILE__), "..", "lib", "micro_test", "color"))
+
+include MicroTest::Color
 
 opts = Slop.parse(:strict => true, :help => true) do
   banner "mt [options]"
@@ -48,7 +51,12 @@ if MicroTest::PRY
   require "pry-stack_explorer"
   # require "pry-exception_explorer"
   Pry.config.hooks.add_hook :before_session, :print_instructions do
-    puts "#{MicroTest::Color.red "Assert Failed!"} #{MicroTest::Color.yellow "Type 'up' to see the line that failed."}"
+    puts "".rjust(40, "-")
+    puts "test '#{MicroTest::Runner.current_test}' #{red "FAIL"}"
+    puts "".rjust(40, "-")
+    puts "Type #{yellow "up"} to see the line that failed... then"
+    puts "     #{magenta "whereami 10"} for more context."
+    puts "     #{magenta "edit-method"} to make the fix."
   end
   # EE.enabled = true
   # EE.intercept do |frame , ex|
