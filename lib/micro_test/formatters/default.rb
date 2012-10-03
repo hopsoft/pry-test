@@ -15,13 +15,13 @@ module MicroTest
     end
 
     def group(name)
-      puts name
+      puts white(name)
     end
 
     def test(info)
       @total += 1
       info[:passed] ? @passed += 1 : @failed += 1
-      print "- #{info[:name]} "
+      print "- test #{info[:name]} "
       if info[:passed]
         puts green(:PASS)
       else
