@@ -7,9 +7,10 @@ require File.join(lib_path, "micro_test", "color")
 include MicroTest::Color
 
 opts = Slop.parse(:strict => true, :help => true) do
+  formatters = Dir[File.join(lib_path, "micro_test", "formatters", "*.rb")].map {|f| f[f.rindex("/") + 1..-4]}
   banner "mt [options]"
   on :p, :path, "The path to the test directory or file.", :argument => true
-  on :f, :formatter, "The name of the formatter to use.", :argument => true
+  on :f, :formatter, "The name of the formatter to use. [#{green formatters.join(", ")}]", :argument => true
   on :pry, "Starts a pry session whenever tests fail."
   on :demo, "Runs the MicroTest test suite."
 end
