@@ -1,7 +1,8 @@
 #!/usr/bin/env ruby
 require "slop"
-require File.expand_path(File.join(File.dirname(__FILE__), "..", "lib", "micro_test"))
-require File.expand_path(File.join(File.dirname(__FILE__), "..", "lib", "micro_test", "color"))
+lib_path = File.expand_path(File.join(File.dirname(__FILE__), "..", "lib"))
+require File.join(lib_path, "micro_test")
+require File.join(lib_path, "micro_test", "color")
 
 include MicroTest::Color
 
@@ -26,11 +27,13 @@ end
 if path =~ /\.rb$/
   require path
 else
-  Dir[File.join(path, "**", "*.rb")].each { |p| require p }
+  Dir[File.join(path, "**", "*.rb")].each do |p|
+    require p unless p =~ /fail\.rb$/ && opts[:demo].nil?
+  end
 end
 
 formatter_name = opts[:formatter] || "default"
-formatter_path = File.expand_path(File.join(File.dirname(__FILE__), "..", "lib", "micro_test", "formatters", formatter_name + ".rb"))
+formatter_path = File.join(lib_path, "micro_test", "formatters", formatter_name + ".rb")
 unless File.exist?(formatter_path)
   puts "#{formatter_path} not found."
   puts "Please check the formatter name and try again."
@@ -49,7 +52,8 @@ MicroTest::PRY = !!opts[:pry]
 if MicroTest::PRY
   require "pry"
   require "pry-stack_explorer"
-  # require "pry-exception_explorer"
+  $micro_test_demo = true
+
   Pry.config.hooks.add_hook :before_session, :print_instructions do
     puts "".rjust(80, "-")
     puts "#{MicroTest::Runner.current_test} #{red "FAIL"}"
@@ -58,10 +62,6 @@ if MicroTest::PRY
     puts "     #{magenta "whereami 10"} for more context"
     puts "     #{magenta "edit-method"} to make the fix"
   end
-  # EE.enabled = true
-  # EE.intercept do |frame , ex|
-  #   !ex.is_a?(LoadError)
-  # end
 end
 
 MicroTest::Runner.run formatter

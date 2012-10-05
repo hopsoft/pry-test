@@ -4,7 +4,7 @@ module MicroTest
       attr_reader :current_test
 
       def update(event, arg)
-        send event, arg
+        send(event, arg) if respond_to?(event)
       end
 
       def add_test_class(klass)
