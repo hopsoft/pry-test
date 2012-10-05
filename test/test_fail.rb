@@ -1,9 +1,13 @@
 class Fail < MicroTest::Test
 
-  test "failure" do
+  before :each do
+    @var = "fubar"
+  end
+
+  test "fail" do
     # Failing on purpose for the demo.
     # Use pry to check out the current binding.
-    # For example, type @Test.
+    # For example, type @var.
     assert false
   end
 
