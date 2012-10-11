@@ -34,6 +34,7 @@ else
 end
 
 formatter_name = opts[:formatter] || "default"
+formatter_name = "documentation" if formatter_name == "d"
 formatter_path = File.join(lib_path, "micro_test", "formatters", formatter_name + ".rb")
 unless File.exist?(formatter_path)
   puts "#{formatter_path} not found."
