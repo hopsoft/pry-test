@@ -14,12 +14,11 @@ module MicroTest
     end
 
     def header
-      # puts "Testing in progress...\n\n"
     end
 
     def group(name)
       @current_group = name
-      puts white("\n#{name}")
+      puts "\n#{name}"
     end
 
     def test(info)
