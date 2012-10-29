@@ -39,7 +39,6 @@ module MicroTest
       end
 
       def assert(value)
-        binding.pry if MicroTest::PRY && !value
         notify(:assert, value)
       end
 

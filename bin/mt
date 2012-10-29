@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+require "rubygems"
 require "slop"
 lib_path = File.expand_path(File.join(File.dirname(__FILE__), "..", "lib"))
 require File.join(lib_path, "micro_test")
@@ -54,15 +55,30 @@ MicroTest::PRY = !!opts[:pry]
 if MicroTest::PRY
   require "pry"
   require "pry-stack_explorer"
-  $micro_test_demo = true
 
-  Pry.config.hooks.add_hook :before_session, :print_instructions do
-    puts "".rjust(80, "-")
-    puts "#{MicroTest::Runner.current_test} #{red "FAIL"}"
+  MicroTest::Test.add_observer(Class.new do
+    def self.update(event, arg)
+      binding.pry(:quiet => true) if event == :assert && !arg
+    end
+  end)
+
+  Pry.config.hooks.add_hook :before_session, :print_instructions do |_, _, _pry_|
+    _pry_.commands.create_command "line", "View the assert line that failed." do
+      def process
+        _pry_.run_command "up 5"
+      end
+    end
+
     puts
-    puts "Type #{yellow "up"} to see the line that failed... then"
-    puts "     #{magenta "whereami 10"} for more context"
-    puts "     #{magenta "edit-method"} to make the fix"
+    puts "".ljust(80, "-")
+    puts "| #{MicroTest::Runner.current_test} #{red "FAIL"}".ljust(88) + "|"
+    puts "".ljust(80, "-")
+    puts "| Type #{yellow "line"} to see the line that failed... then".ljust(88) + "|"
+    puts "|     #{magenta "whereami 10"} for more context".ljust(88) + "|"
+    puts "|      #{magenta "edit-method"} to make the fix".ljust(88) + "|"
+    puts "| or <CTL-D> to continue".ljust(79) + "|"
+    puts "".ljust(80, "-")
+    puts
   end
 end
 
