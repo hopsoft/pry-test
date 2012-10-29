@@ -74,16 +74,17 @@ if opts[:pry]
 
     puts
     puts "".ljust(80, "-")
-    puts "|".ljust(79) + "|"
-    puts "| #{MicroTest::Runner.current_test} #{red "FAIL"} ... Pry session started".ljust(88) + "|"
-    puts "|".ljust(79) + "|"
+    puts
+    puts red " " + MicroTest::Runner.current_test
+    puts
     puts "".ljust(80, "-")
-    puts "| Type #{yellow "line"} to see the line that failed".ljust(88) + "|"
-    puts "|      #{blue "whereami 10"} for more context".ljust(88) + "|"
-    puts "|      #{blue "edit-method"} to make the fix".ljust(88) + "|"
-    # puts "".ljust(80, "-")
-    puts "|".ljust(79) + "|"
-    puts "| Type #{yellow "exit"} or #{blue "<CTL-D>"} to continue".ljust(97) + "|"
+    puts " Pry session started"
+    puts
+    puts " Type #{yellow "line"} to see the line that failed"
+    puts "      #{blue "whereami 10"} for more context"
+    puts "      #{blue "edit-method"} to make the fix"
+    puts
+    puts " Type #{yellow "exit"} or #{blue "<CTL-D>"} to continue"
     puts "".ljust(80, "-")
     puts
   end
