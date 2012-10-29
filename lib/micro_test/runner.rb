@@ -1,7 +1,7 @@
 module MicroTest
   module Runner
     class << self
-      attr_reader :current_test
+      attr_reader :options, :current_test
 
       def update(event, arg)
         send(event, arg) if respond_to?(event)
@@ -39,6 +39,7 @@ module MicroTest
       end
 
       def run(formatter, opts={})
+        @options = opts
         @current_test = nil
         formatter.header
 

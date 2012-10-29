@@ -12,6 +12,7 @@ opts = Slop.parse(:strict => true, :help => true) do
   banner "mt [options]"
   on :p, :path, "The path to the test directory or file.", :argument => true
   on :f, :formatter, "The name of the formatter to use. [#{green formatters.join(", ")}]", :argument => true
+  on "fail-fast", "Stops the running of tests after the first test failure."
   on :pry, "Starts a pry session whenever tests fail."
   on :demo, "Runs the MicroTest test suite."
 end
@@ -51,16 +52,18 @@ rescue Exception => ex
   exit
 end
 
-MicroTest::PRY = !!opts[:pry]
-if MicroTest::PRY
+MicroTest::Test.add_observer(Class.new do
+  def self.update(event, arg)
+    if event == :assert && !arg
+      binding.pry(:quiet => true) if MicroTest::Runner.options[:pry]
+      exit if MicroTest::Runner.options[:"fail-fast"]
+    end
+  end
+end)
+
+if opts[:pry]
   require "pry"
   require "pry-stack_explorer"
-
-  MicroTest::Test.add_observer(Class.new do
-    def self.update(event, arg)
-      binding.pry(:quiet => true) if event == :assert && !arg
-    end
-  end)
 
   Pry.config.hooks.add_hook :before_session, :print_instructions do |_, _, _pry_|
     _pry_.commands.create_command "line", "View the assert line that failed." do
@@ -86,4 +89,4 @@ if MicroTest::PRY
   end
 end
 
-MicroTest::Runner.run formatter
+MicroTest::Runner.run formatter, opts.to_hash
