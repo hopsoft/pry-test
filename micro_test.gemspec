@@ -1,8 +1,9 @@
 require 'rake'
+require File.join(File.dirname(__FILE__), "lib", "micro_test", "version")
 
 Gem::Specification.new do |spec|
   spec.name = 'micro_test'
-  spec.version = '0.2.5'
+  spec.version = MicroTest::VERSION
   spec.license = 'MIT'
   spec.homepage = 'http://hopsoft.github.com/micro_test/'
   spec.summary = "Ruby's no-nonsense testing framework."
@@ -18,6 +19,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'pry'
   spec.add_dependency 'pry-stack_explorer'
 
-  spec.files = FileList['lib/**/*.rb', 'bin/*', 'test/**/*.rb', '[A-Z]*'].to_a
+  spec.files = FileList['lib/**/*.rb', 'bin/*', 'test/**/*.rb', '[A-Z]*', 'LICENSE.txt', 'README.md'].to_a
   spec.executables << "mt"
 end
