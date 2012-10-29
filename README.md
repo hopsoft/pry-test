@@ -1,6 +1,6 @@
 # MicroTest
 
-## Ruby's no-nonsense testing framework
+## The Sinatra of testing frameworks.
 
 ### Quick Start
 

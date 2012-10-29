@@ -6,7 +6,7 @@ Gem::Specification.new do |spec|
   spec.version = MicroTest::VERSION
   spec.license = 'MIT'
   spec.homepage = 'http://hopsoft.github.com/micro_test/'
-  spec.summary = "Ruby's no-nonsense testing framework."
+  spec.summary = "The Sinatra of testing frameworks."
   spec.description = <<-DESC
     Testing frameworks often lose their focus and become an end unto themselves.
     MicroTest avoids this pitfall with a relentless focus on simplicity.
