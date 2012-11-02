@@ -35,4 +35,15 @@ Run
 $ mt
 ```
 
+Want BDD?
+
+```ruby
+class DescribeMyObject < MicroTest::Test
+  test "that a feature does something" do
+    assert true
+  end
+end
+```
+
+
 [See the product page for more details.](http://hopsoft.github.com/micro_test/)
