@@ -1,6 +1,6 @@
 # MicroTest
 
-## The Sinatra of testing frameworks.
+## The Sinatra of testing frameworks
 
 ### Quick Start
 
