@@ -90,4 +90,6 @@ if opts[:pry]
   end
 end
 
+@start = Time.now
 MicroTest::Runner.run formatter, opts.to_hash
+puts "Completed in #{Time.now - @start} seconds."

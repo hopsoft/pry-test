@@ -21,15 +21,17 @@ module MicroTest
     def test(info)
       @total += 1
       info[:passed] ? @passed += 1 : @failed += 1
-      print "- test #{info[:name]} "
+      duration = (info[:duration] * 10**4).round.to_f / 10**4
+      msg = "#{info[:name]} ".ljust(60, ".") + duration.to_s
       if info[:passed]
-        puts green(:PASS)
+        puts "  #{green(:PASS)} #{msg}"
       else
         if info[:error]
+          puts msg
           puts "#{red :ERROR} #{red info[:error].message}"
           puts "  #{red info[:error].backtrace[0]}"
         else
-          puts red(:FAIL)
+          puts "  #{red(:FAIL)} #{msg}"
           info[:asserts].each do |assert|
             next if assert[:passed]
             puts "  #{red assert[:line]}"

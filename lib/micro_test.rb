@@ -1,6 +1,9 @@
-path = File.expand_path(File.join(File.dirname(__FILE__), "micro_test"))
-require File.join(path, "version")
-require File.join(path, "test")
-require File.join(path, "runner")
+require "bundler"
+Bundler.require :default
+Bundler.require :debug
+
+path = File.join(File.dirname(__FILE__), "micro_test", "*.rb")
+Dir[path].each { |file| require file }
 
 MicroTest::Test.add_observer MicroTest::Runner
+

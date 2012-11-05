@@ -1,5 +1,8 @@
 source :rubygems
 
 gem "slop"
-gem "pry"
-gem "pry-stack_explorer"
+
+group :debug do
+  gem "pry"
+  gem "pry-stack_explorer"
+end

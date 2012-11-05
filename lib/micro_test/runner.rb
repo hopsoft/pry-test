@@ -52,8 +52,9 @@ module MicroTest
             @failed = false
             @asserts = []
             test_class.invoke :before, :each
+            start = Time.now
             test_class.tests[desc].call
-            formatter.test :name => desc, :passed => !@failed, :asserts => @asserts
+            formatter.test :name => desc, :passed => !@failed, :asserts => @asserts, :duration => Time.now - start
             test_class.invoke :after, :each
           end
 
