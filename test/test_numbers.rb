@@ -4,14 +4,24 @@ class TestNumbers < MicroTest::Test
     n < 2 ? n : fib(n-1) + fib(n-2)
   end
 
-  test "slow and cpu intense 1" do
-    10.times { |i| TestNumbers.fib(i) }
+  test "slow io 1" do
+    sleep 1
     assert true
   end
 
-  test "slow and cpu intense 2" do
-    10.times { |i| TestNumbers.fib(i) }
-    assert false
+  test "slow io 2" do
+    sleep 1
+    assert true
+  end
+
+  test "cpu intense 1" do
+    100.times { |i| TestNumbers.fib(i) }
+    assert true
+  end
+
+  test "cpu intense 2" do
+    100.times { |i| TestNumbers.fib(i) }
+    assert true
   end
 
 end

@@ -7,15 +7,16 @@ module MicroTest
     end
 
     def run
-      @formatter.header
 
+      MicroTest::Test.reset
       MicroTest::Test.subclasses.shuffle.each do |test_class|
         test_class.tests.shuffle.each do |test|
           test.async.invoke(@formatter)
         end
       end
 
-      @formatter.footer
+      # TODO: wait for all tests to complete
+
     end
 
   end

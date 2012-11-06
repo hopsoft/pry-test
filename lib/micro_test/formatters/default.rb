@@ -15,7 +15,12 @@ module MicroTest
     end
 
     def test(test)
-      puts "#{test.test_class.name}  #{test.desc} #{test.asserts.inspect} #{test.duration}\n"
+      msg = []
+      msg << (test.passed? ? green(:PASS) : red(:FAIL))
+      msg << test.test_class.name
+      msg << test.desc
+      msg << test.duration.to_s + " secs"
+      puts msg.join(" ")
     end
 
     def footer
