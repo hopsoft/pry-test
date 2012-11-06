@@ -19,17 +19,28 @@ module MicroTest
       @test.call
       @duration = Time.now - start
       @asserts = @test_class.asserts[desc]
-      @formatter.test self
+      @formatter.test_finished self
     end
 
-    def passed?
+    def finished?
+      !duration.nil?
+    end
+
+    def passing?
       return false unless asserts
       asserts.map{ |a| !!a[:value] }.uniq == [true]
+    end
+
+    def reset
+      @asserts = nil
+      @duration = nil
     end
 
   end
 
   class Test
+    MUTEX = Mutex.new
+
     class << self
 
       def subclasses
@@ -50,16 +61,14 @@ module MicroTest
 
       # Holds the state for all performed asserts for this class.
       def asserts
-        # mutex around this?
         @asserts ||= {}
       end
 
       # Resets the state in preparation for a new test run.
       def reset
-        # mutex around this?
-        tests.clear
         asserts.clear
         subclasses.each { |subclass| subclass.reset }
+        tests.each { |test| test.reset }
       end
 
       def inherited(subclass)
@@ -76,9 +85,21 @@ module MicroTest
         info = assert_info(caller)
         key = info[:test_desc]
 
-        # mutex around this?
-        asserts[key] ||= []
-        asserts[key] << info.merge(:value => value)
+        MUTEX.synchronize do
+          asserts[key] ||= []
+          asserts[key] << info.merge(:value => value)
+        end
+      end
+
+      def finished?
+        if tests.empty?
+          results = [true]
+        else
+          results = tests.map{ |t| t.finished? }
+        end
+
+        results.concat(subclasses.map{ |s| s.finished? })
+        results.uniq == [true]
       end
 
       private

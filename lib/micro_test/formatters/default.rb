@@ -5,28 +5,20 @@ module MicroTest
     include MicroTest::Color
 
     def initialize
-      @total = 0
-      @passed = 0
-      @failed = 0
+      @start = Time.now
     end
 
-    def header
-      # puts "Testing in progress...\n\n"
+    def test_finished(test)
+      test.passing? ? print(green ".") : print(red ".")
     end
 
-    def test(test)
-      msg = []
-      msg << (test.passed? ? green(:PASS) : red(:FAIL))
-      msg << test.test_class.name
-      msg << test.desc
-      msg << test.duration.to_s + " secs"
-      puts msg.join(" ")
-    end
-
-    def footer
-      # puts "\n---"
-      # puts "Total: #{@total}, Passed: #{green @passed}, Failed: #{red @failed}"
-      # puts "---"
+    def all_finished(test_classes)
+      puts
+      puts "".ljust(80, "-")
+      puts "Awesome summary coming soon!"
+      puts "Finished in #{Time.now - @start}"
+      puts "".ljust(80, "-")
+      puts
     end
 
   end

@@ -15,12 +15,17 @@ class TestNumbers < MicroTest::Test
   end
 
   test "cpu intense 1" do
-    100.times { |i| TestNumbers.fib(i) }
+    40.times { |i| TestNumbers.fib(i) }
     assert true
   end
 
   test "cpu intense 2" do
-    100.times { |i| TestNumbers.fib(i) }
+    40.times { |i| TestNumbers.fib(i) }
+    assert true
+  end
+
+  test "cpu intense 3" do
+    40.times { |i| TestNumbers.fib(i) }
     assert true
   end
 

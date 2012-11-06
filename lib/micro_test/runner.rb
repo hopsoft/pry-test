@@ -7,7 +7,6 @@ module MicroTest
     end
 
     def run
-
       MicroTest::Test.reset
       MicroTest::Test.subclasses.shuffle.each do |test_class|
         test_class.tests.shuffle.each do |test|
@@ -15,8 +14,11 @@ module MicroTest
         end
       end
 
-      # TODO: wait for all tests to complete
+      while !MicroTest::Test.finished?
+        sleep 0.1
+      end
 
+      @formatter.all_finished(MicroTest::Test.subclasses)
     end
 
   end
