@@ -1,8 +1,8 @@
 class Fail < MicroTest::Test
 
-  before :each do
-    @var = "fubar"
-  end
+  # before do
+  #   @var = "fubar"
+  # end
 
   test "fail" do
     # Failing on purpose for the demo.
