@@ -9,7 +9,7 @@ module MicroTest
     end
 
     def test_finished(test)
-      test.passing? ? print(green ".") : print(red ".")
+      test.passed? ? print(green ".") : print(red ".")
     end
 
     def all_finished(test_classes)
