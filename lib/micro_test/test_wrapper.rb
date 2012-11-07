@@ -21,11 +21,12 @@ module MicroTest
     # @param [MicroTest::Formatter] formatter The formatter used to handle test output.
     def invoke(formatter)
       @formatter = formatter
+      @formatter.before_test self
       start = Time.now
       @test.call
       @duration = Time.now - start
       @asserts = @test_class.asserts[desc]
-      @formatter.test_finished self
+      @formatter.after_test self
     end
 
     # Indicates if this test has finished running.

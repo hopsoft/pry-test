@@ -22,7 +22,7 @@ module MicroTest
         sleep 0.1
       end
 
-      formatter.all_finished(test_classes)
+      formatter.after_suite(test_classes)
     end
 
   end
