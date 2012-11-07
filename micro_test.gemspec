@@ -15,7 +15,7 @@ Gem::Specification.new do |spec|
   spec.authors = ['Nathan Hopkins']
   spec.email = ['natehop@gmail.com']
 
-  spec.add_dependency 'slop'
+  spec.add_dependency 'celluloid'
   spec.add_dependency 'pry'
   spec.add_dependency 'pry-stack_explorer'
 

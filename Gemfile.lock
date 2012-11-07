@@ -1,10 +1,19 @@
 GEM
   remote: http://rubygems.org/
   specs:
+    binding_of_caller (0.6.8)
     celluloid (0.12.3)
       facter (>= 1.6.12)
       timers (>= 1.0.0)
+    coderay (1.0.8)
     facter (1.6.14)
+    method_source (0.8.1)
+    pry (0.9.10)
+      coderay (~> 1.0.5)
+      method_source (~> 0.8)
+      slop (~> 3.3.1)
+    pry-stack_explorer (0.4.7)
+      binding_of_caller (~> 0.6.8)
     slop (3.3.3)
     timers (1.0.1)
 
@@ -14,4 +23,5 @@ PLATFORMS
 
 DEPENDENCIES
   celluloid
-  slop
+  pry
+  pry-stack_explorer

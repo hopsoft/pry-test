@@ -1,6 +1,6 @@
 module MicroTest
   class Runner
-    attr_reader :formatter
+    attr_reader :formatter, :options
 
     def initialize(formatter, options={})
       @formatter = formatter
@@ -14,7 +14,11 @@ module MicroTest
 
       test_classes.each do |test_class|
         formatter.before_class(test_class)
-        test_class.tests.shuffle.each { |t| t.async.invoke(formatter) }
+        if options[:async]
+          test_class.tests.shuffle.each { |t| t.async.invoke(formatter) }
+        else
+          test_class.tests.shuffle.each { |t| t.invoke(formatter) }
+        end
         formatter.after_class(test_class)
       end
 

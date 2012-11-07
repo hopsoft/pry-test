@@ -1,26 +1,62 @@
 #!/usr/bin/env ruby
 require "rubygems"
-require "slop"
+require "optparse"
+
 lib_path = File.expand_path(File.join(File.dirname(__FILE__), "..", "lib"))
 require File.join(lib_path, "micro_test")
-require File.join(lib_path, "micro_test", "color")
 
-include MicroTest::Color
-
-opts = Slop.parse(:strict => true, :help => true) do
-  formatters = Dir[File.join(lib_path, "micro_test", "formatters", "*.rb")].map {|f| f[f.rindex("/") + 1..-4]}
-  banner "mt [options]"
-  on :p, :path, "The path to the test directory or file.", :argument => true
-  on :f, :formatter, "The name of the formatter to use. [#{green formatters.join(", ")}]", :argument => true
-  on "fail-fast", "Stops the running of tests after the first test failure."
-  on :pry, "Starts a pry session whenever tests fail."
-  on :demo, "Runs the MicroTest test suite."
+# setup the formatters list ---------------------------------------------------
+formatters_path = File.join(lib_path, "micro_test", "formatters")
+formatter_names = Dir[File.join(formatters_path, "*.rb")].reduce([]) do |memo, file|
+  if (file =~ /(base_formatter\.rb|_async\.rb)$/).nil?
+    name = file[file.rindex("/") + 1..-4]
+    name = name.prepend("*") if name == "mt"
+    memo << name
+  end
+  memo
 end
 
-exit if opts[:help]
+# setup the options -----------------------------------------------------------
+options = {}
+parser = OptionParser.new do |opts|
+  opts.banner = "MicroTest Usage: mt [options] /path/to/test/dir_or_file"
 
-path = opts[:path] || "test"
-path = File.expand_path(File.join(File.dirname(__FILE__), "..", "test")) if opts[:demo]
+  desc = "Runs tests asynchronously."
+  opts.on_tail("-a", "--async", desc) { |value| options[:async] = value }
+
+  desc = "Runs the MicroTest test suite and some additional demo tests."
+  opts.on("--demo", desc) { |value| options[:demo] = value }
+
+  desc = "The formatter to use. [#{formatter_names.join(", ")}]"
+  opts.on("-f", "--formatter [FORMATTER]", formatter_names, desc) do |value|
+    options[:formatter] = value
+  end
+
+  desc = "Stops the test run after the first failure. "
+  desc << "Ignored when running in async mode."
+  opts.on("--fail-fast", desc) { |value| options[:fail_fast] = value }
+
+  desc = "Starts a PRY session whenever a test fails. "
+  desc << "Ignored when running in async mode."
+  opts.on("--pry", desc) { |value| options[:pry] = value }
+
+  opts.on("-v", "--version", "Show version.") do
+    puts "MicroTest #{MicroTest::VERSION}"
+    exit
+  end
+
+  opts.on_tail("-h", "--help", "Show this message.") do
+    puts opts
+    exit
+  end
+
+end
+parser.parse!
+
+# setup the test path ---------------------------------------------------------
+path = ARGV.last unless ARGV.last =~ /^-/
+path = File.expand_path(File.join(File.dirname(__FILE__), "..", "test")) if options[:demo]
+path ||= "test"
 path = File.join(Dir.pwd, path) unless path =~ /^\//
 unless File.exist?(path)
   puts "#{path} not found."
@@ -30,21 +66,20 @@ end
 if path =~ /\.rb$/
   require path
 else
-  Dir[File.join(path, "**", "*.rb")].each do |p|
-    require p unless p =~ /fail\.rb$/ && opts[:demo].nil?
-  end
+  Dir[File.join(path, "**", "*.rb")].each { |path| require path }
 end
 
-formatter_name = opts[:formatter] || "default_async"
-formatter_name = "documentation" if formatter_name == "d"
-formatter_path = File.join(lib_path, "micro_test", "formatters", formatter_name + ".rb")
-unless File.exist?(formatter_path)
-  puts "#{formatter_path} not found."
+# setup the formatter ---------------------------------------------------------
+formatter_name = options[:formatter] || "mt"
+path = File.join(formatters_path, formatter_name + ".rb")
+path.gsub!(/\.rb$/, "_async.rb") if options[:async]
+unless File.exist?(path)
+  puts "Formatter not found at #{path}"
   puts "Please check the formatter name and try again."
   exit
 end
 begin
-  require formatter_path
+  require path
   formatter = MicroTest.const_get("Formatter").new
 rescue Exception => ex
   puts "Failed to load the formatter."
@@ -52,4 +87,4 @@ rescue Exception => ex
   exit
 end
 
-MicroTest::Runner.new(formatter).run
+MicroTest::Runner.new(formatter, options).run
