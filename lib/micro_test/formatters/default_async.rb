@@ -1,18 +1,17 @@
-require File.join(File.dirname(__FILE__), "..", "color")
+require File.join(File.dirname(__FILE__), "formatter")
 
 module MicroTest
-  class Formatter
-    include MicroTest::Color
+  class Formatter < MicroTest::BaseFormatter
 
     def initialize
       @start = Time.now
     end
 
-    def test_finished(test)
+    def after_test(test)
       test.passed? ? print(green ".") : print(red ".")
     end
 
-    def all_finished(test_classes)
+    def after_suite(test_classes)
       puts
       puts "".ljust(80, "-")
       puts "Awesome summary coming soon!"
