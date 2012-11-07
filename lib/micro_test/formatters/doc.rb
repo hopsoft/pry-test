@@ -19,30 +19,30 @@ module MicroTest
         test.asserts.each do |assert|
           next if assert[:value]
           @failures << { :test => test, :assert => assert }
-          puts red("  #{test.desc} (FAILED - #{@failures.count})")
+          puts red("  #{test.desc} (FAILED - #{failed.count})")
         end
       end
     end
 
-    def print_failures
+    def print_failures(failures)
       puts
       puts "Failures:"
       puts
-      @failures.each_with_index do |failure, idx|
+      failures.each_with_index do |failure, idx|
         test = failure[:test]
         assert = failure[:assert]
         puts
         puts "  #{idx + 1}) #{test.test_class.name} #{test.desc}"
-        puts red("     Failure/Error: #{assert[:line]}")
+        puts red("     Failure/Error: #{assert[:line].strip}")
         puts cyan("     #{assert[:file_path]}:#{assert[:line_num]}")
       end
     end
 
     def after_suite(test_classes)
-      print_failures if @failures.count > 0
+      print_failures(@failures) if failed.count > 0
       puts
-      msg = "#{MicroTest::Test.all_tests.count} examples, #{@failures.count} failures"
-      if @failed > 0
+      msg = "#{total.count} examples, #{failed.count} failures"
+      if failed.count > 0
         puts red(msg)
       else
         puts msg

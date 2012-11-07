@@ -119,19 +119,9 @@ module MicroTest
       # Indicates if all tests have finished running.
       # @note Used when running tests in async mode.
       # @return [Boolean]
-      def all_finished?
+      def finished?
         return true if all_tests.empty?
         all_tests.map{ |test| test.finished? }.uniq == [true]
-      end
-
-      # Returns all tests that passed.
-      def all_passed
-        all_tests.select { |test| test.passed? }
-      end
-
-      # Returns all tests that failed.
-      def all_failed
-        all_tests - all_passed
       end
 
       private

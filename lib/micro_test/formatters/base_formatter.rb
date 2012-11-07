@@ -13,8 +13,8 @@ module MicroTest
     def before_suite(test_classes)
       @mutex = Mutex.new
       @duration = 0
-      @passed = 0
-      @failed = 0
+      @passed = []
+      @failed = []
       @start = Time.now
     end
 
@@ -27,9 +27,9 @@ module MicroTest
     def after_test(test)
       @mutex.synchronize do
         if test.passed?
-          @passed += 1
+          @passed << test
         else
-          @failed += 1
+          @failed << test
         end
       end
     end

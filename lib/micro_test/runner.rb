@@ -22,7 +22,7 @@ module MicroTest
         formatter.after_class(test_class)
       end
 
-      while !MicroTest::Test.all_finished?
+      while !MicroTest::Test.finished?
         sleep 0.1
       end
 
