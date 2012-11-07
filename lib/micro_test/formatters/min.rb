@@ -5,8 +5,8 @@ module MicroTest
 
     def after_suite(test_classes)
       puts
-      puts "Passed: #{green passed.count}"
-      puts "Failed: #{red failed.count}"
+      puts "Passed: #{green passed_count}"
+      puts "Failed: #{red failed_count}"
       super
     end
 

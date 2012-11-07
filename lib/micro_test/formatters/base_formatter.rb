@@ -8,13 +8,13 @@ module MicroTest
   # to control test run output.
   class BaseFormatter
     include MicroTest::Color
-    attr_reader :passed, :failed, :duration
+    attr_reader :passed_count, :failed_count, :duration
 
     def before_suite(test_classes)
       @mutex = Mutex.new
       @duration = 0
-      @passed = []
-      @failed = []
+      @passed_count = 0
+      @failed_count = 0
       @start = Time.now
     end
 
@@ -27,9 +27,9 @@ module MicroTest
     def after_test(test)
       @mutex.synchronize do
         if test.passed?
-          @passed << test
+          @passed_count += 1
         else
-          @failed << test
+          @failed_count += 1
         end
       end
     end
@@ -46,7 +46,7 @@ module MicroTest
     end
 
     def total
-      passed + failed
+      passed_count + failed_count
     end
   end
 
