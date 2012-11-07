@@ -131,7 +131,7 @@ module MicroTest
 
       # Returns all tests that failed.
       def all_failed
-        all_tests - passed
+        all_tests - all_passed
       end
 
       private

@@ -72,7 +72,10 @@ end
 # setup the formatter ---------------------------------------------------------
 formatter_name = options[:formatter] || "mt"
 path = File.join(formatters_path, formatter_name + ".rb")
-path.gsub!(/\.rb$/, "_async.rb") if options[:async]
+if options[:async]
+  async_path = path.gsub(/\.rb$/, "_async.rb")
+  path = async_path if File.exist?(async_path)
+end
 unless File.exist?(path)
   puts "Formatter not found at #{path}"
   puts "Please check the formatter name and try again."

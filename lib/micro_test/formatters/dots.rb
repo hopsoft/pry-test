@@ -1,28 +1,10 @@
-require File.join(File.dirname(__FILE__), "..", "color")
+require File.join(File.dirname(__FILE__), "base_formatter")
 
 module MicroTest
-  class Formatter
-    include MicroTest::Color
+  class Formatter < MicroTest::BaseFormatter
 
-    def initialize
-    end
-
-    def header
-    end
-
-    def group(name)
-    end
-
-    def test(info)
-      if info[:passed]
-        print green(".")
-      else
-        print red("x")
-      end
-    end
-
-    def footer
-      puts
+    def after_test(test)
+      print(test.passed? ? green(".") : red("."))
     end
 
   end

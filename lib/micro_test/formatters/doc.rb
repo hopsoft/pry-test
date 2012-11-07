@@ -41,7 +41,6 @@ module MicroTest
     def after_suite(test_classes)
       print_failures if @failures.count > 0
       puts
-      puts "Finished in #{} seconds"
       msg = "#{MicroTest::Test.all_tests.count} examples, #{@failures.count} failures"
       if @failed > 0
         puts red(msg)
@@ -49,6 +48,7 @@ module MicroTest
         puts msg
       end
       puts
+      super
     end
 
   end

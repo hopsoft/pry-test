@@ -39,6 +39,10 @@ module MicroTest
 
     def after_suite(test_classes)
       @duration = Time.now - @start
+      puts
+      puts "".ljust(80, "-")
+      puts "Finished in #{duration} seconds."
+      puts
     end
 
     def total

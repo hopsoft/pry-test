@@ -9,13 +9,10 @@ module MicroTest
     end
 
     def after_suite(test_classes)
-      super
       puts
-      puts "".ljust(80, "-")
+      puts
       puts "Awesome summary coming soon!"
-      puts "Finished in #{duration}"
-      puts "".ljust(80, "-")
-      puts
+      super
     end
 
   end
