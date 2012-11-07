@@ -40,6 +40,10 @@ module MicroTest
     def after_suite(test_classes)
       @duration = Time.now - @start
     end
+
+    def total
+      passed + failed
+    end
   end
 
 end

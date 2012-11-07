@@ -9,7 +9,7 @@ module MicroTest
 
     def run
       MicroTest::Test.reset
-      test_classes = MicroTest::Test.subclasses.shuffle
+      test_classes = MicroTest::Test.all_subclasses.shuffle
       formatter.before_suite(test_classes)
 
       test_classes.each do |test_class|
@@ -22,7 +22,7 @@ module MicroTest
         formatter.after_class(test_class)
       end
 
-      while !MicroTest::Test.finished?
+      while !MicroTest::Test.all_finished?
         sleep 0.1
       end
 

@@ -16,20 +16,32 @@ module MicroTest
     class << self
 
       # All subclasses of this class.
-      # @note Primarily used in the context of MicroTest::Test to iterate over
-      #   the test classes. Deeper test class inhertance is simply ignored when
-      #   running tests.
       # @return [Array<MicroTest::Test>]
       def subclasses
         @subclasses ||= []
       end
 
+      # All subclasses of this class and any descendant subclasses.
+      # @return [Array<MicroTest::Test>]
+      def all_subclasses
+        list = []
+        list.concat subclasses
+        subclasses.each { |subclass| list.concat subclass.all_subclasses }
+        list
+      end
+
       # All individual tests defined in this class.
-      # Used by subclasses of MicroTest::Test to hold tests defined
-      # by the MicroTest::Test.test class method.
       # @return [Array<MicroTest::TestWrapper>]
       def tests
         @tests ||= []
+      end
+
+      # All individual tests defined in this class or any descendant subclass.
+      def all_tests
+        list = []
+        list.concat tests
+        all_subclasses.each { |subclass| list.concat subclass.tests }
+        list
       end
 
       # All asserts that have been invoked.
@@ -55,8 +67,8 @@ module MicroTest
       # Resets the state in preparation for a new test run.
       def reset
         asserts.clear
-        subclasses.each { |subclass| subclass.reset }
         tests.each { |test| test.reset }
+        subclasses.each { |subclass| subclass.reset }
       end
 
       # A callback provided by Ruby that is invoked whenever a subclass is created.
@@ -107,15 +119,19 @@ module MicroTest
       # Indicates if all tests have finished running.
       # @note Used when running tests in async mode.
       # @return [Boolean]
-      def finished?
-        if tests.empty?
-          results = [true]
-        else
-          results = tests.map{ |t| t.finished? }
-        end
+      def all_finished?
+        return true if all_tests.empty?
+        all_tests.map{ |test| test.finished? }.uniq == [true]
+      end
 
-        results.concat(subclasses.map{ |s| s.finished? })
-        results.uniq == [true]
+      # Returns all tests that passed.
+      def all_passed
+        all_tests.select { |test| test.passed? }
+      end
+
+      # Returns all tests that failed.
+      def all_failed
+        all_tests - passed
       end
 
       private

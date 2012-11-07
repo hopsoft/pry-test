@@ -14,19 +14,19 @@ class TestNumbers < MicroTest::Test
     assert true
   end
 
-  test "cpu intense 1" do
-    40.times { |i| TestNumbers.fib(i) }
-    assert true
-  end
+  # test "cpu intense 1" do
+  #   40.times { |i| TestNumbers.fib(i) }
+  #   assert true
+  # end
 
-  test "cpu intense 2" do
-    40.times { |i| TestNumbers.fib(i) }
-    assert true
-  end
+  # test "cpu intense 2" do
+  #   40.times { |i| TestNumbers.fib(i) }
+  #   assert true
+  # end
 
-  test "cpu intense 3" do
-    40.times { |i| TestNumbers.fib(i) }
-    assert true
-  end
+  # test "cpu intense 3" do
+  #   40.times { |i| TestNumbers.fib(i) }
+  #   assert true
+  # end
 
 end

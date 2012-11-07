@@ -1,63 +1,54 @@
-require File.join(File.dirname(__FILE__), "..", "color")
+require File.join(File.dirname(__FILE__), "base_formatter")
 
 module MicroTest
-  class Formatter
-    include MicroTest::Color
+  class Formatter < MicroTest::BaseFormatter
 
     def initialize
-      @total = 0
-      @passed = 0
-      @failed = 0
-      @start_time = Time.now
-      @current_group = ""
       @failures = []
     end
 
-    def header
+    def before_class(test_class)
+      puts "\n#{test_class.name}"
     end
 
-    def group(name)
-      @current_group = name
-      puts "\n#{name}"
-    end
-
-    def test(info)
-      @total += 1
-      info[:passed] ? @passed += 1 : @failed += 1
-      if info[:passed]
-        puts green("  #{info[:name]}")
+    def after_test(test)
+      super
+      if test.passed?
+        puts green("  #{test.desc}")
       else
-        info[:asserts].each do |assert|
-          next if assert[:passed]
-          @failures << { :group => @current_group, :name => info[:name], :assert => assert }
-
-          puts red("  #{info[:name]} (FAILED - #{@failures.count})")
+        test.asserts.each do |assert|
+          next if assert[:value]
+          @failures << { :test => test, :assert => assert }
+          puts red("  #{test.desc} (FAILED - #{@failures.count})")
         end
       end
     end
 
     def print_failures
-      puts "\nFailures:\n"
+      puts
+      puts "Failures:"
+      puts
       @failures.each_with_index do |failure, idx|
-        puts "\n  #{idx + 1}) #{failure[:group]} #{failure[:name]}"
-        puts red("     Failure/Error: #{failure[:assert][:line]}")
-        puts cyan("     #{failure[:assert][:path]}:#{failure[:assert][:line_num]}")
+        test = failure[:test]
+        assert = failure[:assert]
+        puts
+        puts "  #{idx + 1}) #{test.test_class.name} #{test.desc}"
+        puts red("     Failure/Error: #{assert[:line]}")
+        puts cyan("     #{assert[:file_path]}:#{assert[:line_num]}")
       end
     end
 
-    def footer
-      if @failures.count > 0
-        print_failures
-      end
-      puts ""
-      puts "Finished in #{Time.now - @start_time} seconds"
-      msg = "#{@total} examples, #{@failed} failures"
+    def after_suite(test_classes)
+      print_failures if @failures.count > 0
+      puts
+      puts "Finished in #{} seconds"
+      msg = "#{MicroTest::Test.all_tests.count} examples, #{@failures.count} failures"
       if @failed > 0
         puts red(msg)
       else
         puts msg
       end
-      puts ""
+      puts
     end
 
   end
