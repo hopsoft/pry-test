@@ -28,7 +28,7 @@ parser = OptionParser.new do |opts|
   opts.on("--demo", desc) { |value| options[:demo] = value }
 
   desc = "The formatter to use. [#{formatter_names.join(", ")}]"
-  opts.on("-f", "--formatter [FORMATTER]", formatter_names, desc) do |value|
+  opts.on("-f", "--formatter [FORMATTER]", desc) do |value|
     options[:formatter] = value
   end
 
@@ -85,7 +85,7 @@ begin
   require path
   formatter = MicroTest.const_get("Formatter").new
 rescue Exception => ex
-  puts "Failed to load the formatter."
+  puts "Failed to load the formatter defined at #{path}"
   puts ex.message
   exit
 end

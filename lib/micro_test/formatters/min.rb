@@ -4,7 +4,9 @@ module MicroTest
   class Formatter < MicroTest::BaseFormatter
 
     def after_suite(test_classes)
-      print "Passed: #{green MicroTest::Test.all_passed.count}, Failed: #{red MicroTest::Test.all_failed.count}"
+      puts
+      puts "Passed: #{green MicroTest::Test.all_passed.count}"
+      puts "Failed: #{red MicroTest::Test.all_failed.count}"
       super
     end
 
