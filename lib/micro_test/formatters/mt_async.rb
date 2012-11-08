@@ -4,15 +4,14 @@ module MicroTest
   class Formatter < MicroTest::BaseFormatter
 
     def after_test(test)
-      super
       test.passed? ? print(green ".") : print(red ".")
     end
 
     def after_suite(test_classes)
       puts
+      puts "".ljust(80, "-")
+      puts "Finished in #{duration} seconds."
       puts
-      puts "Awesome summary coming soon!"
-      super
     end
 
   end

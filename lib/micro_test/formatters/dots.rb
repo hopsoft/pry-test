@@ -7,5 +7,12 @@ module MicroTest
       print(test.passed? ? green(".") : red("."))
     end
 
+    def after_suite(test_classes)
+      puts
+      puts "".ljust(80, "-")
+      puts "Finished in #{duration} seconds."
+      puts
+    end
+
   end
 end

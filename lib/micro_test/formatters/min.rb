@@ -5,9 +5,11 @@ module MicroTest
 
     def after_suite(test_classes)
       puts
-      puts "Passed: #{green passed_count}"
-      puts "Failed: #{red failed_count}"
-      super
+      puts "Passed: #{green passed}"
+      puts "Failed: #{red failed}"
+      puts "".ljust(80, "-")
+      puts "Finished in #{duration} seconds."
+      puts
     end
 
   end

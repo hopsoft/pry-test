@@ -21,27 +21,10 @@ module MicroTest
         @subclasses ||= []
       end
 
-      # All subclasses of this class and any descendant subclasses.
-      # @return [Array<MicroTest::Test>]
-      def all_subclasses
-        list = []
-        list.concat subclasses
-        subclasses.each { |subclass| list.concat subclass.all_subclasses }
-        list
-      end
-
       # All individual tests defined in this class.
       # @return [Array<MicroTest::TestWrapper>]
       def tests
         @tests ||= []
-      end
-
-      # All individual tests defined in this class or any descendant subclass.
-      def all_tests
-        list = []
-        list.concat tests
-        all_subclasses.each { |subclass| list.concat subclass.tests }
-        list
       end
 
       # All asserts that have been invoked.
@@ -78,6 +61,14 @@ module MicroTest
         subclasses << subclass
       end
 
+      def before(&block)
+        @before = block
+      end
+
+      def after(&block)
+        @after = block
+      end
+
       # Defines a test.
       # Allows subclasses to define tests in their class definition.
       #
@@ -91,7 +82,10 @@ module MicroTest
       #     end
       #   end
       def test(desc, &block)
-        tests << MicroTest::TestWrapper.new(self, desc, &block)
+        wrapper = MicroTest::TestWrapper.new(self, desc, &block)
+        wrapper.create_method(:before, &@before) if @before
+        wrapper.create_method(:after, &@after) if @after
+        tests << wrapper
       end
 
       # A basic assert method to be used within tests.
@@ -116,14 +110,6 @@ module MicroTest
         value
       end
 
-      # Indicates if all tests have finished running.
-      # @note Used when running tests in async mode.
-      # @return [Boolean]
-      def finished?
-        return true if all_tests.empty?
-        all_tests.map{ |test| test.finished? }.uniq == [true]
-      end
-
       private
 
       # Builds a Hash of assert information for the given call stack.
@@ -140,9 +126,9 @@ module MicroTest
       #
       # @return [Hash]
       def assert_info(stack)
-        file_path = path(stack, 0)
+        file_path = path(stack, 1)
         lines = MicroTest::Test.files[file_path]
-        line_num = line_number(stack, 0)
+        line_num = line_number(stack, 1)
         line_index = line_num - 1
         line = lines[line_index]
         test_desc = test_desc(lines, line_index)

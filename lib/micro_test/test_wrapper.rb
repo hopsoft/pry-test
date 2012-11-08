@@ -14,7 +14,20 @@ module MicroTest
     def initialize(test_class, desc, &block)
       @test_class = test_class
       @desc = desc
-      @test = block
+      create_method(:test, &block)
+    end
+
+    def create_method(name, &block)
+      eigen = class << self; self; end
+      eigen.send(:define_method, name, &block)
+    end
+
+    # callback stubs
+    def before; end
+    def after; end
+
+    def assert(value)
+      @test_class.assert value
     end
 
     # Runs the test code.
@@ -23,7 +36,9 @@ module MicroTest
       @formatter = formatter
       @formatter.before_test self
       start = Time.now
-      @test.call
+      before
+      test
+      after
       @duration = Time.now - start
       @asserts = @test_class.asserts[desc]
       @formatter.after_test self
