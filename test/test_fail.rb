@@ -1,14 +1,14 @@
-# class Fail < MicroTest::Test
+class Fail < MicroTest::Test
 
-#   before do
-#     @var = "fubar"
-#   end
+  before do
+    @var = "fubar"
+  end
 
-#   test "fail on purpose" do
-#     # Failing on purpose for the demo.
-#     # Use pry to check out the current binding.
-#     # For example, type @var.
-#     assert false
-#   end
+  test "fail on purpose" do
+    # Failing on purpose for the demo.
+    # Use pry to check out the current binding.
+    # For example, type @var.
+    assert false
+  end
 
-# end
+end

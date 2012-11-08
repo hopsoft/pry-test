@@ -1,4 +1,4 @@
-# class TestTest < MicroTest::Test
+class TestTest < MicroTest::Test
 
 #   before :each do
 #     @Test = Class.new(MicroTest::Test)
@@ -114,4 +114,4 @@
 #     assert events[:assert] == true
 #   end
 
-# end
+end

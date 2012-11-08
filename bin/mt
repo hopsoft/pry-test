@@ -91,17 +91,20 @@ rescue Exception => ex
   exit
 end
 
+# setup the test runner -------------------------------------------------------
 runner = MicroTest::Runner.new(formatter, options)
+MicroTest::Test.add_observer runner
 
 # setup pry -------------------------------------------------------------------
-if options[:pry] && !options[:async]
+options[:pry] = nil if options[:async]
+if options[:pry]
   require "pry"
   require "pry-stack_explorer"
 
   Pry.config.hooks.add_hook :before_session, :print_instructions do |_, _, _pry_|
     _pry_.commands.create_command "line", "View the assert line that failed." do
       def process
-        _pry_.run_command "up 2"
+        _pry_.run_command "up 6"
       end
     end
 
@@ -122,6 +125,5 @@ if options[:pry] && !options[:async]
     puts
   end
 end
-
 
 runner.run

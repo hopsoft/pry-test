@@ -19,10 +19,12 @@ module MicroTest
         formatter.before_class(test_class)
         if options[:async]
           test_class.tests.shuffle.each do |test|
+            exit if @exit
             test.async.invoke(formatter)
           end
         else
           test_class.tests.shuffle.each do |test|
+            exit if @exit
             @active_test = test
             test.invoke(formatter)
           end
@@ -35,6 +37,24 @@ module MicroTest
       formatter.passed = tests.select{ |t| t.passed? }.count
       formatter.failed = tests.select{ |t| !t.passed? }.count
       formatter.after_suite(test_classes)
+    end
+
+    def stop
+      MicroTest::Test.subclasses.each do |subclass|
+        subclass.tests.each { |test| test.terminate unless Celluloid::Actor.current == test }
+      end
+      sleep 0.1
+    end
+
+    # Callback for observing MicroTest::Test
+    def update(action)
+      case action
+      when :pry
+        binding.pry(:quiet => true)
+      when :fail_fast
+        @exit = true
+        stop
+      end
     end
 
     private

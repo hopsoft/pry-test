@@ -1,11 +1,15 @@
+require "forwardable"
+
 module MicroTest
 
   # A wrapper class for individual tests.
   # Exists for the purpose of isolating the test method inside of a
   # Celluloid Actor to support asynchronous test runs.
   class TestWrapper
+    extend Forwardable
     include Celluloid
     attr_reader :test_class, :desc, :asserts, :duration
+    def_delegators :@test_class, :assert
 
     # Constructor.
     # @param [MicroTest::Test] test_class The test class that defines the test being wrapped.
@@ -25,10 +29,6 @@ module MicroTest
     # callback stubs
     def before; end
     def after; end
-
-    def assert(value)
-      @test_class.assert value
-    end
 
     # Runs the test code.
     # @param [MicroTest::Formatter] formatter The formatter used to handle test output.

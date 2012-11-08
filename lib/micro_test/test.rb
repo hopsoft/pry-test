@@ -14,6 +14,7 @@ module MicroTest
     MUTEX = Mutex.new
 
     class << self
+      include Observable
       attr_accessor :options
 
       # All subclasses of this class.
@@ -109,7 +110,22 @@ module MicroTest
           asserts[key] << info.merge(:value => value)
         end
 
-        binding.pry(:quiet => true) if MicroTest::Test.options[:pry] && !value
+        if !value
+          if MicroTest::Test.options[:pry]
+            MicroTest::Test.instance_eval do
+              changed
+              notify_observers(:pry)
+            end
+          end
+
+          if MicroTest::Test.options[:fail_fast]
+            MicroTest::Test.instance_eval do
+              changed
+              notify_observers(:fail_fast)
+            end
+          end
+        end
+
         value
       end
 
