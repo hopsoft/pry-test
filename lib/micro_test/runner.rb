@@ -1,6 +1,6 @@
 module MicroTest
   class Runner
-    attr_reader :formatter, :options
+    attr_reader :formatter, :options, :active_test
 
     def initialize(formatter, options={})
       @formatter = formatter
@@ -9,6 +9,7 @@ module MicroTest
 
     def run
       MicroTest::Test.reset
+      MicroTest::Test.options = @options
       test_classes = MicroTest::Test.subclasses.shuffle
       tests = test_classes.map{ |klass| klass.tests }.flatten
       formatter.before_suite(test_classes)
@@ -17,9 +18,14 @@ module MicroTest
       test_classes.each do |test_class|
         formatter.before_class(test_class)
         if options[:async]
-          test_class.tests.shuffle.each { |t| t.async.invoke(formatter) }
+          test_class.tests.shuffle.each do |test|
+            test.async.invoke(formatter)
+          end
         else
-          test_class.tests.shuffle.each { |t| t.invoke(formatter) }
+          test_class.tests.shuffle.each do |test|
+            @active_test = test
+            test.invoke(formatter)
+          end
         end
         formatter.after_class(test_class)
       end

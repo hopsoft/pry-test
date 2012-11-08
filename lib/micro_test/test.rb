@@ -14,6 +14,7 @@ module MicroTest
     MUTEX = Mutex.new
 
     class << self
+      attr_accessor :options
 
       # All subclasses of this class.
       # @return [Array<MicroTest::Test>]
@@ -49,6 +50,7 @@ module MicroTest
 
       # Resets the state in preparation for a new test run.
       def reset
+        @options = {}
         asserts.clear
         tests.each { |test| test.reset }
         subclasses.each { |subclass| subclass.reset }
@@ -107,6 +109,7 @@ module MicroTest
           asserts[key] << info.merge(:value => value)
         end
 
+        binding.pry(:quiet => true) if MicroTest::Test.options[:pry] && !value
         value
       end
 

@@ -4,6 +4,7 @@ require "optparse"
 
 lib_path = File.expand_path(File.join(File.dirname(__FILE__), "..", "lib"))
 require File.join(lib_path, "micro_test")
+include MicroTest::Color
 
 # setup the formatters list ---------------------------------------------------
 formatters_path = File.join(lib_path, "micro_test", "formatters")
@@ -90,4 +91,37 @@ rescue Exception => ex
   exit
 end
 
-MicroTest::Runner.new(formatter, options).run
+runner = MicroTest::Runner.new(formatter, options)
+
+# setup pry -------------------------------------------------------------------
+if options[:pry] && !options[:async]
+  require "pry"
+  require "pry-stack_explorer"
+
+  Pry.config.hooks.add_hook :before_session, :print_instructions do |_, _, _pry_|
+    _pry_.commands.create_command "line", "View the assert line that failed." do
+      def process
+        _pry_.run_command "up 2"
+      end
+    end
+
+    puts
+    puts "".ljust(80, "-")
+    puts
+    puts red " " + runner.active_test.desc
+    puts
+    puts "".ljust(80, "-")
+    puts " Pry session started"
+    puts
+    puts " Type #{yellow "line"} to see the line that failed"
+    puts "      #{blue "whereami 10"} for more context"
+    puts "      #{blue "edit-method"} to make the fix"
+    puts
+    puts " Type #{yellow "exit"} or #{blue "<CTL-D>"} to continue"
+    puts "".ljust(80, "-")
+    puts
+  end
+end
+
+
+runner.run
