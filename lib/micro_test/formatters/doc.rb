@@ -19,7 +19,7 @@ module MicroTest
         test.asserts.each do |assert|
           next if assert[:value]
           @failures << { :test => test, :assert => assert }
-          puts red("  #{test.desc} (FAILED - #{failed_count})")
+          puts red("  #{test.desc}")
         end
       end
     end
@@ -39,10 +39,10 @@ module MicroTest
     end
 
     def after_suite(test_classes)
-      print_failures(@failures) if failed_count > 0
+      print_failures(@failures) if failed > 0
       puts
-      msg = "#{total} examples, #{failed_count} failures"
-      if failed_count > 0
+      msg = "#{passed + failed} examples, #{failed} failures"
+      if failed > 0
         puts red(msg)
       else
         puts msg
