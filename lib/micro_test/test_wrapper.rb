@@ -9,7 +9,7 @@ module MicroTest
     extend Forwardable
     include Celluloid
     attr_reader :test_class, :desc, :asserts, :duration
-    def_delegators :@test_class, :assert
+    def_delegator :@test_class, :assert
 
     # Constructor.
     # @param [MicroTest::Test] test_class The test class that defines the test being wrapped.
