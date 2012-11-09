@@ -1,15 +1,11 @@
-require "forwardable"
-
 module MicroTest
 
   # A wrapper class for individual tests.
   # Exists for the purpose of isolating the test method inside of a
   # Celluloid Actor to support asynchronous test runs.
   class TestWrapper
-    extend Forwardable
     include Celluloid
     attr_reader :test_class, :desc, :asserts, :duration
-    def_delegator :@test_class, :assert
 
     # Constructor.
     # @param [MicroTest::Test] test_class The test class that defines the test being wrapped.
@@ -19,6 +15,7 @@ module MicroTest
       @test_class = test_class
       @desc = desc
       create_method(:test, &block)
+      reset
     end
 
     def create_method(name, &block)
@@ -40,8 +37,35 @@ module MicroTest
       test
       after
       @duration = Time.now - start
-      @asserts = @test_class.asserts[desc]
       @formatter.after_test self
+    end
+
+    # A basic assert method to be used within tests.
+    #
+    # @param [Object] value The value to assert.
+    #
+    # @example
+    #   class SimpleTest < MicroTest::Test
+    #     test "common sense" do
+    #       assert 1 > 0
+    #     end
+    #   end
+    def assert(value)
+      @asserts << assert_info(caller).merge(:value => value)
+
+      if !value
+        if MicroTest::Test.options[:pry]
+          MicroTest::Test.send :changed
+          MicroTest::Test.send :notify_observers, :pry
+        end
+
+        if MicroTest::Test.options[:fail_fast]
+          MicroTest::Test.send :changed
+          MicroTest::Test.send :notify_observers, :fail_fast
+        end
+      end
+
+      value
     end
 
     # Indicates if this test has finished running.
@@ -52,15 +76,50 @@ module MicroTest
 
     # Indicates if this test passed.
     def passed?
-      return false unless asserts
-      return true if asserts.empty?
+      return true if asserts.nil?
+      return false if asserts.empty?
       asserts.map{ |a| !!a[:value] }.uniq == [true]
     end
 
     # Resets this test in preparation for a clean test run.
     def reset
-      @asserts = nil
-      @duration = nil
+      @asserts = []
+      @duration = 0
+    end
+
+    private
+
+    # Builds a Hash of assert information for the given call stack.
+    #
+    # @param [Array<String>] stack The call stack to extract info from.
+    #
+    # @example
+    #   {
+    #     :file_path => "/path/to/test_file.rb",
+    #     :line_num => 100,
+    #     :line => "  assert 'something' do"
+    #   }
+    #
+    # @return [Hash]
+    def assert_info(stack)
+      file_path = stack[0][0, stack[0].index(/:[0-9]+:/)]
+      lines = MicroTest::Test.files[file_path]
+      line_num = line_number(stack, 0)
+      line_index = line_num - 1
+      line = lines[line_index]
+      {
+        :file_path => file_path,
+        :line_num => line_num,
+        :line => line
+      }
+    end
+
+    # Returns a line number from a call stack.
+    # @param [Array<String>] stack The call stack to pull a path from.
+    # @param [Integer] index The index of the call stack entry to use.
+    # @return [String]
+    def line_number(stack, index)
+      stack[index].scan(/:[0-9]+:/).first.gsub(/:/, "").to_i
     end
 
   end

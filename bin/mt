@@ -53,7 +53,7 @@ parser = OptionParser.new do |opts|
 
 end
 parser.parse!
-ENV["MT_DEMO"] = options[:demo]
+ENV["MT_DEMO"] = "true" if options[:demo]
 
 # setup the test path ---------------------------------------------------------
 path = ARGV.last unless ARGV.last =~ /^-/
@@ -105,7 +105,7 @@ if options[:pry]
   Pry.config.hooks.add_hook :before_session, :print_instructions do |_, _, _pry_|
     _pry_.commands.create_command "line", "View the assert line that failed." do
       def process
-        _pry_.run_command "up 6"
+        _pry_.run_command "up 4"
       end
     end
 

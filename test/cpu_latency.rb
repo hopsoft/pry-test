@@ -1,22 +1,22 @@
 if ENV["MT_DEMO"]
-  class TestNumbers < MicroTest::Test
+  class TestCPULatency < MicroTest::Test
 
     before do
       @count = 35
     end
 
     test "fibonacci recursion 1" do
-      @count.times { |i| TestNumbers.fib(i) }
+      @count.times { |i| TestCPULatency.fib(i) }
       assert true
     end
 
     test "fibonacci recursion 2" do
-      @count.times { |i| TestNumbers.fib(i) }
+      @count.times { |i| TestCPULatency.fib(i) }
       assert true
     end
 
     test "fibonacci recursion 3" do
-      @count.times { |i| TestNumbers.fib(i) }
+      @count.times { |i| TestCPULatency.fib(i) }
       assert true
     end
 
