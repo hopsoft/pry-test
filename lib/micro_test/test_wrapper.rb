@@ -31,14 +31,16 @@ module MicroTest
     def after; end
 
     # Runs the test code.
-    def invoke
-      notify :before_test
+    def invoke(formatter, options)
+      @formatter = formatter
+      @options = options
+      @formatter.before_test(self)
       start = Time.now
       before
       test
       after
       @duration = Time.now - start
-      notify :after_test
+      @formatter.after_test(self)
     end
 
     # A basic assert method to be used within tests.
@@ -55,15 +57,8 @@ module MicroTest
       @asserts << assert_info(caller).merge(:value => value)
 
       if !value
-        if MicroTest::Test.options[:pry]
-          MicroTest::Test.send :changed
-          MicroTest::Test.send :notify_observers, :pry
-        end
-
-        if MicroTest::Test.options[:fail_fast]
-          MicroTest::Test.send :changed
-          MicroTest::Test.send :notify_observers, :fail_fast
-        end
+        notify(:pry) if @options[:pry]
+        notify(:fail_fast) if @options[:fail_fast]
       end
 
       value

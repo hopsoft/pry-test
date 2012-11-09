@@ -1,15 +1,14 @@
 module MicroTest
   class Runner
-    attr_reader :formatter, :options, :active_test
+    attr_reader :formatter, :options, :active_test, :duration, :passed, :failed
 
     def initialize(formatter, options={})
       @formatter = formatter
       @options = options
+      reset
     end
 
     def run
-      MicroTest::Test.reset
-      MicroTest::Test.options = @options
       test_classes = MicroTest::Test.subclasses.shuffle
       tests = test_classes.map{ |klass| klass.tests }.flatten
       formatter.before_suite(test_classes)
@@ -18,22 +17,23 @@ module MicroTest
       test_classes.each do |test_class|
         formatter.before_class(test_class)
         test_class.tests.shuffle.each do |test|
-          test.add_observer(formatter)
+          test.add_observer(self)
           exit if @exit
           @active_test = test
           if options[:async]
-            test.async.invoke
+            test.async.invoke(@formatter, @options)
           else
-            test.invoke
+            test.invoke(@formatter, @options)
           end
         end
         formatter.after_class(test_class)
       end
 
       sleep 0.05 while !finished?(tests)
-      formatter.duration = Time.now - start
-      formatter.passed = tests.select{ |t| t.passed? }.count
-      formatter.failed = tests.select{ |t| !t.passed? }.count
+      @duration = Time.now - start,
+      @passed = tests.select{ |t| t.passed? }.count,
+      @failed = tests.select{ |t| !t.passed? }.count
+      formatter.after_results(self)
       formatter.after_suite(test_classes)
     end
 
@@ -45,7 +45,8 @@ module MicroTest
     end
 
     # Callback for observing MicroTest::Test
-    def update(action)
+    def update(event, context)
+      binding.pry
       case action
       when :pry
         binding.pry(:quiet => true)
@@ -53,6 +54,12 @@ module MicroTest
         @exit = true
         stop
       end
+    end
+
+    def reset
+      @duration = 0
+      @passed = 0
+      @failed = 0
     end
 
     private

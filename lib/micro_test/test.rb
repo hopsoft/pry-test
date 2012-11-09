@@ -1,5 +1,3 @@
-require "observer"
-
 module MicroTest
 
   # Superclass for all test classes.
@@ -10,10 +8,7 @@ module MicroTest
   #     end
   #   end
   class Test
-
     class << self
-      include Observable
-      attr_accessor :options
 
       # All subclasses of this class.
       # @return [Array<MicroTest::Test>]
@@ -25,14 +20,6 @@ module MicroTest
       # @return [Array<MicroTest::TestWrapper>]
       def tests
         @tests ||= []
-      end
-
-      # All asserts that have been invoked.
-      # Each subclass of MicroTest::Test tracks all invoked asserts.
-      # Asserts are invoked within tests during test runs.
-      # @return [Hash]
-      def asserts
-        @asserts ||= {}
       end
 
       # All files that define subclasses of this class.
@@ -49,8 +36,6 @@ module MicroTest
 
       # Resets the state in preparation for a new test run.
       def reset
-        @options = {}
-        asserts.clear
         tests.each { |test| test.reset }
         subclasses.each { |subclass| subclass.reset }
       end

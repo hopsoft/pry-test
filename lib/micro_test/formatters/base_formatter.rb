@@ -30,11 +30,13 @@ module MicroTest
     def after_class(test_class)
     end
 
-    def after_suite(test_classes)
+    def after_results(runner)
+      @duration = runner.duration
+      @passed = runner.passed
+      @failed = runner.failed
     end
 
-    def update(event, context)
-      send event, context
+    def after_suite(test_classes)
     end
 
   end
