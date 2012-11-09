@@ -98,13 +98,12 @@ runner = MicroTest::Runner.new(formatter, options)
 # setup pry -------------------------------------------------------------------
 options[:pry] = nil if options[:async]
 if options[:pry]
-  require "pry"
-  require "pry-stack_explorer"
+  Bundler.require :pry
 
   Pry.config.hooks.add_hook :before_session, :print_instructions do |_, _, _pry_|
     _pry_.commands.create_command "line", "View the assert line that failed." do
       def process
-        _pry_.run_command "up 4"
+        _pry_.run_command "up 1"
       end
     end
 

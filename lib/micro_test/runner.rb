@@ -1,5 +1,9 @@
 module MicroTest
   class Runner
+    class << self
+      attr_accessor :exit
+    end
+
     attr_reader :formatter, :options, :active_test, :duration, :passed, :failed
 
     def initialize(formatter, options={})
@@ -17,8 +21,7 @@ module MicroTest
       test_classes.each do |test_class|
         formatter.before_class(test_class)
         test_class.tests.shuffle.each do |test|
-          test.add_observer(self)
-          exit if @exit
+          stop && exit if MicroTest::Runner.exit
           @active_test = test
           if options[:async]
             test.async.invoke(@formatter, @options)
@@ -39,20 +42,10 @@ module MicroTest
 
     def stop
       MicroTest::Test.subclasses.each do |subclass|
-        subclass.tests.each { |test| test.terminate unless Celluloid::Actor.current == test }
+        subclass.tests.each { |test| test.terminate }
       end
-      sleep 0.1
-    end
-
-    # Callback for observing MicroTest::Test
-    def update(event, context)
-      case action
-      when :pry
-        binding.pry(:quiet => true)
-      when :fail_fast
-        @exit = true
-        stop
-      end
+      sleep 0.5
+      true
     end
 
     def reset

@@ -1,5 +1,3 @@
-require "observer"
-
 module MicroTest
 
   # A wrapper class for individual tests.
@@ -7,7 +5,6 @@ module MicroTest
   # Celluloid Actor to support asynchronous test runs.
   class TestWrapper
     include Celluloid
-    include Observable
     attr_reader :test_class, :desc, :asserts, :duration
 
     # Constructor.
@@ -62,8 +59,10 @@ module MicroTest
       @asserts << assert_info(caller).merge(:value => value)
 
       if !value
-        notify(:pry) if @options[:pry]
-        notify(:fail_fast) if @options[:fail_fast]
+        binding.pry(:quiet => true) if @options[:pry]
+        # I don't really like the coupling to the runner here
+        # but I couldn't get an observer to work with celluloid & pry
+        MicroTest::Runner.exit = true if @options[:fail_fast]
       end
 
       value
@@ -86,17 +85,9 @@ module MicroTest
     def reset
       @asserts = []
       @duration = 0
-      delete_observers
     end
 
     private
-
-    # A helper to notify observers when an event occurs.
-    # @param [Symbol] The event name.
-    def notify(event)
-      changed
-      notify_observers(event, self)
-    end
 
     # Builds a Hash of assert information for the given call stack.
     #
