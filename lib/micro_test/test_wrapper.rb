@@ -21,6 +21,9 @@ module MicroTest
       reset
     end
 
+    # Creates a method on this instance.
+    # @param [Symbol] name The name of the method.
+    # @yield The block of code that will serve as the method's implementation.
     def create_method(name, &block)
       eigen = class << self; self; end
       eigen.send(:define_method, name, &block)
@@ -31,7 +34,9 @@ module MicroTest
     def after; end
 
     # Runs the test code.
-    def invoke(formatter, options)
+    # @formatter [MicroTest::Formatter] The formatter to use.
+    # @options [Hash]
+    def invoke(formatter, options={})
       @formatter = formatter
       @options = options
       @formatter.before_test(self)
@@ -86,6 +91,8 @@ module MicroTest
 
     private
 
+    # A helper to notify observers when an event occurs.
+    # @param [Symbol] The event name.
     def notify(event)
       changed
       notify_observers(event, self)

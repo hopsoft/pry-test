@@ -47,10 +47,14 @@ module MicroTest
         subclasses << subclass
       end
 
+      # Defines a setup method that will run before each individual test.
+      # @yield A block of code that will serve as the setup method.
       def before(&block)
         @before = block
       end
 
+      # Defines a teardown method that will run after each individual test.
+      # @yield A block of code that will serve as the teardown method.
       def after(&block)
         @after = block
       end

@@ -46,7 +46,6 @@ module MicroTest
 
     # Callback for observing MicroTest::Test
     def update(event, context)
-      binding.pry
       case action
       when :pry
         binding.pry(:quiet => true)
