@@ -1,3 +1,5 @@
+require "observer"
+
 module MicroTest
 
   # A wrapper class for individual tests.
@@ -5,6 +7,7 @@ module MicroTest
   # Celluloid Actor to support asynchronous test runs.
   class TestWrapper
     include Celluloid
+    include Observable
     attr_reader :test_class, :desc, :asserts, :duration
 
     # Constructor.
@@ -28,16 +31,14 @@ module MicroTest
     def after; end
 
     # Runs the test code.
-    # @param [MicroTest::Formatter] formatter The formatter used to handle test output.
-    def invoke(formatter)
-      @formatter = formatter
-      @formatter.before_test self
+    def invoke
+      notify :before_test
       start = Time.now
       before
       test
       after
       @duration = Time.now - start
-      @formatter.after_test self
+      notify :after_test
     end
 
     # A basic assert method to be used within tests.
@@ -85,9 +86,15 @@ module MicroTest
     def reset
       @asserts = []
       @duration = 0
+      delete_observers
     end
 
     private
+
+    def notify(event)
+      changed
+      notify_observers(event, self)
+    end
 
     # Builds a Hash of assert information for the given call stack.
     #

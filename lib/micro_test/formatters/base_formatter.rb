@@ -33,5 +33,9 @@ module MicroTest
     def after_suite(test_classes)
     end
 
+    def update(event, context)
+      send event, context
+    end
+
   end
 end

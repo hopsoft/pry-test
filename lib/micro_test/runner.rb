@@ -17,16 +17,14 @@ module MicroTest
 
       test_classes.each do |test_class|
         formatter.before_class(test_class)
-        if options[:async]
-          test_class.tests.shuffle.each do |test|
-            exit if @exit
-            test.async.invoke(formatter)
-          end
-        else
-          test_class.tests.shuffle.each do |test|
-            exit if @exit
-            @active_test = test
-            test.invoke(formatter)
+        test_class.tests.shuffle.each do |test|
+          test.add_observer(formatter)
+          exit if @exit
+          @active_test = test
+          if options[:async]
+            test.async.invoke
+          else
+            test.invoke
           end
         end
         formatter.after_class(test_class)
