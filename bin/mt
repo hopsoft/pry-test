@@ -1,5 +1,4 @@
 #!/usr/bin/env ruby
-require "rubygems"
 require "optparse"
 
 lib_path = File.expand_path(File.join(File.dirname(__FILE__), "..", "lib"))
@@ -98,7 +97,8 @@ runner = MicroTest::Runner.new(formatter, options)
 # setup pry -------------------------------------------------------------------
 options[:pry] = nil if options[:async]
 if options[:pry]
-  Bundler.require :pry
+  require "pry"
+  require "pry-stack_explorer"
 
   Pry.config.hooks.add_hook :before_session, :print_instructions do |_, _, _pry_|
     _pry_.commands.create_command "line", "View the assert line that failed." do
