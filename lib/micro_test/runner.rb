@@ -33,7 +33,7 @@ module MicroTest
       end
 
       sleep 0.1 while !finished?(tests)
-      @duration = Time.now - start,
+      @duration = Time.now - start
       @passed = tests.select{ |test| test.passed? }.count
       @failed = tests.select{ |test| !test.passed? }.count
       formatter.after_results(self)
