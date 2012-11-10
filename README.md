@@ -2,6 +2,11 @@
 
 ## The Sinatra of testing frameworks
 
+* Simple test API.
+* Awesome test/dev workflow with pry.
+* Asynchronous test runs with celluloid.
+* What more could you want?
+
 ### Quick Start
 
 Install

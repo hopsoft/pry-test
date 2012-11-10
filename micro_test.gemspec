@@ -8,8 +8,10 @@ Gem::Specification.new do |spec|
   spec.homepage = 'http://hopsoft.github.com/micro_test/'
   spec.summary = "The Sinatra of testing frameworks."
   spec.description = <<-DESC
-    Testing frameworks often lose their focus and become an end unto themselves.
-    MicroTest avoids this pitfall with a relentless focus on simplicity.
+    Simple test API.
+    Awesome test/dev workflow with pry.
+    Asynchronous test runs with celluloid.
+    What more could you want?
   DESC
 
   spec.authors = ['Nathan Hopkins']
