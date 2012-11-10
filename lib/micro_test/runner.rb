@@ -32,10 +32,10 @@ module MicroTest
         formatter.after_class(test_class)
       end
 
-      sleep 0.05 while !finished?(tests)
+      sleep 0.1 while !finished?(tests)
       @duration = Time.now - start,
-      @passed = tests.select{ |t| t.passed? }.count,
-      @failed = tests.select{ |t| !t.passed? }.count
+      @passed = tests.select{ |test| test.passed? }.count
+      @failed = tests.select{ |test| !test.passed? }.count
       formatter.after_results(self)
       formatter.after_suite(test_classes)
     end
@@ -44,6 +44,7 @@ module MicroTest
       MicroTest::Test.subclasses.each do |subclass|
         subclass.tests.each { |test| test.terminate }
       end
+      puts
       sleep 0.5
       true
     end
@@ -57,7 +58,7 @@ module MicroTest
     private
 
     def finished?(tests)
-      tests.empty? || tests.map{ |t| t.finished? }.uniq == [true]
+      tests.empty? || tests.map{ |test| test.finished? }.uniq == [true]
     end
 
   end
