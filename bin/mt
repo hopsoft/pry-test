@@ -33,11 +33,9 @@ parser = OptionParser.new do |opts|
   end
 
   desc = "Stops the test run after the first failure. "
-  desc << "Ignored when running in async mode."
   opts.on("--fail-fast", desc) { |value| options[:fail_fast] = value }
 
   desc = "Starts a PRY session whenever a test fails. "
-  desc << "Ignored when running in async mode."
   opts.on("--pry", desc) { |value| options[:pry] = value }
 
   opts.on("-v", "--version", "Show version.") do
