@@ -52,6 +52,28 @@ parser = OptionParser.new do |opts|
 
 end
 parser.parse!
+
+# apply rules to the options --------------------------------------------------
+if RUBY_ENGINE == "jruby"
+  if options[:pry]
+    options[:pry] = nil
+    puts red("Unfortunately the pry option is not available on jruby")
+    puts red("due to a dependency on pry-stack_explorer & binding_of_caller.")
+    puts "However, the pry workflow is awesome. Switch to #{green "mri 1.9"} to try it."
+  end
+end
+if RUBY_ENGINE == "rbx"
+  if options[:pry]
+    options[:pry] = nil
+    puts red("Unfortunately the pry option is not available on rubinius at this time")
+    puts red("due to weird behavior related to pry & pry-stack_explorer.")
+    puts "However, the pry workflow is awesome. Switch to #{green "mri 1.9"} to try it."
+  end
+end
+if options[:async] && options[:pry]
+  options[:pry] = nil
+  puts red("Disabling pry while runing in async mode to avoid interleaved pry session chaos.")
+end
 ENV["MT_DEMO"] = "true" if options[:demo]
 
 # setup the test path ---------------------------------------------------------
@@ -95,7 +117,6 @@ end
 runner = MicroTest::Runner.new(formatter, options)
 
 # setup pry -------------------------------------------------------------------
-options[:pry] = nil if options[:async]
 if options[:pry]
   require "pry"
   require "pry-stack_explorer"

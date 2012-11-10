@@ -15,7 +15,7 @@ Gem::Specification.new do |spec|
   spec.authors = ['Nathan Hopkins']
   spec.email = ['natehop@gmail.com']
 
-  spec.required_ruby_version = '>= 1.9'
+  spec.required_ruby_version = '>= 1.9.2'
   spec.extensions = 'ext/mkrf_conf.rb'
   spec.add_dependency 'celluloid'
 
