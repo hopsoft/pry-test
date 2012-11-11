@@ -1,24 +1,57 @@
 class TestTest < MicroTest::Test
 
-  test "properly stores subclasses" do
-    assert MicroTest::Test.subclasses.is_a?(Array)
-    assert MicroTest::Test.subclasses.length > 0
-    assert MicroTest::Test.subclasses.first.ancestors.include?(MicroTest::Test)
+  before do
+    TestTest.instance_eval { @subclasses = [] }
+    TestTest.instance_eval { @tests = [] }
+    @Example = Class.new(TestTest) do
+      before {}
+      after {}
+      test("truth") { assert true }
+    end
+    @before_callback = @Example.before
+    @after_callback = @Example.after
   end
 
-  test "properly stores tests" do
-    assert MicroTest::Test.tests.is_a?(Array)
-    assert MicroTest::Test.subclasses.first.tests.length > 0
-    assert MicroTest::Test.subclasses.first.tests.first.is_a?(MicroTest::TestWrapper)
+  test "adds subclass" do
+    assert TestTest.subclasses.length == 1
+    assert TestTest.subclasses[0] == @Example
   end
 
-  test "properly stores files" do
-    files = MicroTest::Test.files
-    file = files[__FILE__]
-    assert file.is_a?(Array)
-    assert file.select{ |l| l.start_with?("    assert file.select{ |l| l.start_with?(") }.length > 0
+  test "stores subclasses" do
+    assert TestTest.subclasses.is_a?(Array)
+    assert TestTest.subclasses.length == 1
+    assert TestTest.subclasses.first == @Example
   end
 
+  test "stores tests" do
+    assert @Example.tests.is_a?(Array)
+    assert @Example.tests.length == 1
+    assert @Example.tests.first.is_a?(MicroTest::TestWrapper)
+  end
 
+  test "stores files" do
+    file = __FILE__
+    assert TestTest.files[file].is_a?(Array)
+    assert TestTest.files[file].select{ |l| l.start_with?("    assert TestTest.files[file].select{ |l| l.start_with?(") }.length > 0
+  end
+
+  test ".reset" do
+    @Example.tests.first.instance_eval do
+      @asserts = nil
+      @duration = nil
+    end
+    @Example.reset
+    assert @Example.tests.length == 1
+    assert @Example.tests.first.asserts == []
+    assert @Example.tests.first.duration == 0
+  end
+
+  test ".before" do
+    assert @Example.instance_eval { @before } == @before_callback
+  end
+
+  test ".after" do
+    assert @Example.instance_eval { @after } == @after_callback
+  end
 
 end

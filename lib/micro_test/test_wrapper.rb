@@ -40,6 +40,7 @@ module MicroTest
       start = Time.now
       before
       test
+      @invoked = true
       after
       @duration = Time.now - start
       @formatter.after_test(self)
@@ -76,13 +77,14 @@ module MicroTest
 
     # Indicates if this test passed.
     def passed?
-      return true if asserts.nil?
+      return true if !@invoked || asserts.empty?
       return false if asserts.empty?
       asserts.map{ |a| !!a[:value] }.uniq == [true]
     end
 
     # Resets this test in preparation for a clean test run.
     def reset
+      @invoked = false
       @asserts = []
       @duration = 0
     end

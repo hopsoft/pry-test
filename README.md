@@ -63,7 +63,7 @@ Its simple by design.
 
 ## A Full Example
 
-The entire public interface is applied in this basic example.
+The entire public interface is used in this basic example.
 
 ```ruby
 class MathTest < MicroTest::Test
