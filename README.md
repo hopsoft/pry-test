@@ -82,17 +82,20 @@ end
 
 ## Get Started
 
-MicroTest ships with a demo so you can kick the tires before you commit.
+MicroTest ships with a demo so you can kick the tires.
 
 * Install `$ gem install micro_test`
 * Help `$ mt --help`
 * Demo `$ mt --demo`
 
-You can even demo the more advanced features
+Try some of the more advanced features.
 
 * Pry workflow `$ mt --demo --pry`
 * Async test run `$ mt --demo --async`
 
+### What are you waiting for?
 
+MicroTest is small & unobtrusive. It can run parallel with other test frameworks,
+and can be introduced to existing projects with minimal effort.
 
-
+What are you waiting for? Start testing today!
