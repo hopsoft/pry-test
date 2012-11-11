@@ -21,7 +21,7 @@ Its simple by design.
     <td><strong><code>MicroTest::Test</code></strong></td>
     <td>Superclass for all test classes.</td>
   </tr>
-  <tr></tr>>
+  <tr>
     <td><strong><code>test(desc, &block)</code></strong></td>
     <td>
       Defines a test method.
@@ -83,7 +83,11 @@ end
 ## Get Started
 
 <ul>
-  <li>Install - <code>$ gem install micro_test</code></li>
-  <li>Help - <code>$ mt --help</code></li>
-  <li>Demo - <code>$ mt --demo</code></li>
+  <li>Install <code>$ gem install micro_test</code></li>
+  <li>Help <code>$ mt --help</code></li>
+  <li>Demo <code>$ mt --demo</code></li>
 </ul>
+
+
+
+
