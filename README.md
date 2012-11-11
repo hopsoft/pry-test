@@ -14,6 +14,7 @@ MicroTest avoids this pitfall with a relentless focus on simplicity.
 ## The Interface
 
 Everything you need to know about MicroTest's API is outlined here.
+
 Its simple by design.
 
 <table>
