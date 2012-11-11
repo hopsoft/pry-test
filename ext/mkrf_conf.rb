@@ -12,8 +12,7 @@ end
 installer = Gem::DependencyInstaller.new
 
 begin
-
-  if RUBY_PLATFORM != "java"
+  if RUBY_ENGINE != "jruby"
     puts "Installing pry and pry-stack_explorer."
     installer.install "pry"
     installer.install "pry-stack_explorer"
