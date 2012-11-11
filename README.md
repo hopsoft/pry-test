@@ -2,7 +2,7 @@
 
 ## The Sinatra of testing frameworks
 
-Testing frameworks often lose their focus and become an end unto themselves.<br />
+Testing frameworks often lose their focus and become an end unto themselves.
 MicroTest avoids this pitfall with a relentless focus on simplicity.
 
 ### Here's what MicroTest brings to the table
@@ -19,9 +19,9 @@ Its simple by design.
 <table>
   <tr>
     <td><strong><code>MicroTest::Test</code></strong></td>
-    <td>Superclass for all tests.</td>
+    <td>Superclass for all test classes.</td>
   </tr>
-  <tr>
+  <tr></tr>>
     <td><strong><code>test(desc, &block)</code></strong></td>
     <td>
       Defines a test method.
@@ -60,7 +60,27 @@ Its simple by design.
   </tr>
 </table>
 
-### Quick Start
+## An Example
+
+```ruby
+class MathTest < MicroTest::Test
+
+  before do
+    # runs before each test method
+  end
+
+  after do
+    # runs after each test method
+  end
+
+  test "basic addition" do
+    assert 2 + 2 == 4
+  end
+
+end
+```
+
+## Get Started
 
 Install
 
@@ -68,40 +88,16 @@ Install
 $ gem install micro_test
 ```
 
-Experiment
+Help
 
 ```bash
-$ mt --demo
 $ mt --help
 ```
 
-Write
-
-```ruby
-require 'micro_test'
-
-class MyTest < MicroTest::Test
-  test "some assumption" do
-    assert true
-  end
-end
-```
-
-Run
+Demo
 
 ```bash
-$ mt
-```
-
-Want BDD?
-
-```ruby
-class DescribeMyObject < MicroTest::Test
-  test "that a feature does something" do
-    assert true
-  end
-end
+$ mt --demo
 ```
 
 
-[See the product page for more details.](http://hopsoft.github.com/micro_test/)
