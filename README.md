@@ -96,4 +96,4 @@ Try some of the more advanced features.
 MicroTest is small & unobtrusive. It can run parallel with other test frameworks,
 and can be introduced to existing projects with minimal effort.
 
-So start testing today!
+Start testing today!
