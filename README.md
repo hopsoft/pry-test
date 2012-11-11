@@ -82,11 +82,16 @@ end
 
 ## Get Started
 
-<ul>
-  <li>Install <code>$ gem install micro_test</code></li>
-  <li>Help <code>$ mt --help</code></li>
-  <li>Demo <code>$ mt --demo</code></li>
-</ul>
+MicroTest ships with a demo so you can kick the tires before you commit.
+
+* Install `$ gem install micro_test`
+* Help `$ mt --help`
+* Demo `$ mt --demo`
+
+You can even demo the more advanced features
+
+* Pry workflow `$ mt --demo --pry`
+* Async test run `$ mt --demo --async`
 
 
 
