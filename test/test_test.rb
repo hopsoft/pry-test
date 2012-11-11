@@ -13,10 +13,10 @@ class TestTest < MicroTest::Test
   end
 
   test "properly stores files" do
-    assert MicroTest::Test.files.is_a?(Hash)
-    assert MicroTest::Test.files.has_key?(__FILE__)
-    assert MicroTest::Test.files[__FILE__].is_a?(Array)
-    assert MicroTest::Test.files[__FILE__].select{ |l| l.start_with?("    assert MicroTest::Test.files[__FILE__].select{ |l| l.start_with?(") }.length > 0
+    files = MicroTest::Test.files
+    file = files[__FILE__]
+    assert file.is_a?(Array)
+    assert file.select{ |l| l.start_with?("    assert file.select{ |l| l.start_with?(") }.length > 0
   end
 
 
