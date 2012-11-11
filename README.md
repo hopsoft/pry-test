@@ -7,8 +7,8 @@ MicroTest avoids this pitfall with a relentless focus on simplicity.
 
 ### Here's what MicroTest brings to the table
 
-* A simple test API
-* An awesome test + dev workflow with Pry
+* A simple test API/interface
+* An awesome test + dev workflow using Pry
 * Fast asynchronous test runs with Celluloid
 
 ## The Interface
