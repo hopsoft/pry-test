@@ -82,22 +82,8 @@ end
 
 ## Get Started
 
-Install
-
-```bash
-$ gem install micro_test
-```
-
-Help
-
-```bash
-$ mt --help
-```
-
-Demo
-
-```bash
-$ mt --demo
-```
-
-
+<ul>
+  <li>Install - <code>$ gem install micro_test</code></li>
+  <li>Help - <code>$ mt --help</code></li>
+  <li>Demo - <code>$ mt --demo</code></li>
+</ul>
