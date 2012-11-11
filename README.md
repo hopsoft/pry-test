@@ -3,7 +3,11 @@
 ## The Sinatra of testing frameworks
 
 Testing frameworks often lose their focus and become an end unto themselves.
-MicroTest avoids this pitfall with a relentless focus on simplicity.
+
+MicroTest avoids this pitfall with a relentless focus on interface simplicity.
+
+And concentrates instead on improved workflow and asynchronous test runs.
+
 
 ### Here's what MicroTest brings to the table
 
@@ -61,7 +65,9 @@ Its simple by design.
   </tr>
 </table>
 
-## An Example
+## A Full Example
+
+The entire public interface is applied in this basic example.
 
 ```ruby
 class MathTest < MicroTest::Test
