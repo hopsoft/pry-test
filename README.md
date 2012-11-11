@@ -15,17 +15,27 @@ MicroTest avoids this pitfall with a relentless focus on simplicity.
 
 <table>
   <tr>
-    <td>`MicroTest::Test`</td>
+    <td><code>MicroTest::Test</code></td>
     <td>Superclass for all tests.</td>
   </tr>
   <tr>
-    <td>`test(desc, &block)`</td>
+    <td><code>test(desc, &block)</code></td>
     <td>
       Defines a test method.
-      * `desc` - a description of what is being tested
-      * `block` - a block of code which defines the test
+      <ul>
+        <li><code>desc</code> - a description of what is being tested</li>
+        <li><code>block</code> - a block of code which defines the test</li>
+      </ul>
     </td>
   </tr>
+  <tr>
+    <td><code>assert(value)</code></td>
+    <td>
+      Verifies the truthiness of a value.
+      <ul>
+        <li><code>value</code> - the value to assert</li>
+      </ul>
+    </td>
 </table>
 
 ### Quick Start
