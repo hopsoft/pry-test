@@ -93,9 +93,7 @@ Try some of the more advanced features.
 * Pry workflow `$ mt --demo --pry`
 * Async test run `$ mt --demo --async`
 
-### What are you waiting for?
-
 MicroTest is small & unobtrusive. It can run parallel with other test frameworks,
 and can be introduced to existing projects with minimal effort.
 
-What are you waiting for? Start testing today!
+So start testing today!
