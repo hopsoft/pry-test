@@ -22,7 +22,7 @@ parser = OptionParser.new do |opts|
   opts.banner = "MicroTest Usage: mt [options] /path/to/test/dir_or_file"
 
   desc = "Runs tests asynchronously."
-  opts.on_tail("-a", "--async", desc) { |value| options[:async] = value }
+  opts.on("-a", "--async", desc) { |value| options[:async] = value }
 
   desc = "Runs the MicroTest test suite and some additional demo tests."
   opts.on("--demo", desc) { |value| options[:demo] = value }
@@ -116,8 +116,15 @@ runner = MicroTest::Runner.new(formatter, options)
 
 # setup pry -------------------------------------------------------------------
 if options[:pry]
-  require "pry"
-  require "pry-stack_explorer"
+
+  begin
+    require "pry"
+    require "pry-stack_explorer"
+  rescue Exception => e
+    puts red("Unable to require pry or pry-stack_explorer!")
+    puts yellow("Be sure to add these gems to your Gemfile and bundle if you are using Bundler.")
+    exit
+  end
 
   Pry.config.hooks.add_hook :before_session, :print_instructions do |_, _, _pry_|
     _pry_.commands.create_command "line", "View the assert line that failed." do
