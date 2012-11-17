@@ -18,7 +18,11 @@ module MicroTest
       if test.passed?
         print green(" #{test.desc}")
       else
-        print red(" #{test.desc}")
+        puts red(" #{test.desc}")
+        test.failed_asserts.each do |assert|
+          puts red("  #{assert[:line].strip}")
+          print "  #{assert[:file_path]}:#{red(assert[:line_num])}"
+        end
       end
 
       puts

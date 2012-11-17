@@ -82,6 +82,12 @@ module MicroTest
       asserts.map{ |a| !!a[:value] }.uniq == [true]
     end
 
+    # Returns a list of all failed asserts.
+    def failed_asserts
+      return [] if passed?
+      asserts.select { |a| !a[:value] }
+    end
+
     # Resets this test in preparation for a clean test run.
     def reset
       @invoked = false
