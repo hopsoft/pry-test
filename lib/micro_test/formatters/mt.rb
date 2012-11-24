@@ -20,8 +20,8 @@ module MicroTest
       else
         puts red(" #{test.desc}")
         test.failed_asserts.each do |assert|
-          puts red("  #{assert[:line].strip}")
           print "  #{assert[:file_path]}:#{red(assert[:line_num])}"
+          puts red("    #{assert[:line].strip}")
         end
       end
 
