@@ -23,8 +23,25 @@ module MicroTest
           else
             puts red(" #{test.desc}")
             test.failed_asserts.each do |assert|
-              print "  #{assert[:file_path]}:#{red(assert[:line_num])}"
-              puts red("    #{assert[:line].strip}")
+              print "".ljust(9)
+              puts "#{assert[:file_path]}:#{red(assert[:line_num])}"
+              index = assert[:line_num] - 1
+              start = index - 2
+              start = 0 if start <= 0
+              finish = index + 2
+              finish = assert[:lines].length - 1 if finish >= assert[:lines].length
+              (start..finish).each do |i|
+                print "".ljust(9)
+                if i == index
+                  print red((i + 1).to_s.rjust(3, "0"))
+                  print red("|")
+                  print red(assert[:lines][i])
+                else
+                  print (i + 1).to_s.rjust(3, "0")
+                  print "|"
+                  print assert[:lines][i]
+                end
+              end
             end
           end
 

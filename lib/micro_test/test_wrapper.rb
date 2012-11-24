@@ -117,6 +117,7 @@ module MicroTest
       line = lines[line_index]
       {
         :file_path => file_path,
+        :lines => lines,
         :line_num => line_num,
         :line => line
       }
