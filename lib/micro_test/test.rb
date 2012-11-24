@@ -48,14 +48,16 @@ module MicroTest
       end
 
       # Defines a setup method that will run before each individual test.
+      # @param [Symbol] what Deprecated but maintained for backwards compatibility.
       # @yield A block of code that will serve as the setup method.
-      def before(&block)
+      def before(what=nil, &block)
         @before = block
       end
 
       # Defines a teardown method that will run after each individual test.
+      # @param [Symbol] what Deprecated but maintained for backwards compatibility.
       # @yield A block of code that will serve as the teardown method.
-      def after(&block)
+      def after(what=nil, &block)
         @after = block
       end
 
