@@ -5,5 +5,9 @@ unless ENV["MT_DEMO"]
       @runner = MicroTest::Runner.new(MicroTest::Formatter.new)
     end
 
+    test ".running" do
+      assert true
+    end
+
   end
 end
