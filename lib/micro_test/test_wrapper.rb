@@ -34,6 +34,7 @@ module MicroTest
     # @formatter [MicroTest::Formatter] The formatter to use.
     # @options [Hash]
     def invoke(formatter, options={})
+      reset
       @formatter = formatter
       @options = options
       @formatter.before_test(self)
@@ -72,27 +73,27 @@ module MicroTest
     # Indicates if this test has finished running.
     # @return [Boolean]
     def finished?
-      !duration.nil?
+      !@duration.nil?
     end
 
     # Indicates if this test passed.
     def passed?
-      return true if !@invoked || asserts.empty?
-      return false if asserts.empty?
-      asserts.map{ |a| !!a[:value] }.uniq == [true]
+      return true if !@invoked || @asserts.empty?
+      return false if @asserts.empty?
+      @asserts.map{ |a| !!a[:value] }.uniq == [true]
     end
 
     # Returns a list of all failed asserts.
     def failed_asserts
       return [] if passed?
-      asserts.select { |a| !a[:value] }
+      @asserts.select { |a| !a[:value] }
     end
 
     # Resets this test in preparation for a clean test run.
     def reset
       @invoked = false
       @asserts = []
-      @duration = 0
+      @duration = nil
     end
 
     private

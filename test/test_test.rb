@@ -44,7 +44,7 @@ unless ENV["MT_DEMO"]
       @Example.reset
       assert @Example.tests.length == 1
       assert @Example.tests.first.asserts == []
-      assert @Example.tests.first.duration == 0
+      assert @Example.tests.first.duration == nil
     end
 
     test ".before" do
