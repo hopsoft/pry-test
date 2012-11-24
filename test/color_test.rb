@@ -5,37 +5,37 @@ unless ENV["MT_DEMO"]
     end
     CRAYON = Crayon.new
 
-    test "class method red" do
+    test "red" do
       assert MicroTest::Color.red("foo") == "\e[31mfoo\e[0m"
       assert ColorTest::CRAYON.red("foo") == "\e[31mfoo\e[0m"
     end
 
-    test "class method green" do
+    test "green" do
       assert MicroTest::Color.green("foo") == "\e[32mfoo\e[0m"
       assert ColorTest::CRAYON.green("foo") == "\e[32mfoo\e[0m"
     end
 
-    test "class method yellow" do
+    test "yellow" do
       assert MicroTest::Color.yellow("foo") == "\e[33mfoo\e[0m"
       assert ColorTest::CRAYON.yellow("foo") == "\e[33mfoo\e[0m"
     end
 
-    test "class method blue" do
+    test "blue" do
       assert MicroTest::Color.blue("foo") == "\e[34mfoo\e[0m"
       assert ColorTest::CRAYON.blue("foo") == "\e[34mfoo\e[0m"
     end
 
-    test "class method magenta" do
+    test "magenta" do
       assert MicroTest::Color.magenta("foo") == "\e[35mfoo\e[0m"
       assert ColorTest::CRAYON.magenta("foo") == "\e[35mfoo\e[0m"
     end
 
-    test "class method cyan" do
+    test "cyan" do
       assert MicroTest::Color.cyan("foo") == "\e[36mfoo\e[0m"
       assert ColorTest::CRAYON.cyan("foo") == "\e[36mfoo\e[0m"
     end
 
-    test "class method white" do
+    test "white" do
       assert MicroTest::Color.white("foo") == "\e[37mfoo\e[0m"
       assert ColorTest::CRAYON.white("foo") == "\e[37mfoo\e[0m"
     end
