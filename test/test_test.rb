@@ -33,7 +33,7 @@ unless ENV["MT_DEMO"]
     test "stores files" do
       file = __FILE__
       assert TestTest.files[file].is_a?(Array)
-      assert TestTest.files[file].select{ |l| l.start_with?("    assert TestTest.files[file].select{ |l| l.start_with?(") }.length > 0
+      assert TestTest.files[file].select{ |l| l.start_with?("      assert TestTest.files[file].select{ |l| l.start_with?(") }.length > 0
     end
 
     test ".reset" do
