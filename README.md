@@ -99,4 +99,8 @@ Try some of the more advanced features.
 MicroTest is small & unobtrusive. It can run parallel with other test frameworks,
 and can be introduced to existing projects with minimal effort.
 
+## Advanced
+
+[See the wiki](https://github.com/hopsoft/micro_test/wiki) to troubleshoot or dig into more advanced topics.
+
 Start testing today!
