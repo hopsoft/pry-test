@@ -1,3 +1,6 @@
+require "os"
+require "thread"
+
 module MicroTest
   class Runner
     class << self
@@ -21,10 +24,10 @@ module MicroTest
       test_classes.each do |test_class|
         formatter.before_class(test_class)
         test_class.tests.shuffle.each do |test|
-          stop && exit if MicroTest::Runner.exit
           @active_test = test
-          if options[:async]
-            test.async.invoke(@formatter, @options)
+          if @options[:async]
+            @tests ||= Queue.new
+            @tests << test
           else
             test.invoke(@formatter, @options)
           end
@@ -32,21 +35,13 @@ module MicroTest
         formatter.after_class(test_class)
       end
 
-      sleep 0.1 while !finished?(tests)
+      run_threads if @options[:async]
+
       @duration = Time.now - start
       @passed = tests.select{ |test| test.passed? }.count
       @failed = tests.select{ |test| !test.passed? }.count
       formatter.after_results(self)
       formatter.after_suite(test_classes)
-    end
-
-    def stop
-      MicroTest::Test.subclasses.each do |subclass|
-        subclass.tests.each { |test| test.terminate }
-      end
-      puts
-      sleep 0.5
-      true
     end
 
     def reset
@@ -55,10 +50,22 @@ module MicroTest
       @failed = 0
     end
 
-    private
+    protected
 
-    def finished?(tests)
-      tests.empty? || tests.map{ |test| test.finished? }.uniq == [true]
+    def run_threads
+      threads = []
+      thread_count = OS.cpu_count
+      thread_count = 2 if thread_count < 2
+      puts "MicroTest is running #{thread_count} threads."
+      thread_count.times do
+        threads << Thread.new do
+          while @tests.empty? == false
+            Thread.current.kill if MicroTest::Runner.exit
+            @tests.pop.invoke(@formatter, @options)
+          end
+        end
+      end
+      threads.each { |t| t.join }
     end
 
   end

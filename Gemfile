@@ -1,8 +1,8 @@
 source :rubygems
 
-gem "celluloid"
+gem "os"
 
-group :pry do
-  gem "pry"
-  gem "pry-stack_explorer"
-end
+# group :pry do
+#   gem "pry"
+#   gem "pry-stack_explorer"
+# end

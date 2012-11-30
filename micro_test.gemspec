@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.description = <<-DESC
     Simple test API.
     Awesome test/dev workflow with pry.
-    Asynchronous test runs with celluloid.
+    Asynchronous test runs.
     What more could you want?
   DESC
 
@@ -19,7 +19,7 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = '>= 1.9.2'
   spec.extensions = 'ext/mkrf_conf.rb'
-  spec.add_dependency 'celluloid'
+  spec.add_dependency 'os'
 
   # spec.add_dependency 'pry'
   # spec.add_dependency 'pry-stack_explorer'

@@ -1,10 +1,8 @@
 module MicroTest
 
   # A wrapper class for individual tests.
-  # Exists for the purpose of isolating the test method inside of a
-  # Celluloid Actor to support asynchronous test runs.
+  # Exists for the purpose of isolating the test method so it can run in its own thread.
   class TestWrapper
-    include Celluloid
     attr_reader :test_class, :desc, :asserts, :duration
 
     # Constructor.
@@ -62,8 +60,8 @@ module MicroTest
 
       if !value
         binding.pry(:quiet => true) if @options[:pry]
+
         # I don't really like the coupling to the runner here
-        # but I couldn't get an observer to work with celluloid & pry
         MicroTest::Runner.exit = true if @options[:fail_fast]
       end
 

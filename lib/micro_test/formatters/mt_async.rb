@@ -15,6 +15,7 @@ module MicroTest
         puts test_class.name.ljust(80, "-")
 
         test_class.tests.each do |test|
+          next unless test.finished?
           duration = (test.duration * 10**4).round.to_f / 10**4
           print yellow("  #{duration.to_s.ljust(6, "0")}")
 
