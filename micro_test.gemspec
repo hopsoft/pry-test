@@ -6,12 +6,17 @@ Gem::Specification.new do |spec|
   spec.version = MicroTest::VERSION
   spec.license = 'MIT'
   spec.homepage = 'http://hopsoft.github.com/micro_test/'
-  spec.summary = "The Sinatra of testing frameworks."
+  spec.summary = "MicroTest is Ruby's no-nonsense testing framework. Its also known as microtest, micro test, & micro_test."
   spec.description = <<-DESC
-    Simple test API.
-    Awesome test/dev workflow with pry.
-    Asynchronous test runs.
-    What more could you want?
+    The Sinatra of testing frameworks.
+
+    Give MicroTest a try and discover the following.
+
+    * simplicity - a tiny API with only 4 methods
+    * pry integration - debugging tests is a cinch
+    * asynchronous - faster multithreaded test runs
+
+    Happy testing.
   DESC
 
   spec.authors = ['Nathan Hopkins']
