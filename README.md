@@ -103,4 +103,6 @@ and can be introduced to existing projects with minimal effort.
 
 [See the wiki](https://github.com/hopsoft/micro_test/wiki) to troubleshoot or dig into more advanced topics.
 
+*Be sure to check out [MicroMock](https://github.com/hopsoft/micro_mock) for a lightweight mocking solution.*
+
 Start testing today!
