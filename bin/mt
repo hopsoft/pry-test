@@ -130,15 +130,14 @@ if options[:pry]
     _pry_.commands.create_command "line", "View the assert line that failed." do
       def process
         stack = caller.dup
-        if stack[0] =~ /pry-nav|pry-debugger/
-          stack.shift while !(stack[0] =~ /pry-nav|pry-debugger/)
-          count = 0
-          stack.each do |line|
-            break if line =~ /test_wrapper/
-            count += 1
-          end
+        unwanted_stack = stack.select do |line|
+          line =~ /pry-nav|pry-debugger/
         end
-        _pry_.run_command "up #{count}"
+        if unwanted_stack.empty?
+          _pry_.run_command "up"
+        else
+          _pry_.run_command "up #{unwanted_stack.size + 1}"
+        end
       end
     end
 
