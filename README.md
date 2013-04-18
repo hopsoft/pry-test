@@ -1,5 +1,7 @@
 # MicroTest
 
+[![Code Climate](https://codeclimate.com/github/hopsoft/micro_test.png)](https://codeclimate.com/github/hopsoft/micro_test)
+
 ## The Sinatra of testing frameworks
 
 Testing frameworks often lose their focus and become an end unto themselves.
