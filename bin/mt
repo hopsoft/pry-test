@@ -40,12 +40,12 @@ parser = OptionParser.new do |opts|
 
   opts.on("-v", "--version", "Show version.") do
     puts "MicroTest #{MicroTest::VERSION}"
-    exit
+    exit 0
   end
 
   opts.on_tail("-h", "--help", "Show this message.") do
     puts opts
-    exit
+    exit 0
   end
 
 end
@@ -82,7 +82,7 @@ path = File.join(Dir.pwd, path) unless path =~ /^\//
 unless File.exist?(path)
   puts "#{path} not found."
   puts "Please check the path and try again."
-  exit
+  exit 1
 end
 if path =~ /\.rb$/
   require path
@@ -100,7 +100,7 @@ end
 unless File.exist?(path)
   puts "Formatter not found at #{path}"
   puts "Please check the formatter name and try again."
-  exit
+  exit 1
 end
 begin
   require path
@@ -108,7 +108,7 @@ begin
 rescue Exception => ex
   puts "Failed to load the formatter defined at #{path}"
   puts ex.message
-  exit
+  exit 1
 end
 
 # setup the test runner -------------------------------------------------------
@@ -121,9 +121,11 @@ if options[:pry]
     require "pry"
     require "pry-stack_explorer"
   rescue Exception => e
-    puts red("Unable to require pry or pry-stack_explorer!")
-    puts yellow("Be sure to add these gems to your Gemfile and bundle if you are using Bundler.")
-    exit
+    puts red(e.message)
+    puts e.backtrace.join("\n")
+    puts red("This can be caused when pry-stack_explorer & pry get out of sync.")
+    puts red("Try uninstalling the most recent version of pry.")
+    exit 1
   end
 
   Pry.config.hooks.add_hook :before_session, :print_instructions do |_, _, _pry_|
@@ -152,6 +154,7 @@ if options[:pry]
     puts " Type #{yellow "line"} to see the line that failed"
     puts "      #{blue "whereami 10"} for more context"
     puts "      #{blue "edit-method"} to make the fix"
+    puts "      If #{yellow "line"} doesn't work for you, try #{yellow "up"} & #{yellow "down"} to navigate the stack."
     puts
     puts " Type #{yellow "exit"} or #{blue "<CTL-D>"} to continue"
     puts "".ljust(80, "-")
