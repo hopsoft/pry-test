@@ -159,4 +159,4 @@ if options[:pry]
   end
 end
 
-runner.run
+exit runner.run
