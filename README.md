@@ -1,5 +1,7 @@
 # MicroTest
 
+[![Build Status](https://travis-ci.org/hopsoft/micro_test.png)](https://travis-ci.org/hopsoft/micro_test)
+[![Dependency Status](https://gemnasium.com/hopsoft/micro_test.png)](https://gemnasium.com/hopsoft/micro_test)
 [![Code Climate](https://codeclimate.com/github/hopsoft/micro_test.png)](https://codeclimate.com/github/hopsoft/micro_test)
 
 ## The Sinatra of testing frameworks

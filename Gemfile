@@ -1,8 +1,3 @@
-source :rubygems
+source "https://rubygems.org"
+gemspec
 
-gem "os"
-
-# group :pry do
-#   gem "pry"
-#   gem "pry-stack_explorer"
-# end

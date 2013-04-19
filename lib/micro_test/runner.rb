@@ -42,6 +42,7 @@ module MicroTest
       @failed = tests.select{ |test| !test.passed? }.count
       formatter.after_results(self)
       formatter.after_suite(test_classes)
+      @failed
     end
 
     def reset

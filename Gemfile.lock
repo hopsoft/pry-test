@@ -1,5 +1,11 @@
+PATH
+  remote: .
+  specs:
+    micro_test (0.3.5)
+      os
+
 GEM
-  remote: http://rubygems.org/
+  remote: https://rubygems.org/
   specs:
     os (0.9.6)
 
@@ -8,4 +14,4 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  os
+  micro_test!
