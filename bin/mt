@@ -143,20 +143,16 @@ if options[:pry]
       end
     end
 
-    puts
-    puts "".ljust(80, "-")
-    puts
-    puts red " " + runner.active_test.desc
-    puts
     puts "".ljust(80, "-")
     puts " Pry session started"
+    puts "".ljust(80, "-")
+    puts " - Type #{yellow "line"} to see the line that failed."
+    puts "   If #{yellow "line"} doesn't work for you, use #{yellow "up"} & #{yellow "down"} to navigate the stack."
     puts
-    puts " Type #{yellow "line"} to see the line that failed"
-    puts "      #{blue "whereami 10"} for more context"
-    puts "      #{blue "edit-method"} to make the fix"
-    puts "      If #{yellow "line"} doesn't work for you, try #{yellow "up"} & #{yellow "down"} to navigate the stack."
+    puts " - Type #{yellow "whereami"} if running with pry-rescue and an unhandled exception"
+    puts "   started the pry session."
     puts
-    puts " Type #{yellow "exit"} or #{blue "<CTL-D>"} to continue"
+    puts " - Type #{yellow "exit"} or #{blue "<CTL-D>"} to continue"
     puts "".ljust(80, "-")
     puts
   end
