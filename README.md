@@ -9,8 +9,10 @@
 Testing frameworks often lose their focus and become an end unto themselves.
 MicroTest avoids this pitfall with a relentless focus on simplicity.
 
+---
 [An important note](https://github.com/hopsoft/micro_test/wiki/Debug-Test-Failures-with-Pry#gemfile-considerations)
 for those wanting to debug test failures with Pry.
+---
 
 ### Here's what MicroTest brings to the table
 
