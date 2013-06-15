@@ -1,8 +1,11 @@
+require "monitor"
+
 module MicroTest
 
   # A wrapper class for individual tests.
   # Exists for the purpose of isolating the test method so it can run in its own thread.
   class TestWrapper
+    include MonitorMixin
     attr_reader :test_class, :desc, :asserts, :duration
 
     # Constructor.
@@ -10,6 +13,7 @@ module MicroTest
     # @param [String] desc The test description.
     # @yield The block that defines the test code.
     def initialize(test_class, desc, &block)
+      super() # inits MonitorMixin
       @test_class = test_class
       @desc = desc
       create_method(:test, &block)
