@@ -123,8 +123,9 @@ if options[:pry]
   rescue Exception => e
     puts red(e.message)
     puts e.backtrace.join("\n")
-    puts red("This can be caused when pry-stack_explorer & pry get out of sync.")
-    puts red("Try uninstalling the most recent version of pry.")
+    puts red("This can be caused when pry-stack_explorer isn't specified in the Gemfile.")
+    puts red("It might also indicate that pry-stack_explorer & pry are out of sync.")
+    puts red("If your Gemfile is in good shape, try uninstalling the most recent version of pry.")
     exit 1
   end
 
