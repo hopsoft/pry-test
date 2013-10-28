@@ -1,7 +1,8 @@
 require File.join(File.dirname(__FILE__), "base_formatter")
 
 module MicroTest
-  class Formatter < MicroTest::BaseFormatter
+  class DocFormatter < MicroTest::BaseFormatter
+    set_short_name "doc"
 
     def initialize
       @failures = []

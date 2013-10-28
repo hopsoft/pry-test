@@ -6,15 +6,7 @@ require File.join(lib_path, "micro_test")
 include MicroTest::Color
 
 # setup the formatters list ---------------------------------------------------
-formatters_path = File.join(lib_path, "micro_test", "formatters")
-formatter_names = Dir[File.join(formatters_path, "*.rb")].reduce([]) do |memo, file|
-  if (file =~ /(base_formatter\.rb|_async\.rb)$/).nil?
-    name = file[file.rindex("/") + 1..-4]
-    name = "*#{name}" if name == "mt"
-    memo << name
-  end
-  memo
-end
+formatter_names = MicroTest.formatters.map(&:short_name).sort
 
 # setup the options -----------------------------------------------------------
 options = {}
@@ -91,28 +83,11 @@ else
 end
 
 # setup the formatter ---------------------------------------------------------
-formatter_name = options[:formatter] || "mt"
-path = File.join(formatters_path, formatter_name + ".rb")
-if options[:async]
-  async_path = path.gsub(/\.rb$/, "_async.rb")
-  path = async_path if File.exist?(async_path)
-end
-unless File.exist?(path)
-  puts "Formatter not found at #{path}"
-  puts "Please check the formatter name and try again."
-  exit 1
-end
-begin
-  require path
-  formatter = MicroTest.const_get("Formatter").new
-rescue Exception => ex
-  puts "Failed to load the formatter defined at #{path}"
-  puts ex.message
-  exit 1
-end
+formatter = MicroTest.formatters.find { |f| f.short_name == options[:formatter] }
+formatter ||= MicroTest.formatters.find { |f| f.short_name == "default" }
 
 # setup the test runner -------------------------------------------------------
-runner = MicroTest::Runner.new(formatter, options)
+runner = MicroTest::Runner.new(formatter.new, options)
 
 # setup pry -------------------------------------------------------------------
 if options[:pry]

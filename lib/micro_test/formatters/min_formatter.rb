@@ -1,7 +1,8 @@
 require File.join(File.dirname(__FILE__), "base_formatter")
 
 module MicroTest
-  class Formatter < MicroTest::BaseFormatter
+  class MinFormatter < MicroTest::BaseFormatter
+    set_short_name "min"
 
     def after_suite(test_classes)
       puts

@@ -1,7 +1,8 @@
 require File.join(File.dirname(__FILE__), "base_formatter")
 
 module MicroTest
-  class Formatter < MicroTest::BaseFormatter
+  class DefaultAsyncFormatter < MicroTest::BaseFormatter
+    set_short_name "default_async"
 
     def after_test(test)
       test.passed? ? print(green ".") : print(red ".")
@@ -9,7 +10,9 @@ module MicroTest
 
     def after_suite(test_classes)
       puts
-      print_output_for_test_classes test_classes
+      test_classes.each do |test_class|
+        print_output_for_test_class test_class
+      end
       puts
       puts "".ljust(80, "-")
       print " #{passed + failed} Tests finished in #{yellow duration} seconds. "
@@ -23,28 +26,26 @@ module MicroTest
 
     private
 
-    def print_output_for_test_classes(test_classes)
-      test_classes.each do |test_class|
-        puts
-        puts test_class.name.ljust(80, "-")
-        print_output_for_tests test_class.tests
+    def print_output_for_test_class(test_class)
+      puts
+      puts test_class.name.ljust(80, "-")
+      test_class.tests.each do |test|
+        print_output_for_test test
       end
     end
 
-    def print_output_for_tests(tests)
-      tests.each do |test|
-        next unless test.finished?
-        duration = (test.duration * 10**4).round.to_f / 10**4
-        print yellow("  #{duration.to_s.ljust(6, "0")}")
+    def print_output_for_test(test)
+      return unless test.finished?
+      duration = (test.duration * 10**4).round.to_f / 10**4
+      print yellow("  #{duration.to_s.ljust(6, "0")}")
 
-        if test.passed?
-          print green(" #{test.desc}")
-        else
-          print_test_failure test
-        end
-
-        puts
+      if test.passed?
+        print green(" #{test.desc}")
+      else
+        print_test_failure test
       end
+
+      puts
     end
 
     def print_test_failure(test)

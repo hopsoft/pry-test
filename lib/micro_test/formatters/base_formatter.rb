@@ -2,12 +2,32 @@ require File.join(File.dirname(__FILE__), "..", "color")
 
 module MicroTest
 
+  class << self
+    def formatters
+      @formatters ||= []
+    end
+  end
+
   # The base class for formatters.
   # Defines the API that formatters can/should implement
   # to control test run output.
   class BaseFormatter
     include MicroTest::Color
     attr_accessor :passed, :failed, :duration
+
+    class << self
+      def inherited(subclass)
+        MicroTest.formatters << subclass
+      end
+
+      def short_name
+        @short_name || name
+      end
+
+      def set_short_name(value)
+        @short_name = value
+      end
+    end
 
     def initialize
       @duration = 0

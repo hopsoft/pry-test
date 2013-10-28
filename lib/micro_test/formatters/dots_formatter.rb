@@ -1,7 +1,8 @@
 require File.join(File.dirname(__FILE__), "base_formatter")
 
 module MicroTest
-  class Formatter < MicroTest::BaseFormatter
+  class DotsFormatter < MicroTest::BaseFormatter
+    set_short_name "dots"
 
     def after_test(test)
       print(test.passed? ? green(".") : red("."))

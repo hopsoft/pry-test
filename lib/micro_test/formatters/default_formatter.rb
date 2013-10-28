@@ -1,7 +1,9 @@
 require File.join(File.dirname(__FILE__), "base_formatter")
 
 module MicroTest
-  class Formatter < MicroTest::BaseFormatter
+  class DefaultFormatter < MicroTest::BaseFormatter
+    set_short_name "default"
+
     def before_class(test_class)
       puts
       puts test_class.name.ljust(80, "-")
