@@ -64,6 +64,10 @@ module MicroTest
       start = 0 if start <= 0
       finish = index + 2
       finish = assert[:lines].length - 1 if finish >= assert[:lines].length
+      print_assert_failure_lines assert, start, finish
+    end
+
+    def print_assert_failure_lines(assert, start, finish)
       (start..finish).each do |i|
         print "".ljust(9)
         if i == index
