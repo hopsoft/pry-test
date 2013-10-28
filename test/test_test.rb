@@ -2,9 +2,10 @@ unless ENV["MT_DEMO"]
   class TestTest < MicroTest::Test
 
     before do
-      TestTest.instance_eval { @subclasses = [] }
-      TestTest.instance_eval { @tests = [] }
-      @Example = Class.new(TestTest) do
+      @test_test = TestTest.clone
+      @test_test.instance_eval { @subclasses = [] }
+      @test_test.instance_eval { @tests = [] }
+      @Example = Class.new(@test_test) do
         before {}
         after {}
         test("truth") { assert true }
@@ -14,14 +15,14 @@ unless ENV["MT_DEMO"]
     end
 
     test "adds subclass" do
-      assert TestTest.subclasses.length == 1
-      assert TestTest.subclasses[0] == @Example
+      assert @test_test.subclasses.length == 1
+      assert @test_test.subclasses[0] == @Example
     end
 
     test "stores subclasses" do
-      assert TestTest.subclasses.is_a?(Array)
-      assert TestTest.subclasses.length == 1
-      assert TestTest.subclasses.first == @Example
+      assert @test_test.subclasses.is_a?(Array)
+      assert @test_test.subclasses.length == 1
+      assert @test_test.subclasses.first == @Example
     end
 
     test "stores tests" do
@@ -32,8 +33,8 @@ unless ENV["MT_DEMO"]
 
     test "stores files" do
       file = __FILE__
-      assert TestTest.files[file].is_a?(Array)
-      assert TestTest.files[file].select{ |l| l.start_with?("      assert TestTest.files[file].select{ |l| l.start_with?(") }.length > 0
+      assert @test_test.files[file].is_a?(Array)
+      assert @test_test.files[file].select{ |l| l.start_with?("      assert @test_test.files[file].select{ |l| l.start_with?(") }.length > 0
     end
 
     test ".reset" do
