@@ -6,7 +6,7 @@ module MicroTest
 
     def before_class(test_class)
       puts
-      puts test_class.name.ljust(80, "-")
+      print_with_line test_class.name
     end
 
     def after_test(test)
@@ -25,17 +25,30 @@ module MicroTest
 
     def after_suite(test_classes)
       puts
-      puts "".ljust(80, "-")
-      print " #{passed + failed} Tests finished in #{yellow duration} seconds. "
-      totals = []
-      totals << green("#{passed} Passed") if passed > 0
-      totals << red("#{failed} Failed") if failed > 0
-      print "(#{totals.join(", ")})"
+      print_line
+      print_totals
+      puts " in #{yellow duration} seconds."
+      print_line
       puts
       puts
     end
 
     private
+
+    def print_with_line(value)
+      puts "#{value} ".ljust(80, "-")
+    end
+
+    def print_line
+      puts "".ljust(80, "-")
+    end
+
+    def print_totals
+      totals = []
+      totals << green("#{passed} Passed") if passed > 0
+      totals << red("#{failed} Failed") if failed > 0
+      print totals.join(", ")
+    end
 
     def print_test_failure(test)
       puts red(" #{test.desc}")

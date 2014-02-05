@@ -4,7 +4,7 @@ Gem::Specification.new do |spec|
   spec.name                  = "micro_test"
   spec.version               = MicroTest::VERSION
   spec.license               = "MIT"
-  spec.homepage              = "http://hopsoft.github.com/micro_test/"
+  spec.homepage              = "https://github.com/hopsoft/micro_test"
   spec.summary               = "The Sinatra of testing frameworks. Its also known as microtest, micro test, & micro_test."
   spec.description           = "The Sinatra of testing frameworks. Its also known as microtest, micro test, & micro_test."
 
