@@ -16,7 +16,6 @@ if ENV["MT_DEMO"]
     end
 
     test "fibonacci recursion 3" do
-      raise
       @count.times { |i| TestCPULatency.fib(i) }
       assert true
     end
