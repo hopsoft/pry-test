@@ -5,8 +5,8 @@ Gem::Specification.new do |spec|
   spec.version               = MicroTest::VERSION
   spec.license               = "MIT"
   spec.homepage              = "https://github.com/hopsoft/micro_test"
-  spec.summary               = "The Sinatra of testing frameworks. Its also known as microtest, micro test, & micro_test."
-  spec.description           = "The Sinatra of testing frameworks. Its also known as microtest, micro test, & micro_test."
+  spec.summary               = "The Sinatra of testing frameworks."
+  spec.description           = "The Sinatra of testing frameworks."
 
   spec.authors               = ["Nathan Hopkins"]
   spec.email                 = ["natehop@gmail.com"]
@@ -15,6 +15,9 @@ Gem::Specification.new do |spec|
   spec.extensions            = "ext/mkrf_conf.rb"
   spec.add_dependency "os"
   spec.add_development_dependency "rake"
+  spec.add_development_dependency "pry"
+  spec.add_development_dependency "pry-stack_explorer"
+  spec.add_development_dependency "pry-rescue"
 
   # spec.add_dependency "pry"
   # spec.add_dependency "pry-stack_explorer"

@@ -16,6 +16,7 @@ begin
     puts "Installing pry and pry-stack_explorer."
     installer.install "pry"
     installer.install "pry-stack_explorer"
+    installer.install "pry-rescue"
   else
     puts "Platform is java... skip install for pry and pry-stack_explorer."
   end

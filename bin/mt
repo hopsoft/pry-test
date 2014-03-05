@@ -84,7 +84,13 @@ end
 
 # setup the formatter ---------------------------------------------------------
 formatter = MicroTest.formatters.find { |f| f.short_name == options[:formatter] }
-formatter ||= MicroTest.formatters.find { |f| f.short_name == "default" }
+formatter ||= begin
+  if options[:async]
+    MicroTest.formatters.find { |f| f.short_name == "default_async" }
+  else
+    MicroTest.formatters.find { |f| f.short_name == "default" }
+  end
+end
 
 # setup the test runner -------------------------------------------------------
 runner = MicroTest::Runner.new(formatter.new, options)
@@ -95,43 +101,30 @@ if options[:pry]
   begin
     require "pry"
     require "pry-stack_explorer"
+    require "pry-rescue"
   rescue Exception => e
     puts red(e.message)
     puts e.backtrace.join("\n")
     puts red("This can be caused when pry-stack_explorer isn't specified in the Gemfile.")
     puts red("It might also indicate that pry-stack_explorer & pry are out of sync.")
-    puts red("If your Gemfile is in good shape, try uninstalling the most recent version of pry.")
+    puts red("Try different cominations of GEM versions for pry & pry-stack_explorer.")
     exit 1
   end
 
   Pry.config.hooks.add_hook :before_session, :print_instructions do |_, _, _pry_|
-    _pry_.commands.create_command "line", "View the assert line that failed." do
-      def process
-        stack = caller.dup
-        unwanted_stack = stack.select do |line|
-          line =~ /pry-nav|pry-debugger/
-        end
-        if unwanted_stack.empty?
-          _pry_.run_command "up"
-        else
-          _pry_.run_command "up #{unwanted_stack.size + 1}"
-        end
-      end
-    end
-
-    puts "".ljust(80, "-")
+    puts
     puts " Pry session started"
-    puts "".ljust(80, "-")
-    puts " - Type #{yellow "line"} to see the line that failed."
-    puts "   If #{yellow "line"} doesn't work for you, use #{yellow "up"} & #{yellow "down"} to navigate the stack."
+    puts gray("".ljust(80, "-"))
+    puts " #{gray "Test Failures:"} Type #{green "up"} to see the line that failed"
+    puts " #{gray "Exceptions:"} Type #{green "whereami"} to get your bearings"
     puts
-    puts " - Type #{yellow "whereami"} if running with pry-rescue and an unhandled exception"
-    puts "   started the pry session."
-    puts
-    puts " - Type #{yellow "exit"} or #{blue "<CTL-D>"} to continue"
-    puts "".ljust(80, "-")
+    puts " Type #{green "exit"} or #{green "<CTL-D>"} to continue"
+    puts gray("".ljust(80, "-"))
     puts
   end
+
+  exit Pry.rescue { runner.run }
+else
+  exit runner.run
 end
 
-exit runner.run

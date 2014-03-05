@@ -9,7 +9,8 @@ module MicroTest
       :blue    => 34,
       :magenta => 35,
       :cyan    => 36,
-      :white   => 37
+      :white   => 37,
+      :gray    => 90
     }
 
     colors.each do |name, code|
