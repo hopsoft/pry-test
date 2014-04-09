@@ -15,12 +15,10 @@ Gem::Specification.new do |spec|
   spec.extensions            = "ext/mkrf_conf.rb"
   spec.add_dependency "os"
   spec.add_development_dependency "rake"
-  spec.add_development_dependency "pry"
-  spec.add_development_dependency "pry-stack_explorer"
-  spec.add_development_dependency "pry-rescue"
 
   # spec.add_dependency "pry"
   # spec.add_dependency "pry-stack_explorer"
+  # spec.add_dependency "pry-rescue"
   # see: ext/mkrf_conf.rb for how we install the pry dependencies.
   # also see:
   # http://en.wikibooks.org/wiki/Ruby_Programming/RubyGems#How_to_install_different_versions_of_gems_depending_on_which_version_of_ruby_the_installee_is_using
