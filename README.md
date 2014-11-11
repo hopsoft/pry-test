@@ -108,6 +108,22 @@ mt --demo --async
 mt --demo --formatter doc
 ```
 
+## Testing Your Own Projects
+
+MicroTest assumes your test directory is located at `PROJECT_ROOT/test`;
+however, this isn't a requirement. You can indicate your test directory location like so.
+
+```sh
+mt /path/to/test/dir
+```
+
+If you have multiple versions of MicroTest installed,
+it's safest to run your tests with `bundle exec` like so.
+
+```sh
+bundle exec mt /path/to/test/dir
+```
+
 MicroTest is small & unobtrusive.
 It plays nice with other test frameworks, & can be introduced to existing projects incrementally.
 
