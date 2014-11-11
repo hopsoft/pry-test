@@ -111,14 +111,14 @@ mt --demo --formatter doc
 ## Testing Your Own Projects
 
 MicroTest assumes your test directory is located at `PROJECT_ROOT/test`;
-however, this isn't a requirement. You can indicate your test directory location like so.
+however, this isn't a requirement. You can indicate your test directory location.
 
 ```sh
 mt /path/to/test/dir
 ```
 
 If you have multiple versions of MicroTest installed,
-it's safest to run your tests with `bundle exec` like so.
+it's safest to run your tests with `bundle exec`.
 
 ```sh
 bundle exec mt /path/to/test/dir
