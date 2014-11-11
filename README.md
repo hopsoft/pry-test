@@ -17,6 +17,7 @@ Save time by dropping into a Pry debug session on test failure.
 * A simple test API
 * An awesome `fail` `pry` `pass` workflow
 * Async test runs
+* Works with all major Rubies
 
 [An important note on debugging test failures with Pry.](https://github.com/hopsoft/micro_test/wiki/Debug-Test-Failures-with-Pry#gemfile-considerations)
 
