@@ -1,6 +1,6 @@
 # MicroTest
 
-[![Lines of Code](http://img.shields.io/badge/loc-130-brightgreen.svg)](http://blog.codinghorror.com/the-best-code-is-no-code-at-all/)
+[![Lines of Code](http://img.shields.io/badge/loc-606-brightgreen.svg)](http://blog.codinghorror.com/the-best-code-is-no-code-at-all/)
 [![Code Status](https://codeclimate.com/github/hopsoft/micro_test.png)](https://codeclimate.com/github/hopsoft/micro_test)
 [![Dependency Status](https://gemnasium.com/hopsoft/micro_test.png)](https://gemnasium.com/hopsoft/micro_test)
 [![Build Status](https://travis-ci.org/hopsoft/micro_test.png)](https://travis-ci.org/hopsoft/micro_test)
