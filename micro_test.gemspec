@@ -15,6 +15,7 @@ Gem::Specification.new do |spec|
   spec.extensions            = "ext/mkrf_conf.rb"
   spec.add_dependency "os"
   spec.add_development_dependency "rake"
+  spec.add_development_dependency "coveralls"
 
   # spec.add_dependency "pry"
   # spec.add_dependency "pry-stack_explorer"

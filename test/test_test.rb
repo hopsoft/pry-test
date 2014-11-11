@@ -1,4 +1,6 @@
 unless ENV["MT_DEMO"]
+  require_relative "test_helper"
+
   class TestTest < MicroTest::Test
 
     before do

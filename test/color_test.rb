@@ -1,4 +1,6 @@
 unless ENV["MT_DEMO"]
+  require_relative "test_helper"
+
   class ColorTest < MicroTest::Test
     class Crayon
       include MicroTest::Color

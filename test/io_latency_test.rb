@@ -1,4 +1,6 @@
 if ENV["MT_DEMO"]
+  require_relative "test_helper"
+
   class TestIOLatency < MicroTest::Test
 
     test "sleep 1 sec" do

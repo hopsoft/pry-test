@@ -1,4 +1,6 @@
 if ENV["MT_DEMO"]
+  require_relative "test_helper"
+
   class Fail < MicroTest::Test
 
     before do
