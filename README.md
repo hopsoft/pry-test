@@ -6,14 +6,19 @@
 [![Build Status](https://travis-ci.org/hopsoft/micro_test.png)](https://travis-ci.org/hopsoft/micro_test)
 [![Coverage Status](https://img.shields.io/coveralls/hopsoft/micro_test.svg)](https://coveralls.io/r/hopsoft/micro_test?branch=master)
 
-#### Home of the <code color="red">fail</code> <code>pry</code> <code color="green">pass</code> testing workflow.
+##### Home of the `fail` `pry` `pass` testing workflow.
+
+Save time by dropping into a Pry debug session on test failure.
+
+> It's an awesome workflow... I only wish that I had discovered it sooner. --Thomas A. Anderson
+
+## Benefits
 
 * A simple test API
 * An awesome `fail` `pry` `pass` workflow
-* Fast async test runs
+* Async test runs
 
-[An important note](https://github.com/hopsoft/micro_test/wiki/Debug-Test-Failures-with-Pry#gemfile-considerations)
-on debugging test failures with Pry.
+[An important note on debugging test failures with Pry.](https://github.com/hopsoft/micro_test/wiki/Debug-Test-Failures-with-Pry#gemfile-considerations)
 
 ## The API
 
@@ -87,16 +92,16 @@ end
 
 ## Get Started
 
-MicroTest ships with a demo so you can kick the tires.
+MicroTest ships with a demo so you can try it out easily.
 
-* Install `$ gem install micro_test`
-* Help `$ mt --help`
-* Demo `$ mt --demo`
+* Install `gem install micro_test`
+* Help `mt --help`
+* Demo `mt --demo`
 
 Try some of the more advanced features.
 
-* Pry workflow `$ mt --demo --pry`
-* Async test run `$ mt --demo --async`
+* Pry workflow `mt --demo --pry`
+* Async test run `mt --demo --async`
 
 MicroTest is small & unobtrusive.
 It plays nice with other test frameworks, & can be introduced to existing projects incrementally.
@@ -105,6 +110,5 @@ It plays nice with other test frameworks, & can be introduced to existing projec
 
 [See the wiki](https://github.com/hopsoft/micro_test/wiki) to troubleshoot or dig into more advanced topics.
 
-*Checkout [MicroMock](https://github.com/hopsoft/micro_mock) for a lightweight mocking solution.*
+*Also, checkout [MicroMock](https://github.com/hopsoft/micro_mock) for a lightweight mocking solution.*
 
-Start testing today!
