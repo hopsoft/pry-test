@@ -94,14 +94,19 @@ end
 
 MicroTest ships with a demo so you can try it out easily.
 
-* Install `gem install micro_test`
-* Help `mt --help`
-* Demo `mt --demo`
+```sh
+gem install micro_test
+mt --help
+mt --demo
+```
 
-Try some of the more advanced features.
+Try some advanced features.
 
-* Pry workflow `mt --demo --pry`
-* Async test run `mt --demo --async`
+```sh
+mt --demo --pry
+mt --demo --async
+mt --demo --formatter doc
+```
 
 MicroTest is small & unobtrusive.
 It plays nice with other test frameworks, & can be introduced to existing projects incrementally.
