@@ -68,7 +68,7 @@ Everything you need to know about MicroTest's API is outlined here.
   </tr>
 </table>
 
-## A Full Example
+### A Complete Example
 
 The entire public interface is used in this basic example.
 
