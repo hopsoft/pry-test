@@ -10,9 +10,7 @@ module MicroTest
     end
 
     def after_test(test)
-      duration = (test.duration * 10**4).round.to_f / 10**4
-      color = duration < 0.01 ? :yellow : :red
-      print send(color, "  #{duration.to_s.ljust(6, "0")}")
+      print_duration test.duration
 
       if test.passed?
         print green(" #{test.desc}")
@@ -34,6 +32,11 @@ module MicroTest
     end
 
     private
+
+    def print_duration(duration)
+      color = duration < 0.01 ? :yellow : :red
+      print send(color, "  #{duration.to_s.ljust(6, "0")}")
+    end
 
     def print_with_line(value)
       puts "#{value} ".ljust(80, "-")

@@ -6,7 +6,7 @@ module MicroTest
   # Exists for the purpose of isolating the test method so it can run in its own thread.
   class TestWrapper
     include MonitorMixin
-    attr_reader :test_class, :desc, :asserts, :duration
+    attr_reader :test_class, :desc, :asserts
 
     # Constructor.
     # @param [MicroTest::Test] test_class The test class that defines the test being wrapped.
@@ -96,6 +96,12 @@ module MicroTest
       @invoked = false
       @asserts = []
       @duration = nil
+    end
+
+    # Rounded duration with 4 decimal places.
+    def duration
+      return nil if @duration.nil?
+      (@duration.to_f * 10**4).round / 10**4
     end
 
     private
