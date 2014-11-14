@@ -14,13 +14,13 @@ module MicroTest
 
     def render(name)
       instance_eval do
-        print ERB.new(self.class.view(name), nil, ">").result(binding)
+        ERB.new(self.class.view(name), nil, ">").result(binding)
       end
     end
 
-    def partial(name, options={})
-      return render(name) if options[:collection].nil?
-      options[:collection].each do |item|
+    def partial(name, *collection)
+      return render(name) if collection.empty?
+      collection.map do |item|
         Template.new(item).render(name)
       end
     end

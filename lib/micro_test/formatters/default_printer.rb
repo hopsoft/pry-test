@@ -15,11 +15,11 @@ module MicroTest
     end
 
     def print_test_pass(test)
-      Template.new(test, DefaultHelper).render(:_test_pass)
+      print Template.new(test, DefaultHelper).render(:_test_pass)
     end
 
     def print_test_fail(test)
-      Template.new(test, DefaultHelper).render(:_test_fail)
+      print Template.new(test, DefaultHelper).render(:_test_fail)
     end
 
     #def print_assert_fail(assert)
