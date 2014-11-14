@@ -1,5 +1,5 @@
-require File.join(File.dirname(__FILE__), "base_formatter")
-require File.join(File.dirname(__FILE__), "default_printer")
+require_relative "base_formatter"
+require_relative "default_printer"
 
 module MicroTest
   class DefaultFormatter < MicroTest::BaseFormatter

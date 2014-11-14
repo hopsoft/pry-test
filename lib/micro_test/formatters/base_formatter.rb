@@ -1,4 +1,4 @@
-require File.join(File.dirname(__FILE__), "..", "color")
+require_relative "lib/color"
 
 module MicroTest
 

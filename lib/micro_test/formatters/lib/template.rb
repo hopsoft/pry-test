@@ -4,7 +4,7 @@ module MicroTest
 
     def self.view(name)
       @views ||= {}
-      @views[name] ||= File.read(File.expand_path("../views/default/#{name}.txt.erb", __FILE__))
+      @views[name] ||= File.read(File.expand_path("../../views/default/#{name}.txt.erb", __FILE__))
     end
 
     def initialize(object, *helpers)

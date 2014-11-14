@@ -1,4 +1,4 @@
-require_relative "template"
+require_relative "./lib/template"
 require_relative "./helpers/default_helper"
 
 module MicroTest
