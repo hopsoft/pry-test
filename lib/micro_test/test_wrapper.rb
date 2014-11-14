@@ -98,10 +98,10 @@ module MicroTest
       @duration = nil
     end
 
-    # Rounded duration with 4 decimal places.
+    # Rounded duration.
     def duration
       return nil if @duration.nil?
-      (@duration.to_f * 10**4).round / 10**4
+      (@duration * 10**4).ceil.to_f / 10**4
     end
 
     private

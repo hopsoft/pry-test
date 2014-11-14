@@ -12,8 +12,6 @@ module MicroTest
     end
 
     def after_test(test)
-      print_duration test.duration
-
       if test.passed?
         print_test_pass test
       else
