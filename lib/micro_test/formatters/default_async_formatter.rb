@@ -1,9 +1,7 @@
-require File.join(File.dirname(__FILE__), "base_formatter")
-require File.join(File.dirname(__FILE__), "default_printer")
+require_relative "base_formatter"
 
 module MicroTest
   class DefaultAsyncFormatter < MicroTest::BaseFormatter
-    include DefaultPrinter
     set_short_name "default_async"
 
     def after_test(test)
