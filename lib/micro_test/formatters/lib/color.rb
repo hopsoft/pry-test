@@ -13,6 +13,10 @@ module MicroTest
       :gray    => 90
     }
 
+    def default(text)
+      text
+    end
+
     colors.each do |name, code|
       define_method name do |text|
       "\e[#{code}m#{text}\e[0m"

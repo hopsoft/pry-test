@@ -7,22 +7,23 @@ module MicroTest
       @views[name] ||= File.read(File.expand_path("../../views/default/#{name}.txt.erb", __FILE__))
     end
 
-    def initialize(object, *helpers)
-      @context = object
+    def initialize(context, *helpers)
+      @context = context
+      @helpers = helpers
       helpers.each { |helper| extend helper }
     end
 
     def render(name)
       instance_eval do
-        ERB.new(self.class.view(name), nil, ">").result(binding)
+        ERB.new(self.class.view(name), nil, "%<>-").result(binding)
       end
     end
 
     def partial(name, *collection)
       return render(name) if collection.empty?
       collection.map do |item|
-        Template.new(item).render(name)
-      end
+        Template.new(item, *@helpers).render(name)
+      end.join("\n")
     end
 
   end
