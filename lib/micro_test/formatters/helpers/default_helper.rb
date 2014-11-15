@@ -14,9 +14,9 @@ module MicroTest
       finish = assert[:lines].length - 1 if finish >= assert[:lines].length
       (start..finish).map do |i|
         {
-          :number => (i + 1),
-          :color => (i == index ? :red : :default),
-          :code => assert[:lines][i]
+          :line_num => (i + 1),
+          :line => assert[:lines][i],
+          :color => (i == index ? :red : :default)
         }
       end
     end
