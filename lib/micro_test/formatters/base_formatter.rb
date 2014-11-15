@@ -1,5 +1,3 @@
-require_relative "lib/color"
-
 module MicroTest
 
   class << self
@@ -12,7 +10,6 @@ module MicroTest
   # Defines the API that formatters can/should implement
   # to control test run output.
   class BaseFormatter
-    include MicroTest::Color
     attr_accessor :passed, :failed, :duration
 
     class << self
@@ -57,6 +54,20 @@ module MicroTest
     end
 
     def after_suite(test_classes)
+    end
+
+    def render(template_name, template_context=nil)
+      puts text_to_render(template_name, template_context)
+    end
+
+    def render_inline(template_name, template_context=nil)
+      print text_to_render(template_name, template_context)
+    end
+
+    private
+
+    def text_to_render(template_name, template_context=nil)
+      Template.new(template_context || self).render_to_string(template_name)
     end
 
   end

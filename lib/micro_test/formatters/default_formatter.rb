@@ -5,21 +5,19 @@ module MicroTest
     set_short_name "default"
 
     def before_class(test_class)
-      print Template.new(test_class, DefaultHelper).render(:_class)
+      render "default/class", test_class
     end
 
     def after_test(test)
       if test.passed?
-        print Template.new(test, DefaultHelper).render(:_test_pass)
+        render "default/test_pass", test
       else
-        print Template.new(test, DefaultHelper).render(:_test_fail)
+        render "default/test_fail", test
       end
-
-      puts
     end
 
     def after_suite(test_classes)
-      print Template.new(self, DefaultHelper).render(:suite)
+      render "default/suite"
     end
 
   end

@@ -1,2 +1,2 @@
   <%= send duration_color(@context.duration), @context.duration %> <%= red @context.desc -%>
-  <%= partial :_assert_fail, *@context.failed_asserts -%>
+ <%= partial "default/assert_fail", *@context.failed_asserts -%>

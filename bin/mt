@@ -113,13 +113,13 @@ if options[:pry]
 
   Pry.config.hooks.add_hook :before_session, :print_instructions do |_, _, _pry_|
     puts
-    puts " Pry session started"
-    puts gray("".ljust(80, "-"))
-    puts " #{gray "Test Failures:"} Type #{green "up"} to see the line that failed"
-    puts " #{gray "Exceptions:"} Type #{green "whereami"} to get your bearings"
+    puts magenta(" Pry session started")
+    puts magenta("".ljust(80, "-"))
+    puts " #{magenta "  Failures:"} Type #{green "up"} to see the line that failed"
+    puts " #{magenta "Exceptions:"} Type #{green "whereami"} to get your bearings"
     puts
     puts " Type #{green "exit"} or #{green "<CTL-D>"} to continue"
-    puts gray("".ljust(80, "-"))
+    puts magenta("".ljust(80, "-"))
     puts
   end
 

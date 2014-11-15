@@ -1,0 +1,6 @@
+<%= @context[:file_path].strip %>:<%= red @context[:line_num] %>
+--------------------------------------------------------------------------------
+<% assert_lines(@context).each do |line| -%>
+<%= send line[:color], line[:line_num].to_s.rjust(3, "0") -%>| <%= send line[:color], line[:line] -%>
+<% end -%>
+--------------------------------------------------------------------------------
