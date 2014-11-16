@@ -1,16 +1,12 @@
-# MicroTest
-
-#### Speed up your test workflow: `fail` -> `pry` -> `pass`
-
----
-
 [![Lines of Code](http://img.shields.io/badge/loc-480-brightgreen.svg)](http://blog.codinghorror.com/the-best-code-is-no-code-at-all/)
 [![Code Status](https://codeclimate.com/github/hopsoft/micro_test.png)](https://codeclimate.com/github/hopsoft/micro_test)
 [![Dependency Status](https://gemnasium.com/hopsoft/micro_test.png)](https://gemnasium.com/hopsoft/micro_test)
 [![Build Status](https://travis-ci.org/hopsoft/micro_test.png)](https://travis-ci.org/hopsoft/micro_test)
 [![Coverage Status](https://img.shields.io/coveralls/hopsoft/micro_test.svg)](https://coveralls.io/r/hopsoft/micro_test?branch=master)
 
----
+# MicroTest
+
+#### Speed up your test workflow: `fail` -> `pry` -> `pass`
 
 ## Benefits
 
