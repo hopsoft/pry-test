@@ -13,15 +13,8 @@ module MicroTest
       test_classes.each do |test_class|
         render_output_for_test_class test_class
       end
-    #  puts
-    #  puts "".ljust(80, "-")
-    #  print " #{passed + failed} Tests finished in #{yellow duration} seconds. "
-    #  totals = []
-    #  totals << green("#{passed} Passed") if passed > 0
-    #  totals << red("#{failed} Failed") if failed > 0
-    #  print "(#{totals.join(", ")})"
-    #  puts
-    #  puts
+
+      render "default/suite"
     end
 
     private

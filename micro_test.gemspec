@@ -1,4 +1,4 @@
-require File.join(File.dirname(__FILE__), "lib", "micro_test", "version")
+require_relative "lib/micro_test/version"
 
 Gem::Specification.new do |spec|
   spec.name                  = "micro_test"

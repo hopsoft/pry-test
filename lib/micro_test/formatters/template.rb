@@ -41,7 +41,7 @@ module MicroTest
         {
           :line_num => (i + 1),
           :line => assert[:lines][i],
-          :color => (i == index ? :red : :default)
+          :color => (i == index ? :red : :gray)
         }
       end
     end

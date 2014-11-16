@@ -1,8 +1,7 @@
 #!/usr/bin/env ruby
 require "optparse"
+require_relative "../lib/micro_test"
 
-lib_path = File.expand_path(File.join(File.dirname(__FILE__), "..", "lib"))
-require File.join(lib_path, "micro_test")
 include MicroTest::Color
 
 # setup the formatters list ---------------------------------------------------
@@ -68,7 +67,7 @@ ENV["MT_DEMO"] = "true" if options[:demo]
 
 # setup the test path ---------------------------------------------------------
 path = ARGV.last unless ARGV.last =~ /^-/
-path = File.expand_path(File.join(File.dirname(__FILE__), "..", "test")) if options[:demo]
+path = File.expand_path("../../test", __FILE__) if options[:demo]
 path ||= "test"
 path = File.join(Dir.pwd, path) unless path =~ /^\//
 unless File.exist?(path)
@@ -79,7 +78,7 @@ end
 if path =~ /\.rb$/
   require path
 else
-  Dir[File.join(path, "**", "*.rb")].each { |path| require path }
+  Dir[File.join(path, "**/*.rb")].each { |path| require path }
 end
 
 # setup the formatter ---------------------------------------------------------
