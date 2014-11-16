@@ -1,4 +1,4 @@
-require_relative "lib/micro_test/version"
+require File.expand_path("../lib/micro_test/version", __FILE__)
 
 Gem::Specification.new do |spec|
   spec.name                  = "micro_test"
