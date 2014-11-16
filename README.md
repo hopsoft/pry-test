@@ -1,6 +1,6 @@
 # MicroTest
 
-#### Home of the `fail` `pry` `pass` testing workflow.
+#### Speed up your test workflow: `fail` -> `pry` -> `pass`
 
 ---
 
@@ -11,10 +11,6 @@
 [![Coverage Status](https://img.shields.io/coveralls/hopsoft/micro_test.svg)](https://coveralls.io/r/hopsoft/micro_test?branch=master)
 
 ---
-
-Save time by dropping into a Pry debug session on test failure.
-
-> It's an awesome workflow... I only wish that I had discovered it sooner. --Thomas A. Anderson
 
 ## Benefits
 

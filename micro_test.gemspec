@@ -5,8 +5,8 @@ Gem::Specification.new do |spec|
   spec.version               = MicroTest::VERSION
   spec.license               = "MIT"
   spec.homepage              = "https://github.com/hopsoft/micro_test"
-  spec.summary               = "The Sinatra of testing frameworks."
-  spec.description           = "The Sinatra of testing frameworks."
+  spec.summary               = "Speed up your test workflow: fail -> pry -> pass"
+  spec.description           = "Speed up your test workflow: fail -> pry -> pass"
 
   spec.authors               = ["Nathan Hopkins"]
   spec.email                 = ["natehop@gmail.com"]
