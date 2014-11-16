@@ -24,7 +24,13 @@ Gem::Specification.new do |spec|
   # also see:
   # http://en.wikibooks.org/wiki/Ruby_Programming/RubyGems#How_to_install_different_versions_of_gems_depending_on_which_version_of_ruby_the_installee_is_using
 
-  spec.files = Dir["ext/mkrf_conf.rb", "lib/**/*.rb", "bin/*", "[A-Z].*"]
+  spec.files = Dir[
+    "ext/mkrf_conf.rb",
+    "lib/**/*.rb",
+    "lib/**/*.erb",
+    "bin/*",
+    "[A-Z].*"
+  ]
   spec.test_files = Dir["test/**/*.rb"]
   spec.executables << "mt"
 end
