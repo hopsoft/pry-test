@@ -6,7 +6,7 @@
 
 # PryTest
 
-A testing framework that supports debugging test failures & errors as they happen.
+A testing framework that supports debugging test failures & errors when they happen.
 
 _Formerly known as `MicroTest`._
 
