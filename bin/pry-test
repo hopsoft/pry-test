@@ -73,9 +73,7 @@ end
 runner = PryTest::Runner.new(formatter.new, options)
 
 # setup pry -------------------------------------------------------------------
-if options[:async] || RUBY_ENGINE == "jruby" || RUBY_ENGINE == "rbx"
-  optional[:disable_pry] = true
-end
+options[:disable_pry] ||= options[:async] || RUBY_ENGINE == "jruby" || RUBY_ENGINE == "rbx"
 
 if options[:disable_pry]
   puts magenta("Disabling pry when running with: [#{RUBY_ENGINE}] #{options.inspect}")
