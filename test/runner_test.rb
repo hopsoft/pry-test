@@ -1,10 +1,10 @@
 unless ENV["MT_DEMO"]
   require_relative "test_helper"
 
-  class TestRunner < MicroTest::Test
+  class TestRunner < PryTest::Test
 
     before do
-      @runner = MicroTest::Runner.new(MicroTest::DefaultFormatter.new)
+      @runner = PryTest::Runner.new(PryTest::DefaultFormatter.new)
     end
 
     test ".running" do

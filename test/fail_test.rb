@@ -1,7 +1,7 @@
 if ENV["MT_DEMO"]
   require_relative "test_helper"
 
-  class Fail < MicroTest::Test
+  class Fail < PryTest::Test
 
     before do
       @var = "fubar"

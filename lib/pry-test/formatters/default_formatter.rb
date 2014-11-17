@@ -1,7 +1,7 @@
 require_relative "base_formatter"
 
-module MicroTest
-  class DefaultFormatter < MicroTest::BaseFormatter
+module PryTest
+  class DefaultFormatter < PryTest::BaseFormatter
     set_short_name "default"
 
     def before_class(test_class)

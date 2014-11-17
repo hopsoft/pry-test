@@ -1,8 +1,8 @@
-module MicroTest
+module PryTest
 
   # Superclass for all test classes.
   # @example Create a subclass with a test.
-  #   class SimpleTest < MicroTest::Test
+  #   class SimpleTest < PryTest::Test
   #     test "common sense" do
   #       assert 1 > 0
   #     end
@@ -11,19 +11,19 @@ module MicroTest
     class << self
 
       # All subclasses of this class.
-      # @return [Array<MicroTest::Test>]
+      # @return [Array<PryTest::Test>]
       def subclasses
         @subclasses ||= []
       end
 
       # All individual tests defined in this class.
-      # @return [Array<MicroTest::TestWrapper>]
+      # @return [Array<PryTest::TestWrapper>]
       def tests
         @tests ||= []
       end
 
       # All files that define subclasses of this class.
-      # @note Primarily used in the context of MicroTest::Test.
+      # @note Primarily used in the context of PryTest::Test.
       # @example Files are stored in a Hash with the following format.
       #   {
       #     "path/to/file1.rb" => ["line 1", "line 2", "line 3", ...],
@@ -68,13 +68,13 @@ module MicroTest
       # @yield A block that defines the test code.
       #
       # @example
-      #   class SimpleTest < MicroTest::Test
+      #   class SimpleTest < PryTest::Test
       #     test "common sense" do
       #       assert 1 > 0
       #     end
       #   end
       def test(desc, &block)
-        wrapper = MicroTest::TestWrapper.new(self, desc, &block)
+        wrapper = PryTest::TestWrapper.new(self, desc, &block)
         wrapper.create_method(:before, &@before) if @before
         wrapper.create_method(:after, &@after) if @after
         tests << wrapper

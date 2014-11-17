@@ -1,7 +1,7 @@
 unless ENV["MT_DEMO"]
   require_relative "test_helper"
 
-  class TestTest < MicroTest::Test
+  class TestTest < PryTest::Test
 
     before do
       @test_test = TestTest.clone
@@ -30,7 +30,7 @@ unless ENV["MT_DEMO"]
     test "stores tests" do
       assert @Example.tests.is_a?(Array)
       assert @Example.tests.length == 1
-      assert @Example.tests.first.is_a?(MicroTest::TestWrapper)
+      assert @Example.tests.first.is_a?(PryTest::TestWrapper)
     end
 
     test "stores files" do
@@ -62,7 +62,7 @@ unless ENV["MT_DEMO"]
       t = lambda {}
       @Example.send :test, :add_a_test, &t
       assert @Example.tests.length == 2
-      assert @Example.tests.last.is_a?(MicroTest::TestWrapper)
+      assert @Example.tests.last.is_a?(PryTest::TestWrapper)
       assert @Example.tests.last.desc == :add_a_test
     end
 

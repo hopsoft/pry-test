@@ -1,7 +1,7 @@
 require "os"
 require "thread"
 
-module MicroTest
+module PryTest
   class Runner
     class << self
       attr_accessor :exit
@@ -16,7 +16,7 @@ module MicroTest
     end
 
     def run
-      test_classes = MicroTest::Test.subclasses.shuffle
+      test_classes = PryTest::Test.subclasses.shuffle
       tests = test_classes.map{ |klass| klass.tests }.flatten
       formatter.before_suite(test_classes)
       start = Time.now
@@ -57,11 +57,11 @@ module MicroTest
       threads = []
       thread_count = OS.cpu_count
       thread_count = 2 if thread_count < 2
-      puts "MicroTest is running #{thread_count} threads."
+      puts "PryTest is running #{thread_count} threads."
       thread_count.times do
         threads << Thread.new do
           while @tests.empty? == false
-            Thread.current.kill if MicroTest::Runner.exit
+            Thread.current.kill if PryTest::Runner.exit
             @tests.pop.invoke(@formatter, @options)
           end
         end

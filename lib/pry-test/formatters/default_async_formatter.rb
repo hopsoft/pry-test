@@ -1,7 +1,7 @@
 require_relative "base_formatter"
 
-module MicroTest
-  class DefaultAsyncFormatter < MicroTest::BaseFormatter
+module PryTest
+  class DefaultAsyncFormatter < PryTest::BaseFormatter
     set_short_name "default_async"
 
     def after_test(test)

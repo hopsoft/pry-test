@@ -1,6 +1,6 @@
 require_relative "color"
 
-module MicroTest
+module PryTest
   class Template
     include Color
 

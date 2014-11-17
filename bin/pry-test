@@ -1,21 +1,21 @@
 #!/usr/bin/env ruby
 require "optparse"
-require_relative "../lib/micro_test"
+require_relative "../lib/pry-test"
 
-include MicroTest::Color
+include PryTest::Color
 
 # setup the formatters list ---------------------------------------------------
-formatter_names = MicroTest.formatters.map(&:short_name).sort
+formatter_names = PryTest.formatters.map(&:short_name).sort
 
 # setup the options -----------------------------------------------------------
 options = {}
 parser = OptionParser.new do |opts|
-  opts.banner = "MicroTest Usage: mt [options] /path/to/test/dir_or_file"
+  opts.banner = "PryTest Usage: pry-test [options] /path/to/test/dir_or_file"
 
   desc = "Runs tests asynchronously."
   opts.on("-a", "--async", desc) { |value| options[:async] = value }
 
-  desc = "Runs the MicroTest test suite and some additional demo tests."
+  desc = "Runs the PryTest test suite and some additional demo tests."
   opts.on("--demo", desc) { |value| options[:demo] = value }
 
   desc = "The formatter to use. [#{formatter_names.join(", ")}]"
@@ -26,11 +26,8 @@ parser = OptionParser.new do |opts|
   desc = "Stops the test run after the first failure. "
   opts.on("--fail-fast", desc) { |value| options[:fail_fast] = value }
 
-  desc = "Starts a PRY session whenever a test fails. "
-  opts.on("--pry", desc) { |value| options[:pry] = value }
-
   opts.on("-v", "--version", "Show version.") do
-    puts "MicroTest #{MicroTest::VERSION}"
+    puts "PryTest #{PryTest::VERSION}"
     exit 0
   end
 
@@ -38,31 +35,9 @@ parser = OptionParser.new do |opts|
     puts opts
     exit 0
   end
-
 end
 parser.parse!
 
-# apply rules to the options --------------------------------------------------
-if RUBY_ENGINE == "jruby"
-  if options[:pry]
-    options[:pry] = nil
-    puts red("Unfortunately the pry option is not available on jruby")
-    puts red("due to a dependency on pry-stack_explorer & binding_of_caller.")
-    puts "However, the pry workflow is awesome. Switch to #{green "mri 1.9"} to try it."
-  end
-end
-if RUBY_ENGINE == "rbx"
-  if options[:pry]
-    options[:pry] = nil
-    puts red("Unfortunately the pry option is not available on rubinius at this time")
-    puts red("due to weird behavior related to pry & pry-stack_explorer.")
-    puts "However, the pry workflow is awesome. Switch to #{green "mri 1.9"} to try it."
-  end
-end
-if options[:async] && options[:pry]
-  options[:pry] = nil
-  puts red("Disabling pry while runing in async mode to avoid interleaved pry session chaos.")
-end
 ENV["MT_DEMO"] = "true" if options[:demo]
 
 # setup the test path ---------------------------------------------------------
@@ -82,21 +57,23 @@ else
 end
 
 # setup the formatter ---------------------------------------------------------
-formatter = MicroTest.formatters.find { |f| f.short_name == options[:formatter] }
+formatter = PryTest.formatters.find { |f| f.short_name == options[:formatter] }
 formatter ||= begin
   if options[:async]
-    MicroTest.formatters.find { |f| f.short_name == "default_async" }
+    PryTest.formatters.find { |f| f.short_name == "default_async" }
   else
-    MicroTest.formatters.find { |f| f.short_name == "default" }
+    PryTest.formatters.find { |f| f.short_name == "default" }
   end
 end
 
 # setup the test runner -------------------------------------------------------
-runner = MicroTest::Runner.new(formatter.new, options)
+runner = PryTest::Runner.new(formatter.new, options)
 
 # setup pry -------------------------------------------------------------------
-if options[:pry]
-
+if RUBY_ENGINE == "jruby" || RUBY_ENGINE == "rbx" || options[:async]
+  puts red("Disabling pry when running with: #{RUBY_ENGINE}; #{options.inspect}")
+  exit runner.run
+else
   begin
     require "pry"
     require "pry-stack_explorer"
@@ -123,7 +100,4 @@ if options[:pry]
   end
 
   exit Pry.rescue { runner.run }
-else
-  exit runner.run
 end
-

@@ -4,6 +4,6 @@ task :default => [:test]
 
 desc "Runs the test suite."
 task :test do
-  exec File.expand_path("../bin/mt", __FILE__)
+  exec File.expand_path("../bin/pry-test", __FILE__)
 end
 

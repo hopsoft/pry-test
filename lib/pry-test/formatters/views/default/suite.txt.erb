@@ -1,6 +1,9 @@
 
 --------------------------------------------------------------------------------
-<%= green "#{@context.passed} Passed" -%>, <%= red "#{@context.failed} Failed" -%>
+<%= green "#{@context.passed} Passed" -%>
+<% if @context.failed > 0 -%>
+, <%= red "#{@context.failed} Failed" -%>
+<% end -%>
  Finished in <%= yellow @context.duration %> seconds.
 --------------------------------------------------------------------------------
 

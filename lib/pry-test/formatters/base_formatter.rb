@@ -1,4 +1,4 @@
-module MicroTest
+module PryTest
 
   class << self
     def formatters
@@ -14,7 +14,7 @@ module MicroTest
 
     class << self
       def inherited(subclass)
-        MicroTest.formatters << subclass
+        PryTest.formatters << subclass
       end
 
       def short_name

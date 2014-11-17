@@ -1,10 +1,10 @@
-require File.expand_path("../lib/micro_test/version", __FILE__)
+require File.expand_path("../lib/pry-test/version", __FILE__)
 
 Gem::Specification.new do |spec|
-  spec.name                  = "micro_test"
-  spec.version               = MicroTest::VERSION
+  spec.name                  = "pry-test"
+  spec.version               = PryTest::VERSION
   spec.license               = "MIT"
-  spec.homepage              = "https://github.com/hopsoft/micro_test"
+  spec.homepage              = "https://github.com/hopsoft/pry-test"
   spec.summary               = "Speed up your test workflow: fail -> pry -> pass"
   spec.description           = "Speed up your test workflow: fail -> pry -> pass"
 
@@ -32,5 +32,5 @@ Gem::Specification.new do |spec|
     "[A-Z].*"
   ]
   spec.test_files = Dir["test/**/*.rb"]
-  spec.executables << "mt"
+  spec.executables << "pry-test"
 end

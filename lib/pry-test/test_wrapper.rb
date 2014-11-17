@@ -1,6 +1,6 @@
 require "monitor"
 
-module MicroTest
+module PryTest
 
   # A wrapper class for individual tests.
   # Exists for the purpose of isolating the test method so it can run in its own thread.
@@ -9,7 +9,7 @@ module MicroTest
     attr_reader :test_class, :desc, :asserts
 
     # Constructor.
-    # @param [MicroTest::Test] test_class The test class that defines the test being wrapped.
+    # @param [PryTest::Test] test_class The test class that defines the test being wrapped.
     # @param [String] desc The test description.
     # @yield The block that defines the test code.
     def initialize(test_class, desc, &block)
@@ -33,7 +33,7 @@ module MicroTest
     def after; end
 
     # Runs the test code.
-    # @formatter [MicroTest::Formatter] The formatter to use.
+    # @formatter [PryTest::Formatter] The formatter to use.
     # @options [Hash]
     def invoke(formatter, options={})
       reset
@@ -54,7 +54,7 @@ module MicroTest
     # @param [Object] value The value to assert.
     #
     # @example
-    #   class SimpleTest < MicroTest::Test
+    #   class SimpleTest < PryTest::Test
     #     test "common sense" do
     #       assert 1 > 0
     #     end
@@ -63,10 +63,10 @@ module MicroTest
       @asserts << assert_info(caller).merge(:value => value)
 
       if !value
-        binding.pry(:quiet => true) if @options[:pry]
+        binding.pry(:quiet => true)
 
         # I don't really like the coupling to the runner here
-        MicroTest::Runner.exit = true if @options[:fail_fast]
+        PryTest::Runner.exit = true if @options[:fail_fast]
       end
 
       value
@@ -120,7 +120,7 @@ module MicroTest
     # @return [Hash]
     def assert_info(stack)
       file_path = stack[0][0, stack[0].index(/:[0-9]+:/)]
-      lines = MicroTest::Test.files[file_path]
+      lines = PryTest::Test.files[file_path]
       line_num = line_number(stack, 0)
       line_index = line_num - 1
       line = lines[line_index]

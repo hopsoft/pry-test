@@ -1,10 +1,10 @@
 [![Lines of Code](http://img.shields.io/badge/loc-480-brightgreen.svg)](http://blog.codinghorror.com/the-best-code-is-no-code-at-all/)
-[![Code Status](https://codeclimate.com/github/hopsoft/micro_test.png)](https://codeclimate.com/github/hopsoft/micro_test)
-[![Dependency Status](https://gemnasium.com/hopsoft/micro_test.png)](https://gemnasium.com/hopsoft/micro_test)
-[![Build Status](https://travis-ci.org/hopsoft/micro_test.png)](https://travis-ci.org/hopsoft/micro_test)
-[![Coverage Status](https://img.shields.io/coveralls/hopsoft/micro_test.svg)](https://coveralls.io/r/hopsoft/micro_test?branch=master)
+[![Code Status](https://codeclimate.com/github/hopsoft/pry-test.png)](https://codeclimate.com/github/hopsoft/pry-test)
+[![Dependency Status](https://gemnasium.com/hopsoft/pry-test.png)](https://gemnasium.com/hopsoft/pry-test)
+[![Build Status](https://travis-ci.org/hopsoft/pry-test.png)](https://travis-ci.org/hopsoft/pry-test)
+[![Coverage Status](https://img.shields.io/coveralls/hopsoft/pry-test.svg)](https://coveralls.io/r/hopsoft/pry-test?branch=master)
 
-# MicroTest
+# PryTest
 
 #### Speed up your test workflow: `fail` -> `pry` -> `pass`
 
@@ -15,15 +15,15 @@
 * Async test runs
 * Works with all major Rubies
 
-[An important note on debugging test failures with Pry.](https://github.com/hopsoft/micro_test/wiki/Debug-Test-Failures-with-Pry#gemfile-considerations)
+[An important note on debugging test failures with Pry.](https://github.com/hopsoft/pry-test/wiki/Debug-Test-Failures-with-Pry#gemfile-considerations)
 
 ## The API
 
-Everything you need to know about MicroTest's API is outlined here.
+Everything you need to know about PryTest's API is outlined here.
 
 <table>
   <tr>
-    <td><strong><code>MicroTest::Test</code></strong></td>
+    <td><strong><code>PryTest::Test</code></strong></td>
     <td></td>
   </tr>
   <tr>
@@ -70,7 +70,7 @@ Everything you need to know about MicroTest's API is outlined here.
 The entire public interface is used in this basic example.
 
 ```ruby
-class MathTest < MicroTest::Test
+class MathTest < PryTest::Test
 
   before do
     # runs before each test method
@@ -89,45 +89,42 @@ end
 
 ## Get Started
 
-MicroTest ships with a demo so you can try it out easily.
+PryTest ships with a demo so you can try it out easily.
 
 ```sh
-gem install micro_test
-mt --help
-mt --demo
+gem install pry-test
+pry-test --help
+pry-test --demo
 ```
 
 Try some advanced features.
 
 ```sh
-mt --demo --pry
-mt --demo --async
-mt --demo --formatter doc
+pry-test --demo --pry
+pry-test --demo --async
+pry-test --demo --formatter doc
 ```
 
 ## Testing Your Own Projects
 
-MicroTest assumes your test directory is located at `PROJECT_ROOT/test`;
+PryTest assumes your test directory is located at `PROJECT_ROOT/test`;
 however, this isn't a requirement. You can indicate your test directory location.
 
 ```sh
-mt /path/to/test/dir
+pry-test /path/to/test/dir
 ```
 
-If you have multiple versions of MicroTest installed,
+If you have multiple versions of PryTest installed,
 it's safest to run your tests with `bundle exec`.
 
 ```sh
-bundle exec mt /path/to/test/dir
+bundle exec pry-test /path/to/test/dir
 ```
 
-MicroTest is small & unobtrusive.
+PryTest is small & unobtrusive.
 It plays nice with other test frameworks, & can be introduced to existing projects incrementally.
 
 ## Advanced
 
-[See the wiki](https://github.com/hopsoft/micro_test/wiki)
+[See the wiki](https://github.com/hopsoft/pry-test/wiki)
 to troubleshoot or get help with more advanced topics.
-
-*Also, checkout [MicroMock](https://github.com/hopsoft/micro_mock) for a lightweight mocking solution.*
-

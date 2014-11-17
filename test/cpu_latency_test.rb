@@ -1,7 +1,7 @@
 if ENV["MT_DEMO"]
   require_relative "test_helper"
 
-  class TestCPULatency < MicroTest::Test
+  class TestCPULatency < PryTest::Test
 
     before do
       @count = 35

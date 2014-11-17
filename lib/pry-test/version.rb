@@ -1,3 +1,3 @@
-module MicroTest
+module PryTest
   VERSION = "0.5.0"
 end

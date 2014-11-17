@@ -1,4 +1,4 @@
-module MicroTest
+module PryTest
   module Color
     extend self
 
