@@ -8,6 +8,8 @@
 
 A testing framework that supports debugging test failures & errors as they happen.
 
+_Formerly known as `MicroTest`._
+
 ## Benefits
 
 * A simple test API
