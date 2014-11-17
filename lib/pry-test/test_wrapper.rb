@@ -63,7 +63,7 @@ module PryTest
       @asserts << assert_info(caller).merge(:value => value)
 
       if !value
-        binding.pry(:quiet => true)
+        binding.pry(:quiet => true) unless @options[:disable_pry]
 
         # I don't really like the coupling to the runner here
         PryTest::Runner.exit = true if @options[:fail_fast]

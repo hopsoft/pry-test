@@ -1,4 +1,4 @@
-[![Lines of Code](http://img.shields.io/badge/loc-480-brightgreen.svg)](http://blog.codinghorror.com/the-best-code-is-no-code-at-all/)
+[![Lines of Code](http://img.shields.io/badge/loc-464-brightgreen.svg)](http://blog.codinghorror.com/the-best-code-is-no-code-at-all/)
 [![Code Status](https://codeclimate.com/github/hopsoft/pry-test.png)](https://codeclimate.com/github/hopsoft/pry-test)
 [![Dependency Status](https://gemnasium.com/hopsoft/pry-test.png)](https://gemnasium.com/hopsoft/pry-test)
 [![Build Status](https://travis-ci.org/hopsoft/pry-test.png)](https://travis-ci.org/hopsoft/pry-test)
@@ -6,7 +6,7 @@
 
 # PryTest
 
-#### Speed up your test workflow: `fail` -> `pry` -> `pass`
+A testing framework that supports debugging test failures & errors as they happen.
 
 ## Benefits
 
@@ -100,9 +100,8 @@ pry-test --demo
 Try some advanced features.
 
 ```sh
-pry-test --demo --pry
 pry-test --demo --async
-pry-test --demo --formatter doc
+pry-test --demo --disable-pry
 ```
 
 ## Testing Your Own Projects

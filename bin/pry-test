@@ -26,6 +26,9 @@ parser = OptionParser.new do |opts|
   desc = "Stops the test run after the first failure. "
   opts.on("--fail-fast", desc) { |value| options[:fail_fast] = value }
 
+  desc = "Disabled pry during the test run. "
+  opts.on("--disable-pry", desc) { |value| options[:disable_pry] = value }
+
   opts.on("-v", "--version", "Show version.") do
     puts "PryTest #{PryTest::VERSION}"
     exit 0
@@ -70,8 +73,12 @@ end
 runner = PryTest::Runner.new(formatter.new, options)
 
 # setup pry -------------------------------------------------------------------
-if RUBY_ENGINE == "jruby" || RUBY_ENGINE == "rbx" || options[:async]
-  puts red("Disabling pry when running with: #{RUBY_ENGINE}; #{options.inspect}")
+if options[:async] || RUBY_ENGINE == "jruby" || RUBY_ENGINE == "rbx"
+  optional[:disable_pry] = true
+end
+
+if options[:disable_pry]
+  puts magenta("Disabling pry when running with: [#{RUBY_ENGINE}] #{options.inspect}")
   exit runner.run
 else
   begin

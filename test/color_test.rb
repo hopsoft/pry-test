@@ -8,7 +8,6 @@ unless ENV["MT_DEMO"]
     CRAYON = Crayon.new
 
     test "red" do
-      assert false
       assert PryTest::Color.red("foo") == "\e[31mfoo\e[0m"
       assert ColorTest::CRAYON.red("foo") == "\e[31mfoo\e[0m"
     end
