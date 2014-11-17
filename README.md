@@ -1,4 +1,4 @@
-[![Lines of Code](http://img.shields.io/badge/loc-464-brightgreen.svg)](http://blog.codinghorror.com/the-best-code-is-no-code-at-all/)
+[![Lines of Code](http://img.shields.io/badge/loc-462-brightgreen.svg)](http://blog.codinghorror.com/the-best-code-is-no-code-at-all/)
 [![Code Status](https://codeclimate.com/github/hopsoft/pry-test.png)](https://codeclimate.com/github/hopsoft/pry-test)
 [![Dependency Status](https://gemnasium.com/hopsoft/pry-test.png)](https://gemnasium.com/hopsoft/pry-test)
 [![Build Status](https://travis-ci.org/hopsoft/pry-test.png)](https://travis-ci.org/hopsoft/pry-test)
