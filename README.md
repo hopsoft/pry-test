@@ -1,8 +1,8 @@
-[![Lines of Code](http://img.shields.io/badge/lines_of_code-462-brightgreen.svg)](http://blog.codinghorror.com/the-best-code-is-no-code-at-all/)
-[![Code Status](https://codeclimate.com/github/hopsoft/pry-test.png)](https://codeclimate.com/github/hopsoft/pry-test)
-[![Dependency Status](https://gemnasium.com/hopsoft/pry-test.png)](https://gemnasium.com/hopsoft/pry-test)
-[![Build Status](https://travis-ci.org/hopsoft/pry-test.png)](https://travis-ci.org/hopsoft/pry-test)
-[![Coverage Status](https://img.shields.io/coveralls/hopsoft/pry-test.svg)](https://coveralls.io/r/hopsoft/pry-test?branch=master)
+[![Lines of Code](http://img.shields.io/badge/lines_of_code-462-brightgreen.svg?style=flat)](http://blog.codinghorror.com/the-best-code-is-no-code-at-all/)
+[![Code Status](http://img.shields.io/codeclimate/github/hopsoft/pry-test.svg?style=flat)](https://codeclimate.com/github/hopsoft/pry-test)
+[![Dependency Status](http://img.shields.io/gemnasium/hopsoft/pry-test.svg?style=flat)](https://gemnasium.com/hopsoft/pry-test)
+[![Build Status](http://img.shields.io/travis/hopsoft/pry-test.svg?style=flat)](https://travis-ci.org/hopsoft/pry-test)
+[![Coverage Status](https://img.shields.io/coveralls/hopsoft/pry-test.svg?style=flat)](https://coveralls.io/r/hopsoft/pry-test?branch=master)
 
 # PryTest
 
