@@ -14,8 +14,8 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = ">= 1.9.2"
   spec.extensions            = "ext/mkrf_conf.rb"
   spec.add_dependency "os"
+  spec.add_dependency "coveralls"
   spec.add_development_dependency "rake"
-  spec.add_development_dependency "coveralls"
 
   # spec.add_dependency "pry"
   # spec.add_dependency "pry-stack_explorer"
