@@ -1,4 +1,4 @@
-if !ENV["PRY_TEST_DEMO"].nil?
+if ENV["PRY_TEST_DEMO"] != "true"
   require "coveralls"
   Coveralls.wear!
 end
