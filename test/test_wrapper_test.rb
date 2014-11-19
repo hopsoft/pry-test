@@ -1,4 +1,4 @@
-unless ENV["MT_DEMO"]
+unless ENV["PRY_TEST_DEMO"]
   require_relative "test_helper"
 
   class TestWrapperTest < PryTest::Test

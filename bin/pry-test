@@ -41,7 +41,7 @@ parser = OptionParser.new do |opts|
 end
 parser.parse!
 
-ENV["MT_DEMO"] = "true" if options[:demo]
+ENV["PRY_TEST_DEMO"] = "true" if options[:demo]
 
 # setup the test path ---------------------------------------------------------
 path = ARGV.last unless ARGV.last =~ /^-/

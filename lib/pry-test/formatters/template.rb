@@ -1,3 +1,4 @@
+require "erb"
 require_relative "color"
 
 module PryTest

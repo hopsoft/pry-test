@@ -1,4 +1,4 @@
-if ENV["MT_DEMO"]
+if ENV["PRY_TEST_DEMO"]
   require_relative "test_helper"
 
   class Fail < PryTest::Test
