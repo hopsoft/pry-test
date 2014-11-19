@@ -1,4 +1,4 @@
-[![Lines of Code](http://img.shields.io/badge/loc-462-brightgreen.svg)](http://blog.codinghorror.com/the-best-code-is-no-code-at-all/)
+[![Lines of Code](http://img.shields.io/badge/lines_of_code-462-brightgreen.svg)](http://blog.codinghorror.com/the-best-code-is-no-code-at-all/)
 [![Code Status](https://codeclimate.com/github/hopsoft/pry-test.png)](https://codeclimate.com/github/hopsoft/pry-test)
 [![Dependency Status](https://gemnasium.com/hopsoft/pry-test.png)](https://gemnasium.com/hopsoft/pry-test)
 [![Build Status](https://travis-ci.org/hopsoft/pry-test.png)](https://travis-ci.org/hopsoft/pry-test)
@@ -26,7 +26,7 @@ Everything you need to know about PryTest's API is outlined here.
 <table>
   <tr>
     <td><strong><code>PryTest::Test</code></strong></td>
-    <td></td>
+    <td>Superclass for all test classes.</td>
   </tr>
   <tr>
     <td><strong><code>test(desc, &block)</code></strong></td>
