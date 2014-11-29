@@ -38,34 +38,34 @@ parser.parse!
 
 ENV["PRY_TEST_DEMO"] = "true" if options[:demo]
 
-# setup the test path ---------------------------------------------------------
-path = ARGV.last unless ARGV.last =~ /^-/
-path = File.expand_path("../../test", __FILE__) if options[:demo]
-path ||= "test"
-path = File.join(Dir.pwd, path) unless path =~ /^\//
-unless File.exist?(path)
-  puts "#{path} not found."
-  puts "Please check the path and try again."
-  exit 1
-end
-if path =~ /\.rb$/
-  require path
-else
-  Dir[File.join(path, "**/*.rb")].each { |path| require path }
-end
-
-# setup the formatter ---------------------------------------------------------
-formatter = PryTest.formatters.find { |f| f.short_name == options[:formatter] }
-formatter ||= begin
-  if options[:async]
-    PryTest.formatters.find { |f| f.short_name == "default_async" }
+def require_tests(options)
+  path = ARGV.last unless ARGV.last =~ /^-/
+  path = File.expand_path("../../test", __FILE__) if options[:demo]
+  path ||= "test"
+  path = File.join(Dir.pwd, path) unless path =~ /^\//
+  unless File.exist?(path)
+    puts "#{path} not found."
+    puts "Please check the path and try again."
+    exit 1
+  end
+  if path =~ /\.rb$/
+    require path
   else
-    PryTest.formatters.find { |f| f.short_name == "default" }
+    Dir[File.join(path, "**/*.rb")].each { |path| require path }
   end
 end
 
-# setup the test runner -------------------------------------------------------
-runner = PryTest::Runner.new(formatter.new, options)
+def runner(options)
+  formatter = PryTest.formatters.find { |f| f.short_name == options[:formatter] }
+  formatter ||= begin
+    if options[:async]
+      PryTest.formatters.find { |f| f.short_name == "default_async" }
+    else
+      PryTest.formatters.find { |f| f.short_name == "default" }
+    end
+  end
+  PryTest::Runner.new(formatter.new, options)
+end
 
 # setup pry -------------------------------------------------------------------
 options[:disable_pry] ||= options[:async] || RUBY_ENGINE == "jruby" || RUBY_ENGINE == "rbx"
@@ -77,16 +77,18 @@ if options[:disable_pry]
     SimpleCov.command_name "pry-test"
     SimpleCov.formatter = Coveralls::SimpleCov::Formatter
     SimpleCov.start do
-      add_filter "test/**/*.rb"
+      add_filter "test/*.rb"
     end
   end
 
   require_relative "../lib/pry-test"
+  require_tests options
   include PryTest::Color
   puts magenta("Disabling pry when running with: [#{RUBY_ENGINE}] #{options.inspect}")
-  exit runner.run
+  exit runner(options).run
 else
   require_relative "../lib/pry-test"
+  require_tests options
   include PryTest::Color
 
   begin
@@ -114,5 +116,5 @@ else
     puts
   end
 
-  exit Pry.rescue { runner.run }
+  exit Pry.rescue { runner(options).run }
 end
