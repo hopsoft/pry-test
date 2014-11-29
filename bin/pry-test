@@ -78,6 +78,7 @@ if options[:disable_pry]
     SimpleCov.formatter = Coveralls::SimpleCov::Formatter
     SimpleCov.start do
       add_filter "test/*.rb"
+      add_filter "bin"
     end
   end
 
