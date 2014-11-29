@@ -42,6 +42,11 @@ unless ENV["PRY_TEST_DEMO"]
       assert ColorTest::CRAYON.white("foo") == "\e[37mfoo\e[0m"
     end
 
+    test "gray" do
+      assert PryTest::Color.gray("foo") == "\e[90mfoo\e[0m"
+      assert ColorTest::CRAYON.gray("foo") == "\e[90mfoo\e[0m"
+    end
+
   end
 
 end

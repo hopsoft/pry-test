@@ -25,21 +25,21 @@ Everything you need to know about PryTest's API is outlined here.
 
 <table>
   <tr>
-    <td><strong><code>PryTest::Test</code></strong></td>
+    <td><code>PryTest::Test</code></td>
     <td>Superclass for all test classes.</td>
   </tr>
   <tr>
-    <td><strong><code>test(desc, &block)</code></strong></td>
+    <td><code>test(desc, &block)</code></td>
     <td>
       Defines a test method.
       <ul>
-        <li><sr<code>desc</code> - a description of what is being tested</li>
-        <li><code>block</code> - a block of code which defines the test</li>
+        <li><code>desc</code> - a description of what is being tested</li>
+        <li><code>&block</code> - a block of code which defines the test</li>
       </ul>
     </td>
   </tr>
   <tr>
-    <td><strong><code>assert(value)</code></strong></td>
+    <td><code>assert(value)</code></td>
     <td>
       Verifies the truthiness of a value.
       <ul>
@@ -48,7 +48,7 @@ Everything you need to know about PryTest's API is outlined here.
     </td>
   </tr>
   <tr>
-    <td><strong><code>before(&block)</code></strong></td>
+    <td><code>before(&block)</code></td>
     <td>
       A callback that runs before each test method.
       <ul>
@@ -57,7 +57,7 @@ Everything you need to know about PryTest's API is outlined here.
     </td>
   </tr>
   <tr>
-    <td><strong><code>after(&block)</code></strong></td>
+    <td><code>after(&block)</code></td>
     <td>
       A callback that runs after each test method.
       <ul>
