@@ -5,7 +5,7 @@ if ENV["PRY_TEST_DEMO"] != "true"
   SimpleCov.command_name "pry-test"
   SimpleCov.formatter = Coveralls::SimpleCov::Formatter
   SimpleCov.start do
-    add_filter "test/fail_test.rb"
+    add_filter "test/demos"
   end
 end
 

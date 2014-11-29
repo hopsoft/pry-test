@@ -1,5 +1,5 @@
 if ENV["PRY_TEST_DEMO"]
-  require_relative "test_helper"
+  require_relative "../test_helper"
 
   class TestCPULatency < PryTest::Test
 
@@ -28,3 +28,4 @@ if ENV["PRY_TEST_DEMO"]
 
   end
 end
+

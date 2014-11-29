@@ -1,5 +1,5 @@
 if ENV["PRY_TEST_DEMO"]
-  require_relative "test_helper"
+  require_relative "../test_helper"
 
   class Fail < PryTest::Test
 
