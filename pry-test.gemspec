@@ -15,6 +15,7 @@ Gem::Specification.new do |gem|
   gem.extensions            = "ext/mkrf_conf.rb"
   gem.add_dependency "os"
   gem.add_development_dependency "rake"
+  gem.add_development_dependency "simplecov"
   gem.add_development_dependency "coveralls"
 
   # gem.add_dependency "pry"
