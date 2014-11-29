@@ -3,6 +3,7 @@
 [![Dependency Status](http://img.shields.io/gemnasium/hopsoft/pry-test.svg?style=flat)](https://gemnasium.com/hopsoft/pry-test)
 [![Build Status](http://img.shields.io/travis/hopsoft/pry-test.svg?style=flat)](https://travis-ci.org/hopsoft/pry-test)
 [![Coverage Status](https://img.shields.io/coveralls/hopsoft/pry-test.svg?style=flat)](https://coveralls.io/r/hopsoft/pry-test?branch=master)
+[![Downloads](http://img.shields.io/gem/dt/pry-test.svg?style=flat)](http://rubygems.org/gems/pry-test)
 
 # PryTest
 
