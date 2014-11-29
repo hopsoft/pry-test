@@ -77,7 +77,7 @@ if options[:disable_pry]
     SimpleCov.command_name "pry-test"
     SimpleCov.formatter = Coveralls::SimpleCov::Formatter
     SimpleCov.start do
-      add_filter "test/demos"
+      add_filter "test/**/*.rb"
     end
   end
 
