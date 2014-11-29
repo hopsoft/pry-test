@@ -5,8 +5,8 @@ Gem::Specification.new do |gem|
   gem.version               = PryTest::VERSION
   gem.license               = "MIT"
   gem.homepage              = "https://github.com/hopsoft/pry-test"
-  gem.summary               = "A testing framework that supports debugging test failures and errors when they happen."
-  gem.description           = "A testing framework that supports debugging test failures and errors when they happen."
+  gem.summary               = "A small test framework that supports debugging test failures and errors when they happen."
+  gem.description           = "A small test framework that supports debugging test failures and errors when they happen."
 
   gem.authors               = ["Nathan Hopkins"]
   gem.email                 = ["natehop@gmail.com"]
