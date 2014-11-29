@@ -1,11 +1,6 @@
 #!/usr/bin/env ruby
+
 require "optparse"
-require_relative "../lib/pry-test"
-
-include PryTest::Color
-
-# setup the formatters list ---------------------------------------------------
-formatter_names = PryTest.formatters.map(&:short_name).sort
 
 # setup the options -----------------------------------------------------------
 options = {}
@@ -18,7 +13,7 @@ parser = OptionParser.new do |opts|
   desc = "Runs the PryTest test suite and some additional demo tests."
   opts.on("--demo", desc) { |value| options[:demo] = value }
 
-  desc = "The formatter to use. [#{formatter_names.join(", ")}]"
+  desc = "The formatter to use."
   opts.on("-f", "--formatter [FORMATTER]", desc) do |value|
     options[:formatter] = value
   end
@@ -76,9 +71,24 @@ runner = PryTest::Runner.new(formatter.new, options)
 options[:disable_pry] ||= options[:async] || RUBY_ENGINE == "jruby" || RUBY_ENGINE == "rbx"
 
 if options[:disable_pry]
+  if ENV["PRY_TEST_COVERAGE"]
+    require "simplecov"
+    require "coveralls"
+    SimpleCov.command_name "pry-test"
+    SimpleCov.formatter = Coveralls::SimpleCov::Formatter
+    SimpleCov.start do
+      add_filter "test/demos"
+    end
+  end
+
+  require_relative "../lib/pry-test"
+  include PryTest::Color
   puts magenta("Disabling pry when running with: [#{RUBY_ENGINE}] #{options.inspect}")
   exit runner.run
 else
+  require_relative "../lib/pry-test"
+  include PryTest::Color
+
   begin
     require "pry"
     require "pry-stack_explorer"
