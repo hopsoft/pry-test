@@ -68,54 +68,30 @@ def runner(options)
 end
 
 # setup pry -------------------------------------------------------------------
-options[:disable_pry] ||= options[:async] || RUBY_ENGINE == "jruby" || RUBY_ENGINE == "rbx"
 
-if options[:disable_pry]
-  if ENV["PRY_TEST_COVERAGE"]
-    require "simplecov"
-    require "coveralls"
-    SimpleCov.command_name "pry-test"
-    SimpleCov.formatter = Coveralls::SimpleCov::Formatter
-    SimpleCov.start do
-      add_filter "test/*.rb"
-      add_filter "bin"
-    end
+if ENV["PRY_TEST_COVERAGE"]
+  require "simplecov"
+  require "coveralls"
+  SimpleCov.command_name "pry-test"
+  SimpleCov.formatter = Coveralls::SimpleCov::Formatter
+  SimpleCov.start do
+    add_filter "test/*.rb"
+    add_filter "bin"
   end
+end
 
-  require_relative "../lib/pry-test"
-  require_tests options
-  include PryTest::Color
-  puts magenta("Disabling pry when running with: [#{RUBY_ENGINE}] #{options.inspect}")
+require_relative "../lib/pry-test"
+require_tests options
+include PryTest::Color
+
+if options[:async] || options[:disable_pry]
+  puts magenta("Disabling pry... #{options.inspect}")
   exit runner(options).run
 else
-  require_relative "../lib/pry-test"
-  require_tests options
-  include PryTest::Color
-
-  begin
-    require "pry"
-    require "pry-stack_explorer"
-    require "pry-rescue"
-  rescue Exception => e
-    puts red(e.message)
-    puts e.backtrace.join("\n")
-    puts red("This can be caused when pry-stack_explorer isn't specified in the Gemfile.")
-    puts red("It might also indicate that pry-stack_explorer & pry are out of sync.")
-    puts red("Try different cominations of GEM versions for pry & pry-stack_explorer.")
-    exit 1
-  end
-
-  Pry.config.hooks.add_hook :before_session, :print_instructions do |_, _, _pry_|
-    puts
-    puts magenta(" Pry session started")
-    puts magenta("".ljust(80, "-"))
-    puts " #{magenta "  Failures:"} Type #{green "up"} to see the line that failed"
-    puts " #{magenta "Exceptions:"} Type #{green "whereami"} to get your bearings"
-    puts
-    puts " Type #{green "exit"} or #{green "<CTL-D>"} to continue"
-    puts magenta("".ljust(80, "-"))
-    puts
-  end
-
+  require "pry"
+  require "pry-stack_explorer"
+  require "pry-byebug"
+  require "pry-rescue"
+  require "binding_of_caller"
   exit Pry.rescue { runner(options).run }
 end

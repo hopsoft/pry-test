@@ -11,9 +11,15 @@ Gem::Specification.new do |gem|
   gem.authors               = ["Nathan Hopkins"]
   gem.email                 = ["natehop@gmail.com"]
 
-  gem.required_ruby_version = ">= 1.9.2"
-  gem.extensions            = "ext/mkrf_conf.rb"
+  gem.required_ruby_version = ">= 2.0"
+
+  gem.add_dependency "pry"
+  gem.add_dependency "pry-stack_explorer"
+  gem.add_dependency "pry-byebug"
+  gem.add_dependency "pry-rescue"
+  gem.add_dependency "binding_of_caller"
   gem.add_dependency "os"
+
   gem.add_development_dependency "rake"
   gem.add_development_dependency "simplecov"
   gem.add_development_dependency "coveralls"
