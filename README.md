@@ -9,7 +9,7 @@
 
 A small test framework that supports debugging test failures & errors when they happen.
 
-_Formerly known as `MicroTest`._
+_Formerly known as [MicroTest](https://rubygems.org/gems/micro_test)._
 
 ## Benefits
 
