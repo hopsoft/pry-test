@@ -10,6 +10,8 @@ _Formerly known as [MicroTest](https://rubygems.org/gems/micro_test)._
 
 # PryTest
 
+[![Join the chat at https://gitter.im/hopsoft/pry-test](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/hopsoft/pry-test?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 A small test framework that supports debugging test failures & errors when they happen.
 
 ## Benefits
