@@ -61,24 +61,26 @@ module PryTest
 
     def run_test_classes
       start = Time.now
-      test_classes.each { |test_class| run_test_class test_class }
+      queue ||= Queue.new if options[:async]
+      test_classes.each do |test_class|
+        run_test_class test_class, queue
+      end
+      run_threads(queue) if options[:async]
       @duration = Time.now - start
       formatter.after_results(self)
     end
 
-    def run_test_class(test_class)
+    def run_test_class(test_class, queue)
       return if PryTest::Runner.terminate?
-      test_queue ||= Queue.new if options[:async]
       formatter.before_class(test_class)
       test_class.tests.shuffle.each do |test|
         if options[:async]
-          test_queue << test
+          queue << test
         else
           test.invoke(formatter, options)
         end
       end
       formatter.after_class(test_class)
-      run_threads(test_queue) if options[:async]
     end
 
     def run_threads(test_queue)

@@ -86,7 +86,7 @@ include PryTest::Color
 
 options[:disable_pry] = true if options[:async]
 if options[:disable_pry]
-  puts "Disabline pry #{options.inspect}"
+  puts "Disabling pry #{options.inspect}"
   exit runner(options).run
 else
   require "pry"
