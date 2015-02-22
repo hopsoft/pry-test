@@ -4,12 +4,13 @@
 [![Build Status](http://img.shields.io/travis/hopsoft/pry-test.svg?style=flat)](https://travis-ci.org/hopsoft/pry-test)
 [![Coverage Status](https://img.shields.io/coveralls/hopsoft/pry-test.svg?style=flat)](https://coveralls.io/r/hopsoft/pry-test?branch=master)
 [![Downloads](http://img.shields.io/gem/dt/pry-test.svg?style=flat)](http://rubygems.org/gems/pry-test)
+[![Gratipay](http://img.shields.io/gratipay/hopsoft.svg?style=flat)](https://gratipay.com/hopsoft/)
+
+_Formerly known as [MicroTest](https://rubygems.org/gems/micro_test)._
 
 # PryTest
 
 A small test framework that supports debugging test failures & errors when they happen.
-
-_Formerly known as [MicroTest](https://rubygems.org/gems/micro_test)._
 
 ## Benefits
 
