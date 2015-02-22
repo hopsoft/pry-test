@@ -39,23 +39,8 @@ unless ENV["PRY_TEST_DEMO"]
       assert @test_test.files[file].select{ |l| l.start_with?("      assert @test_test.files[file].select{ |l| l.start_with?(") }.length > 0
     end
 
-    test ".reset" do
-      @Example.tests.first.instance_eval do
-        @asserts = nil
-        @duration = nil
-      end
-      @Example.reset
-      assert @Example.tests.length == 1
-      assert @Example.tests.first.asserts == []
-      assert @Example.tests.first.duration == nil
-    end
-
     test ".before" do
       assert @Example.instance_eval { @before } == @before_callback
-    end
-
-    test ".after" do
-      assert @Example.instance_eval { @after } == @after_callback
     end
 
     test "tests" do

@@ -34,12 +34,6 @@ module PryTest
         @files ||= {}
       end
 
-      # Resets the state in preparation for a new test run.
-      def reset
-        tests.each { |test| test.reset }
-        subclasses.each { |subclass| subclass.reset }
-      end
-
       # A callback provided by Ruby that is invoked whenever a subclass is created.
       def inherited(subclass)
         file_path = caller[0][0, caller[0].index(/:[0-9]+:/)]

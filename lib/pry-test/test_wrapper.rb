@@ -16,8 +16,8 @@ module PryTest
       super() # inits MonitorMixin
       @test_class = test_class
       @desc = desc
+      @asserts = []
       create_method(:test, &block)
-      reset
     end
 
     # Creates a method on this instance.
@@ -36,7 +36,6 @@ module PryTest
     # @formatter [PryTest::Formatter] The formatter to use.
     # @options [Hash]
     def invoke(formatter, options={})
-      reset
       @formatter = formatter
       @options = options
       @formatter.before_test(self)
@@ -44,8 +43,8 @@ module PryTest
       before
       test
       @invoked = true
-      after
       @duration = Time.now - start
+      after
       @formatter.after_test(self)
     end
 
@@ -72,12 +71,6 @@ module PryTest
       value
     end
 
-    # Indicates if this test has finished running.
-    # @return [Boolean]
-    def finished?
-      !@duration.nil?
-    end
-
     # Indicates if this test has been invoked.
     # @return [Boolean]
     def invoked?
@@ -94,13 +87,6 @@ module PryTest
     def failed_asserts
       return [] if passed?
       @asserts.select { |a| !a[:value] }
-    end
-
-    # Resets this test in preparation for a clean test run.
-    def reset
-      @invoked = false
-      @asserts = []
-      @duration = nil
     end
 
     # Rounded duration.

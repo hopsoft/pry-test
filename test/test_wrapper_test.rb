@@ -11,7 +11,6 @@ unless ENV["PRY_TEST_DEMO"]
       assert t.test == ".new"
       assert t.invoked? == false
       assert t.passed? == false
-      assert t.finished? == false
       assert t.duration.nil?
       assert t.asserts.empty?
     end

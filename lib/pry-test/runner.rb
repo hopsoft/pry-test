@@ -18,7 +18,6 @@ module PryTest
     def initialize(formatter, options={})
       @formatter = formatter
       @options = options
-      reset
     end
 
     def run
@@ -28,17 +27,12 @@ module PryTest
       failed
     end
 
-    def reset
-      @duration = 0
-      tests.each { |t| t.reset }
-    end
-
     def test_classes
-      PryTest::Test.subclasses.shuffle
+      @test_classes ||= PryTest::Test.subclasses.shuffle
     end
 
     def tests
-      test_classes.map{ |klass| klass.tests }.flatten
+      @tests ||= test_classes.map{ |klass| klass.tests }.flatten
     end
 
     def failed_tests
@@ -83,16 +77,19 @@ module PryTest
       formatter.after_class(test_class)
     end
 
-    def run_threads(test_queue)
-      threads = []
-      thread_count = OS.cpu_count
-      thread_count = 2 if thread_count < 2
+    def thread_count
+      count = OS.cpu_count
+      count < 2 ? 2 : count
+    end
+
+    def run_threads(queue)
       puts "PryTest is running #{thread_count} threads."
-      thread_count.times do
-        threads << Thread.new do
-          while !test_queue.empty?
-            Thread.current.kill if PryTest::Runner.terminate?
-            test_queue.pop.invoke(formatter, options)
+      threads = thread_count.times.map do
+        Thread.new do
+          while !queue.empty?
+            Thread.current.terminate if PryTest::Runner.terminate?
+            test = queue.pop
+            test.invoke(formatter, options)
           end
         end
       end

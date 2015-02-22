@@ -27,7 +27,7 @@ module PryTest
     end
 
     def render_output_for_test(test)
-      return unless test.finished?
+      return unless test.invoked?
 
       if test.passed?
         render "default/test_pass", test
