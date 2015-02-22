@@ -85,7 +85,6 @@ module PryTest
 
     # Returns a list of all failed asserts.
     def failed_asserts
-      return [] if passed?
       @asserts.select { |a| !a[:value] }
     end
 
