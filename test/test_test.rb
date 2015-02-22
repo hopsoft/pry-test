@@ -43,6 +43,10 @@ unless ENV["PRY_TEST_DEMO"]
       assert @Example.instance_eval { @before } == @before_callback
     end
 
+    test ".after" do
+      assert @Example.instance_eval { @after } == @after_callback
+    end
+
     test "tests" do
       t = lambda {}
       @Example.send :test, :add_a_test, &t
