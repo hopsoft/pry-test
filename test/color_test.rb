@@ -7,6 +7,11 @@ unless ENV["PRY_TEST_DEMO"]
     end
     CRAYON = Crayon.new
 
+    test "default" do
+      assert PryTest::Color.default("foo") == "foo"
+      assert ColorTest::CRAYON.default("foo") == "foo"
+    end
+
     test "red" do
       assert PryTest::Color.red("foo") == "\e[31mfoo\e[0m"
       assert ColorTest::CRAYON.red("foo") == "\e[31mfoo\e[0m"
