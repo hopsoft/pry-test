@@ -93,6 +93,10 @@ else
   require "pry-stack_explorer"
   require "pry-byebug"
   require "pry-rescue"
-  require "binding_of_caller"
+
+  Pry.config.hooks.add_hook :before_session, :print_instructions do |_, _, _pry_|
+    PryStackExplorer.frame_manager(_pry_).change_frame_to 1
+  end
+
   exit Pry.rescue { runner(options).run }
 end

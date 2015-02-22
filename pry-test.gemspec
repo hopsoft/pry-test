@@ -17,7 +17,6 @@ Gem::Specification.new do |gem|
   gem.add_dependency "pry-stack_explorer"
   gem.add_dependency "pry-byebug"
   gem.add_dependency "pry-rescue"
-  gem.add_dependency "binding_of_caller"
   gem.add_dependency "os"
 
   gem.add_development_dependency "rake"

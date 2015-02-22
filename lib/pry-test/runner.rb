@@ -13,7 +13,7 @@ module PryTest
       end
     end
 
-    attr_reader :formatter, :options, :active_test, :duration, :passed, :failed
+    attr_reader :formatter, :options, :duration, :passed, :failed
 
     def initialize(formatter, options={})
       @formatter = formatter
@@ -22,55 +22,75 @@ module PryTest
     end
 
     def run
-      test_classes = PryTest::Test.subclasses.shuffle
-      tests = test_classes.map{ |klass| klass.tests }.flatten
       formatter.before_suite(test_classes)
-      start = Time.now
-
-      test_classes.each do |test_class|
-        if !PryTest::Runner.terminate?
-          formatter.before_class(test_class)
-          test_class.tests.shuffle.each do |test|
-            @active_test = test
-            if @options[:async]
-              @tests ||= Queue.new
-              @tests << test
-            else
-              test.invoke(@formatter, @options)
-            end
-          end
-          formatter.after_class(test_class)
-        end
-      end
-
-      run_threads if @options[:async]
-
-      @duration = Time.now - start
-      @passed = tests.select{ |test| test.invoked? && test.passed? }.count
-      @failed = tests.select{ |test| test.invoked? && !test.passed? }.count
-      formatter.after_results(self)
+      run_test_classes
       formatter.after_suite(test_classes)
-      @failed
+      failed
     end
 
     def reset
       @duration = 0
-      @passed = 0
-      @failed = 0
+      tests.each { |t| t.reset }
     end
 
-    protected
+    def test_classes
+      PryTest::Test.subclasses.shuffle
+    end
 
-    def run_threads
+    def tests
+      test_classes.map{ |klass| klass.tests }.flatten
+    end
+
+    def failed_tests
+      tests.select{ |test| test.invoked? && !test.passed? }
+    end
+
+    def failed
+      failed_tests.length
+    end
+
+    def passed_tests
+      tests.select{ |test| test.invoked? && test.passed? }
+    end
+
+    def passed
+      passed_tests.length
+    end
+
+    private
+
+    def run_test_classes
+      start = Time.now
+      test_classes.each { |test_class| run_test_class test_class }
+      @duration = Time.now - start
+      formatter.after_results(self)
+    end
+
+    def run_test_class(test_class)
+      return if PryTest::Runner.terminate?
+      test_queue ||= Queue.new if options[:async]
+      formatter.before_class(test_class)
+      test_class.tests.shuffle.each do |test|
+        if options[:async]
+          test_queue << test
+        else
+          test.invoke(formatter, options)
+        end
+      end
+      formatter.after_class(test_class)
+      run_threads(test_queue) if options[:async]
+    end
+
+    def run_threads(test_queue)
       threads = []
       thread_count = OS.cpu_count
       thread_count = 2 if thread_count < 2
       puts "PryTest is running #{thread_count} threads."
       thread_count.times do
         threads << Thread.new do
-          while !@tests.empty?
+          while !test_queue.empty?
             Thread.current.kill if PryTest::Runner.terminate?
-            @tests.pop.invoke(@formatter, @options)
+            test_queue.pop.invoke(formatter, options)
           end
         end
       end
