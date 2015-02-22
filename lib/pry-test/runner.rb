@@ -4,7 +4,13 @@ require "thread"
 module PryTest
   class Runner
     class << self
-      attr_accessor :exit
+      def terminate
+        @terminate = true
+      end
+
+      def terminate?
+        !!@terminate
+      end
     end
 
     attr_reader :formatter, :options, :active_test, :duration, :passed, :failed
@@ -22,24 +28,26 @@ module PryTest
       start = Time.now
 
       test_classes.each do |test_class|
-        formatter.before_class(test_class)
-        test_class.tests.shuffle.each do |test|
-          @active_test = test
-          if @options[:async]
-            @tests ||= Queue.new
-            @tests << test
-          else
-            test.invoke(@formatter, @options)
+        if !PryTest::Runner.terminate?
+          formatter.before_class(test_class)
+          test_class.tests.shuffle.each do |test|
+            @active_test = test
+            if @options[:async]
+              @tests ||= Queue.new
+              @tests << test
+            else
+              test.invoke(@formatter, @options)
+            end
           end
+          formatter.after_class(test_class)
         end
-        formatter.after_class(test_class)
       end
 
       run_threads if @options[:async]
 
       @duration = Time.now - start
-      @passed = tests.select{ |test| test.passed? }.count
-      @failed = tests.select{ |test| !test.passed? }.count
+      @passed = tests.select{ |test| test.invoked? && test.passed? }.count
+      @failed = tests.select{ |test| test.invoked? && !test.passed? }.count
       formatter.after_results(self)
       formatter.after_suite(test_classes)
       @failed
@@ -60,8 +68,8 @@ module PryTest
       puts "PryTest is running #{thread_count} threads."
       thread_count.times do
         threads << Thread.new do
-          while @tests.empty? == false
-            Thread.current.kill if PryTest::Runner.exit
+          while !@tests.empty?
+            Thread.current.kill if PryTest::Runner.terminate?
             @tests.pop.invoke(@formatter, @options)
           end
         end

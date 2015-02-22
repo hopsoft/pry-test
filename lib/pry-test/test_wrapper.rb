@@ -63,10 +63,10 @@ module PryTest
       @asserts << assert_info(caller).merge(:value => value)
 
       if !value
-        Pry.start binding.of_caller(0)
+        Pry.start binding.of_caller(0) unless @options[:disable_pry]
 
-        # I don't really like the coupling to the runner here
-        PryTest::Runner.exit = true if @options[:fail_fast]
+        # TODO: I don't really like the coupling to the runner here
+        PryTest::Runner.terminate if @options[:fail_fast]
       end
 
       value
@@ -78,9 +78,14 @@ module PryTest
       !@duration.nil?
     end
 
+    # Indicates if this test has been invoked.
+    # @return [Boolean]
+    def invoked?
+      !!@invoked
+    end
+
     # Indicates if this test passed.
     def passed?
-      return true if !@invoked || @asserts.empty?
       return false if @asserts.empty?
       @asserts.map{ |a| !!a[:value] }.uniq == [true]
     end

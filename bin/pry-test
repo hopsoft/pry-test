@@ -84,8 +84,9 @@ require_relative "../lib/pry-test"
 require_tests options
 include PryTest::Color
 
-if options[:async] || options[:disable_pry]
-  puts magenta("Disabling pry... #{options.inspect}")
+options[:disable_pry] = true if options[:async]
+if options[:disable_pry]
+  puts "Disabline pry #{options.inspect}"
   exit runner(options).run
 else
   require "pry"

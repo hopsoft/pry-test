@@ -9,7 +9,8 @@ unless ENV["PRY_TEST_DEMO"]
       t = PryTest::TestWrapper.new(TestWrapperTest, desc, &meth)
       assert t.desc == desc
       assert t.test == ".new"
-      assert t.passed?
+      assert t.invoked? == false
+      assert t.passed? == false
       assert t.finished? == false
       assert t.duration.nil?
       assert t.asserts.empty?

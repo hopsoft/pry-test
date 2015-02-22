@@ -9,6 +9,7 @@ module PryTest
     end
 
     def after_test(test)
+      return unless test.invoked?
       if test.passed?
         render "default/test_pass", test
       else
