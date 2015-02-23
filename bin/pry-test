@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 require "optparse"
+require_relative "../lib/pry-test"
 
 # setup the options -----------------------------------------------------------
 options = {}
@@ -80,7 +81,6 @@ if ENV["PRY_TEST_COVERAGE"]
   end
 end
 
-require_relative "../lib/pry-test"
 require_tests options
 include PryTest::Color
 
