@@ -22,22 +22,8 @@ module PryTest
         @tests ||= []
       end
 
-      # All files that define subclasses of this class.
-      # @note Primarily used in the context of PryTest::Test.
-      # @example Files are stored in a Hash with the following format.
-      #   {
-      #     "path/to/file1.rb" => ["line 1", "line 2", "line 3", ...],
-      #     "path/to/file2.rb" => ["line 1", "line 2", "line 3", ...]
-      #   }
-      # @return [Hash]
-      def files
-        @files ||= {}
-      end
-
       # A callback provided by Ruby that is invoked whenever a subclass is created.
       def inherited(subclass)
-        file_path = caller[0][0, caller[0].index(/:[0-9]+:/)]
-        files[file_path] = File.open(file_path).readlines
         subclasses << subclass
       end
 

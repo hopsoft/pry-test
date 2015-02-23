@@ -59,7 +59,8 @@ module PryTest
     #     end
     #   end
     def assert(value)
-      @asserts << assert_info(caller).merge(:value => value)
+      info = assert_info(value, caller_locations.first)
+      @asserts << info.merge(:value => value)
 
       if !value
         Pry.start unless @options[:disable_pry]
@@ -96,9 +97,10 @@ module PryTest
 
     private
 
-    # Builds a Hash of assert information for the given call stack.
+    # Builds a Hash of assert information for the given assert value & call stack location.
     #
-    # @param [Array<String>] stack The call stack to extract info from.
+    # @params [Boolean] value The value of assert.
+    # @param [Thread::Backtrace::Location] location The call stack location to extract info from.
     #
     # @example
     #   {
@@ -108,26 +110,33 @@ module PryTest
     #   }
     #
     # @return [Hash]
-    def assert_info(stack)
-      file_path = stack[0][0, stack[0].index(/:[0-9]+:/)]
-      lines = PryTest::Test.files[file_path]
-      line_num = line_number(stack, 0)
-      line_index = line_num - 1
-      line = lines[line_index]
-      {
-        :file_path => file_path,
-        :lines => lines,
-        :line_num => line_num,
-        :line => line
+    def assert_info(value, location)
+      info = {
+        :file_path => location.absolute_path,
+        :line_num  => location.lineno
       }
+
+      info.merge! line_info(location) unless value
+      info
     end
 
-    # Returns a line number from a call stack.
-    # @param [Array<String>] stack The call stack to pull a path from.
-    # @param [Integer] index The index of the call stack entry to use.
-    # @return [String]
-    def line_number(stack, index)
-      stack[index].scan(/:[0-9]+:/).first.gsub(/:/, "").to_i
+    # Builds a Hash of line/source information for the given call stack location.
+    #
+    # @param [Thread::Backtrace::Location] location The call stack location to extract info from.
+    #
+    # @example
+    #   {
+    #     :lines => ["line one", "line two"]
+    #     :line => "line two"
+    #   }
+    #
+    # @return [Hash]
+    def line_info(location)
+      lines = File.open(location.absolute_path).readlines
+      {
+        :lines => lines,
+        :line  => lines[location.lineno]
+      }
     end
 
   end

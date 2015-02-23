@@ -33,12 +33,6 @@ unless ENV["PRY_TEST_DEMO"]
       assert @Example.tests.first.is_a?(PryTest::TestWrapper)
     end
 
-    test "stores files" do
-      file = __FILE__
-      assert @test_test.files[file].is_a?(Array)
-      assert @test_test.files[file].select{ |l| l.start_with?("      assert @test_test.files[file].select{ |l| l.start_with?(") }.length > 0
-    end
-
     test ".before" do
       assert @Example.instance_eval { @before } == @before_callback
     end
