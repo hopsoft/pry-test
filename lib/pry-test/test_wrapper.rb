@@ -45,7 +45,7 @@ module PryTest
       @invoked = true
       @duration = Time.now - start
       after
-      @formatter.after_test(self)
+      @formatter.after_test(self) unless asserts.empty?
     end
 
     # A basic assert method to be used within tests.
@@ -60,7 +60,7 @@ module PryTest
     #   end
     def assert(value)
       info = assert_info(value, caller_locations.first)
-      @asserts << info.merge(:value => value)
+      asserts << info.merge(:value => value)
 
       if !value
         Pry.start unless @options[:disable_pry]
@@ -80,13 +80,14 @@ module PryTest
 
     # Indicates if this test passed.
     def passed?
-      return false if @asserts.empty?
-      @asserts.map{ |a| !!a[:value] }.uniq == [true]
+      return false unless invoked?
+      return true if asserts.empty?
+      asserts.map{ |a| !!a[:value] }.uniq == [true]
     end
 
     # Returns a list of all failed asserts.
     def failed_asserts
-      @asserts.select { |a| !a[:value] }
+      asserts.select { |a| !a[:value] }
     end
 
     # Rounded duration.

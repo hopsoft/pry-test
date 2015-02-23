@@ -11,5 +11,7 @@ unless ENV["PRY_TEST_DEMO"]
       assert true
     end
 
+    test "empty test" do
+    end
   end
 end
