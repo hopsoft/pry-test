@@ -11,15 +11,19 @@ _Formerly known as [MicroTest](https://rubygems.org/gems/micro_test)._
 
 # PryTest
 
-
 A small test framework that supports debugging test failures & errors when they happen.
+
+## Values
+
+* __Simplicity__ - writing tests should be easy & devoid of friction
+* __Intelligibility__ - tests should be readable & unambiguous
+* __Immediacy__ - test failures should be dealt with quickly when they occur
 
 ## Benefits
 
 * A simple test API
 * An awesome `fail` `pry` `pass` workflow
-* Async test runs
-* Works with all major Rubies
+* Optional async test runs
 
 [An important note on debugging test failures with Pry.](https://github.com/hopsoft/pry-test/wiki/Debug-Test-Failures-with-Pry#gemfile-considerations)
 
