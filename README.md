@@ -5,7 +5,7 @@
 [![Coverage Status](https://img.shields.io/coveralls/hopsoft/pry-test.svg?style=flat)](https://coveralls.io/r/hopsoft/pry-test?branch=master)
 [![Downloads](http://img.shields.io/gem/dt/pry-test.svg?style=flat)](http://rubygems.org/gems/pry-test)
 [![Join the chat at https://gitter.im/hopsoft/pry-test](http://img.shields.io/badge/gitter-chat-brightgreen.svg?style=flat)](https://gitter.im/hopsoft/pry-test)
-[![Gratipay](http://img.shields.io/badge/gratipay-contribute-edffba.svg?style=flat)](https://gratipay.com/hopsoft/)
+[![Gratipay](http://img.shields.io/badge/gratipay-contribute-009bef.svg?style=flat)](https://gratipay.com/hopsoft/)
 
 _Formerly known as [MicroTest](https://rubygems.org/gems/micro_test)._
 
