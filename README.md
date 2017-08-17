@@ -5,7 +5,6 @@
 [![Coverage Status](https://img.shields.io/coveralls/hopsoft/pry-test.svg?style=flat)](https://coveralls.io/r/hopsoft/pry-test?branch=master)
 [![Downloads](http://img.shields.io/gem/dt/pry-test.svg?style=flat)](http://rubygems.org/gems/pry-test)
 [![Join the chat at https://gitter.im/hopsoft/pry-test](http://img.shields.io/badge/gitter-chat-brightgreen.svg?style=flat)](https://gitter.im/hopsoft/pry-test)
-[![Gratipay](http://img.shields.io/badge/gratipay-contribute-009bef.svg?style=flat)](https://gratipay.com/hopsoft/)
 
 <a rel="nofollow" href="https://app.codesponsor.io/link/QMSjMHrtPhvfmCnk5Hbikhhr/hopsoft/pry-test"><img src="https://app.codesponsor.io/embed/QMSjMHrtPhvfmCnk5Hbikhhr/hopsoft/pry-test.svg" style="width: 888px; height: 68px;" alt="Sponsor" /></a>
 
