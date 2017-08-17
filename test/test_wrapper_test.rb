@@ -15,5 +15,12 @@ unless ENV["PRY_TEST_DEMO"]
       assert t.asserts.empty?
     end
 
+    test ".assert" do
+      assert true
+    end
+
+    test ".refute" do
+      refute false
+    end
   end
 end

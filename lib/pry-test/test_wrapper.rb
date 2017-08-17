@@ -72,6 +72,20 @@ module PryTest
       value
     end
 
+    # A basic refute method to be used within tests.
+    #
+    # @param [Object] value The value to refute.
+    #
+    # @example
+    #   class SimpleTest < PryTest::Test
+    #     test "common sense" do
+    #       refute 0 > 1
+    #     end
+    #   end
+    def refute(value)
+      assert !value
+    end
+
     # Indicates if this test has been invoked.
     # @return [Boolean]
     def invoked?

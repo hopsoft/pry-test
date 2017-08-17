@@ -7,7 +7,7 @@
 [![Join the chat at https://gitter.im/hopsoft/pry-test](http://img.shields.io/badge/gitter-chat-brightgreen.svg?style=flat)](https://gitter.im/hopsoft/pry-test)
 [![Gratipay](http://img.shields.io/badge/gratipay-contribute-009bef.svg?style=flat)](https://gratipay.com/hopsoft/)
 
-<a href="https://app.codesponsor.io/link/QMSjMHrtPhvfmCnk5Hbikhhr/hopsoft/pry-test"><img src="https://app.codesponsor.io/embed/QMSjMHrtPhvfmCnk5Hbikhhr/hopsoft/pry-test.svg" style="width: 888px; height: 68px;" alt="Sponsor" /></a>
+<a rel="nofollow" href="https://app.codesponsor.io/link/QMSjMHrtPhvfmCnk5Hbikhhr/hopsoft/pry-test"><img src="https://app.codesponsor.io/embed/QMSjMHrtPhvfmCnk5Hbikhhr/hopsoft/pry-test.svg" style="width: 888px; height: 68px;" alt="Sponsor" /></a>
 
 _Formerly known as [MicroTest](https://rubygems.org/gems/micro_test)._
 
@@ -58,6 +58,15 @@ Everything you need to know about PryTest's API is outlined here.
     </td>
   </tr>
   <tr>
+    <td><code>refute(value)</code></td>
+    <td>
+      Verifies the falsiness of a value.
+      <ul>
+        <li><code>value</code> - the value to refute</li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
     <td><code>before(&block)</code></td>
     <td>
       A callback that runs before each test method.
@@ -96,6 +105,9 @@ class MathTest < PryTest::Test
     assert 2 + 2 == 4
   end
 
+  test "all is right in the world" do
+    refute 0 > 1
+  end
 end
 ```
 
