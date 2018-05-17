@@ -1,6 +1,5 @@
 [![Lines of Code](http://img.shields.io/badge/lines_of_code-378-brightgreen.svg?style=flat)](http://blog.codinghorror.com/the-best-code-is-no-code-at-all/)
 [![Maintainability](https://api.codeclimate.com/v1/badges/139cded3012a4e543287/maintainability)](https://codeclimate.com/github/hopsoft/pry-test/maintainability)
-[![Dependency Status](http://img.shields.io/gemnasium/hopsoft/pry-test.svg?style=flat)](https://gemnasium.com/hopsoft/pry-test)
 [![Build Status](http://img.shields.io/travis/hopsoft/pry-test.svg?style=flat)](https://travis-ci.org/hopsoft/pry-test)
 [![Coverage Status](https://img.shields.io/coveralls/hopsoft/pry-test.svg?style=flat)](https://coveralls.io/r/hopsoft/pry-test?branch=master)
 [![Downloads](http://img.shields.io/gem/dt/pry-test.svg?style=flat)](http://rubygems.org/gems/pry-test)
