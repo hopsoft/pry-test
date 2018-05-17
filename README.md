@@ -7,7 +7,9 @@
 
 _Formerly known as [MicroTest](https://rubygems.org/gems/micro_test)._
 
-# PryTest a.k.a. pry-test
+# PryTest
+
+> aka pry-test
 
 A small test framework that supports debugging test failures & errors when they happen.
 
