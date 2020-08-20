@@ -1,5 +1,6 @@
-module PryTest
+# frozen_string_literal: true
 
+module PryTest
   # Superclass for all test classes.
   # @example Create a subclass with a test.
   #   class SimpleTest < PryTest::Test
@@ -9,7 +10,6 @@ module PryTest
   #   end
   class Test
     class << self
-
       # All subclasses of this class.
       # @return [Array<PryTest::Test>]
       def subclasses
@@ -30,14 +30,14 @@ module PryTest
       # Defines a setup method that will run before each individual test.
       # @param [Symbol] what Deprecated but maintained for backwards compatibility.
       # @yield A block of code that will serve as the setup method.
-      def before(what=nil, &block)
+      def before(what = nil, &block)
         @before = block
       end
 
       # Defines a teardown method that will run after each individual test.
       # @param [Symbol] what Deprecated but maintained for backwards compatibility.
       # @yield A block of code that will serve as the teardown method.
-      def after(what=nil, &block)
+      def after(what = nil, &block)
         @after = block
       end
 
@@ -59,7 +59,6 @@ module PryTest
         wrapper.create_method(:after, &@after) if @after
         tests << wrapper
       end
-
     end
   end
 end

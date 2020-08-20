@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module PryTest
-  VERSION = "0.6.5"
+  VERSION = "0.6.6"
 end

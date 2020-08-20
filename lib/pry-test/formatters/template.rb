@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "erb"
 require_relative "color"
 
@@ -16,15 +18,15 @@ module PryTest
 
     def render_to_string(name)
       instance_eval do
-        ERB.new(self.class.view(name), nil, "%<>-").result(binding)
+        ERB.new(self.class.view(name), trim_mode: "-").result(binding)
       end
     end
 
     def partial(name, *collection)
       return render_to_string(name) if collection.empty?
-      collection.map do |item|
+      collection.map { |item|
         Template.new(item).render_to_string(name)
-      end.join("\n")
+      }.join("\n")
     end
 
     def duration_color(duration)
@@ -40,12 +42,11 @@ module PryTest
       finish = assert[:lines].length - 1 if finish >= assert[:lines].length
       (start..finish).map do |i|
         {
-          :line_num => (i + 1),
-          :line => assert[:lines][i],
-          :color => (i == index ? :red : :gray)
+          line_num: (i + 1),
+          line: assert[:lines][i],
+          color: (i == index ? :red : :gray)
         }
       end
     end
-
   end
 end

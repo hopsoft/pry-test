@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 if ENV["PRY_TEST_DEMO"]
   require_relative "../test_helper"
 
   class TestIOLatency < PryTest::Test
-
     test "sleep 1 sec" do
       sleep 1
       assert true
@@ -17,6 +18,5 @@ if ENV["PRY_TEST_DEMO"]
       sleep 1
       assert true
     end
-
   end
 end

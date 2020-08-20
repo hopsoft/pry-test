@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 if ENV["PRY_TEST_DEMO"]
   require_relative "../test_helper"
 
   class Fail < PryTest::Test
-
     before do
       @var = "fubar"
     end
@@ -13,6 +14,5 @@ if ENV["PRY_TEST_DEMO"]
       # For example, type @var.
       assert false
     end
-
   end
 end

@@ -1,5 +1,6 @@
-module PryTest
+# frozen_string_literal: true
 
+module PryTest
   class << self
     def formatters
       @formatters ||= []
@@ -56,19 +57,18 @@ module PryTest
     def after_suite(test_classes)
     end
 
-    def render(template_name, template_context=nil)
+    def render(template_name, template_context = nil)
       puts text_to_render(template_name, template_context)
     end
 
-    def render_inline(template_name, template_context=nil)
+    def render_inline(template_name, template_context = nil)
       print text_to_render(template_name, template_context)
     end
 
     private
 
-    def text_to_render(template_name, template_context=nil)
+    def text_to_render(template_name, template_context = nil)
       Template.new(template_context || self).render_to_string(template_name)
     end
-
   end
 end

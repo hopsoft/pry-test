@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 require "monitor"
 
 module PryTest
-
   # A wrapper class for individual tests.
   # Exists for the purpose of isolating the test method so it can run in its own thread.
   class TestWrapper
@@ -29,13 +30,16 @@ module PryTest
     end
 
     # callback stubs
-    def before; end
-    def after; end
+    def before
+    end
+
+    def after
+    end
 
     # Runs the test code.
     # @formatter [PryTest::Formatter] The formatter to use.
     # @options [Hash]
-    def invoke(formatter, options={})
+    def invoke(formatter, options = {})
       @formatter = formatter
       @options = options
       @formatter.before_test(self)
@@ -59,10 +63,10 @@ module PryTest
     #     end
     #   end
     def assert(value)
-      info = assert_info(value, caller_locations.first)
-      asserts << info.merge(:value => value)
+      info = assert_info(value, caller_locations(1..1).first)
+      asserts << info.merge(value: value)
 
-      if !value
+      unless value
         Pry.start unless @options[:disable_pry]
 
         # TODO: I don't really like the coupling to the runner here
@@ -96,7 +100,7 @@ module PryTest
     def passed?
       return false unless invoked?
       return true if asserts.empty?
-      asserts.map{ |a| !!a[:value] }.uniq == [true]
+      asserts.map { |a| !!a[:value] }.uniq == [true]
     end
 
     # Returns a list of all failed asserts.
@@ -127,8 +131,8 @@ module PryTest
     # @return [Hash]
     def assert_info(value, location)
       info = {
-        :file_path => location.absolute_path,
-        :line_num  => location.lineno
+        file_path: location.absolute_path,
+        line_num: location.lineno
       }
 
       info.merge! line_info(location) unless value
@@ -149,10 +153,9 @@ module PryTest
     def line_info(location)
       lines = File.open(location.absolute_path).readlines
       {
-        :lines => lines,
-        :line  => lines[location.lineno]
+        lines: lines,
+        line: lines[location.lineno]
       }
     end
-
   end
 end

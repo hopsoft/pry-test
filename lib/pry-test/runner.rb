@@ -1,6 +1,6 @@
-require "os"
-require "thread"
+# frozen_string_literal: true
 
+require "os"
 module PryTest
   class Runner
     class << self
@@ -13,9 +13,9 @@ module PryTest
       end
     end
 
-    attr_reader :formatter, :options, :duration, :passed, :failed
+    attr_reader :formatter, :options, :duration
 
-    def initialize(formatter, options={})
+    def initialize(formatter, options = {})
       @formatter = formatter
       @options = options
     end
@@ -32,11 +32,11 @@ module PryTest
     end
 
     def tests
-      @tests ||= test_classes.map{ |klass| klass.tests }.flatten
+      @tests ||= test_classes.map { |klass| klass.tests }.flatten
     end
 
     def failed_tests
-      tests.select{ |test| test.invoked? && !test.passed? }
+      tests.select { |test| test.invoked? && !test.passed? }
     end
 
     def failed
@@ -44,7 +44,7 @@ module PryTest
     end
 
     def passed_tests
-      tests.select{ |test| test.invoked? && test.passed? }
+      tests.select { |test| test.invoked? && test.passed? }
     end
 
     def passed
@@ -84,17 +84,16 @@ module PryTest
 
     def run_threads(queue)
       puts "PryTest is running #{thread_count} threads."
-      threads = thread_count.times.map do
+      threads = thread_count.times.map {
         Thread.new do
-          while !queue.empty?
+          until queue.empty?
             Thread.current.terminate if PryTest::Runner.terminate?
             test = queue.pop
             test.invoke(formatter, options)
           end
         end
-      end
+      }
       threads.each { |t| t.join }
     end
-
   end
 end

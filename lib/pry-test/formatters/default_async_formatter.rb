@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative "base_formatter"
 
 module PryTest
@@ -35,6 +37,5 @@ module PryTest
         render "default/test_fail", test
       end
     end
-
   end
 end

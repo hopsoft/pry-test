@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 unless ENV["PRY_TEST_DEMO"]
   require_relative "test_helper"
 
@@ -51,7 +53,6 @@ unless ENV["PRY_TEST_DEMO"]
       assert PryTest::Color.gray("foo") == "\e[90mfoo\e[0m"
       assert ColorTest::CRAYON.gray("foo") == "\e[90mfoo\e[0m"
     end
-
   end
 
 end

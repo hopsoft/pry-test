@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative "base_formatter"
 
 module PryTest
@@ -20,6 +22,5 @@ module PryTest
     def after_suite(test_classes)
       render "default/suite"
     end
-
   end
 end

@@ -1,27 +1,29 @@
 require File.expand_path("../lib/pry-test/version", __FILE__)
 
 Gem::Specification.new do |gem|
-  gem.name                  = "pry-test"
-  gem.version               = PryTest::VERSION
-  gem.license               = "MIT"
-  gem.homepage              = "https://github.com/hopsoft/pry-test"
-  gem.summary               = "A small test framework that supports debugging test failures and errors when they happen."
-  gem.description           = "A small test framework that supports debugging test failures and errors when they happen."
+  gem.name = "pry-test"
+  gem.version = PryTest::VERSION
+  gem.license = "MIT"
+  gem.homepage = "https://github.com/hopsoft/pry-test"
+  gem.summary = "A small test framework that supports debugging test failures and errors when they happen."
+  gem.description = "A small test framework that supports debugging test failures and errors when they happen."
 
-  gem.authors               = ["Nathan Hopkins"]
-  gem.email                 = ["natehop@gmail.com"]
+  gem.authors = ["Nathan Hopkins"]
+  gem.email = ["natehop@gmail.com"]
 
   gem.required_ruby_version = ">= 2.0"
 
+  gem.add_dependency "os"
   gem.add_dependency "pry"
-  gem.add_dependency "pry-stack_explorer"
   gem.add_dependency "pry-byebug"
   gem.add_dependency "pry-rescue"
-  gem.add_dependency "os"
+  gem.add_dependency "pry-stack_explorer"
 
+  gem.add_development_dependency "coveralls"
+  gem.add_development_dependency "magic_frozen_string_literal"
   gem.add_development_dependency "rake"
   gem.add_development_dependency "simplecov"
-  gem.add_development_dependency "coveralls"
+  gem.add_development_dependency "standard"
 
   # gem.add_dependency "pry"
   # gem.add_dependency "pry-stack_explorer"

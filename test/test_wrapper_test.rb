@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 unless ENV["PRY_TEST_DEMO"]
   require_relative "test_helper"
 
   class TestWrapperTest < PryTest::Test
-
     test ".new" do
       desc = "test_#{rand(999**10)}"
       meth = lambda { ".new" }
